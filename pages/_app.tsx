@@ -1,6 +1,14 @@
-import "../styles/globals.css";
+import '../styles/globals.css';
 
-function MyApp({ Component, pageProps }) {
+import { FunctionComponent } from 'react';
+
+function MyApp({
+  Component,
+  pageProps,
+}: {
+  Component: FunctionComponent;
+  pageProps: unknown;
+}) {
   return <Component {...pageProps} />;
 }
 
