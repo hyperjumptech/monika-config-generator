@@ -28,6 +28,8 @@ jobs:
       - run: npm run build
       - run: npm run export
       - run: touch out/.nojekyll
+        with:
+          node-version: 12
         env:
           CI: true
           NODE_ENV: production
