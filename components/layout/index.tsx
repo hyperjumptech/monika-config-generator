@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Header, Footer } from "../";
+import { useState } from 'react';
+import { Header, Footer } from '../';
 
 type LayoutProps = {
   children?: React.ReactNode;

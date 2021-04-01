@@ -1,9 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faGithub,
   faLinkedin,
   faMedium,
-} from "@fortawesome/free-brands-svg-icons";
+} from '@fortawesome/free-brands-svg-icons';
 
 export default function Footer(): JSX.Element {
   return (
@@ -17,24 +17,21 @@ export default function Footer(): JSX.Element {
             href="https://www.linkedin.com/company/hyperjump"
             target="_blank"
             rel="noopener noreferrer"
-            className="whitespace-nowrap text-2xl font-medium text-gray-400 hover:text-gray-900"
-          >
+            className="whitespace-nowrap text-2xl font-medium text-gray-400 hover:text-gray-900">
             <FontAwesomeIcon icon={faLinkedin} />
           </a>
           <a
             href="https://medium.com/hyperjump-tech"
             target="_blank"
             rel="noopener noreferrer"
-            className="whitespace-nowrap text-2xl font-medium text-gray-400 hover:text-gray-900"
-          >
+            className="whitespace-nowrap text-2xl font-medium text-gray-400 hover:text-gray-900">
             <FontAwesomeIcon icon={faMedium} />
           </a>
           <a
             href="https://github.com/hyperjumptech"
             target="_blank"
             rel="noopener noreferrer"
-            className="whitespace-nowrap text-2xl font-medium text-gray-400 hover:text-gray-900"
-          >
+            className="whitespace-nowrap text-2xl font-medium text-gray-400 hover:text-gray-900">
             <FontAwesomeIcon icon={faGithub} />
           </a>
         </div>
