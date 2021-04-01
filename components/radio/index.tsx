@@ -14,7 +14,7 @@ export default function Radio({
   name,
 }: RadioProps): JSX.Element {
   return (
-    <>
+    <div className="flex flex-col">
       <div className="flex items-center">
         <input
           id={value}
@@ -29,6 +29,6 @@ export default function Radio({
         </label>
       </div>
       <span className="ml-7 text-sm sm:text-lg text-gray-400">{help}</span>
-    </>
+    </div>
   );
 }
