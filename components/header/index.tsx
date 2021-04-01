@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,14 +16,16 @@ export default function Header({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center border-b-2 border-gray-200 py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="/">
-              <span className="sr-only">Monika Configuration Generator</span>
-              <img
-                className="h-8 w-auto sm:h-10"
-                src="/monika-logo.svg"
-                alt="Monika Logo"
-              />
-            </a>
+            <Link href="/">
+              <a>
+                <span className="sr-only">Monika Configuration Generator</span>
+                <img
+                  className="h-8 w-auto sm:h-10"
+                  src="/monika-config-generator/monika-logo.svg"
+                  alt="Monika Logo"
+                />
+              </a>
+            </Link>
           </div>
           <div className="-mr-2 -my-2 md:hidden">
             <button
@@ -66,7 +69,7 @@ export default function Header({
               <div>
                 <img
                   className="h-8 w-auto"
-                  src="/monika-logo.svg"
+                  src="/monika-config-generator/monika-logo.svg"
                   alt="Monika Logo"
                 />
               </div>
