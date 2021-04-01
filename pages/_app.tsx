@@ -1,14 +1,7 @@
+import { AppProps } from 'next/app';
 import '../styles/globals.css';
 
-import { FunctionComponent } from 'react';
-
-function MyApp({
-  Component,
-  pageProps,
-}: {
-  Component: FunctionComponent;
-  pageProps: unknown;
-}) {
+function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
 }
 
