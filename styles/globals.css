@@ -5,10 +5,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 ul {
-    list-style-type: disc !important;
-    margin-left:1em;
+  list-style-type: disc !important;
+  margin-left: 1em;
 }
 
 .underlined {
-    text-decoration: underline;
- }
+  text-decoration: underline;
+}
