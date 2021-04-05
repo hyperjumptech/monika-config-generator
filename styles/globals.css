@@ -8,3 +8,7 @@ ul {
     list-style-type: disc !important;
     margin-left:1em;
 }
+
+.underlined {
+    text-decoration: underline;
+ }

@@ -36,15 +36,26 @@ export default function Download(): JSX.Element {
               <p className="mt-2 text-sm sm:text-lg">
                 <ul className="">
                   <li>
-                    Use the configuration file with Monika. Please refer to our
-                    documentation for more information.
+                    Use the configuration file with Monika. Please refer to <a
+                    href="https://hyperjumptech.github.io/monika/overview"
+                    target="_blank"
+                    rel="noopener noreferrer" className="underlined">our documentation</a> for more information.
                   </li>
                   <li>
                     You can also customize the configuration even further by
-                    clicking here.
+                    clicking <a
+                    href="https://hyperjumptech.github.io/monika/overview"
+                    target="_blank"
+                    rel="noopener noreferrer" className="underlined">here</a>.
                   </li>
-                  <li>Tell your friends about Monika.</li>
-                  <li>Report a bug or give us some feedback!</li>
+                  <li><a
+                    href="https://hyperjumptech.github.io/monika/overview"
+                    target="_blank"
+                    rel="noopener noreferrer" className="underlined">Tell your friends</a> about Monika.</li>
+                  <li><a
+                    href="https://github.com/hyperjumptech/monika/issues"
+                    target="_blank"
+                    rel="noopener noreferrer" className="underlined">Report a bug or give us some feedback!</a></li>
                 </ul>
               </p>
             </div>
