@@ -39,7 +39,7 @@ export default function Download(): JSX.Element {
                       href="https://hyperjumptech.github.io/monika/overview"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="underlined">
+                      className="underline">
                       our documentation
                     </a>{' '}
                     for more information.
@@ -51,7 +51,7 @@ export default function Download(): JSX.Element {
                       href="https://hyperjumptech.github.io/monika/overview"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="underlined">
+                      className="underline">
                       here
                     </a>
                     .
@@ -61,7 +61,7 @@ export default function Download(): JSX.Element {
                       href="https://hyperjumptech.github.io/monika/overview"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="underlined">
+                      className="underline">
                       Tell your friends
                     </a>{' '}
                     about Monika.
@@ -71,7 +71,7 @@ export default function Download(): JSX.Element {
                       href="https://github.com/hyperjumptech/monika/issues"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="underlined">
+                      className="underline">
                       Report a bug or give us some feedback!
                     </a>
                   </li>
