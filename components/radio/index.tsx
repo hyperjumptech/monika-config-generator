@@ -5,7 +5,7 @@ type RadioProps = {
   help: string;
   value: string;
   name: string;
-  onClick?: (value: string) => void
+  onClick?: (value: string) => void;
 };
 
 export default function Radio({
@@ -13,7 +13,7 @@ export default function Radio({
   help,
   value,
   name,
-  onClick
+  onClick,
 }: RadioProps): JSX.Element {
   return (
     <div className="flex flex-col">
@@ -23,7 +23,7 @@ export default function Radio({
           name={name}
           type="radio"
           className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-          onClick={() => onClick ? onClick(value) : {}}
+          onClick={() => (onClick ? onClick(value) : {})}
         />
         <label
           htmlFor={value}

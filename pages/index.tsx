@@ -1,17 +1,17 @@
 import { SyntheticEvent, useState } from 'react';
 import { Layout, Radio, Button } from '../components';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 export default function Home(): JSX.Element {
-  const router = useRouter()
-  const [condition, setCondition] = useState<string | null>()
+  const router = useRouter();
+  const [condition, setCondition] = useState<string | null>();
 
   const handleNext = (e: SyntheticEvent) => {
     e.preventDefault();
     console.log(e.target, 'Click Next');
 
     if (condition === 'new') {
-      router.push('/what-do-you-want')
+      router.push('/what-do-you-want');
     }
   };
 
@@ -61,9 +61,7 @@ export default function Home(): JSX.Element {
             </div>
           </fieldset>
           <div className="mt-12 py-3">
-            <Button onClick={handleNext}>
-              Next
-            </Button>
+            <Button onClick={handleNext}>Next</Button>
           </div>
         </form>
       </div>
