@@ -2,13 +2,16 @@ import '../styles/globals.css';
 
 import { AppProps } from 'next/app';
 
-import { FormProvider } from './contexts/FormContext';
+import { NotificationProvider } from './contexts/NotificationContext';
+import { ProbeProvider } from './contexts/ProbeContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <FormProvider>
-      <Component {...pageProps} />
-    </FormProvider>
+    <NotificationProvider>
+      <ProbeProvider>
+        <Component {...pageProps} />
+      </ProbeProvider>
+    </NotificationProvider>
   );
 }
 
