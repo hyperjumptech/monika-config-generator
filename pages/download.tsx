@@ -31,8 +31,8 @@ export default function Download(): JSX.Element {
             </div>
             <div className="mt-12 py-3">
               <p className="text-md md:text-lg md:font-bold">Next step ...</p>
-              <p className="mt-2 text-sm sm:text-lg">
-                <ul className="">
+              <p className="mt-2 ml-4 text-sm sm:text-lg">
+                <ul className="list-disc">
                   <li>
                     Use the configuration file with Monika. Please refer to{' '}
                     <a
@@ -78,11 +78,13 @@ export default function Download(): JSX.Element {
                 </ul>
               </p>
             </div>
-            <div className="mt-12 py-3">
+            <div className="flex space-x-4 mt-12 py-3">
               <div>
                 <Button type="submit" onClick={handleBack}>
                   Back
                 </Button>
+              </div>
+              <div>
                 <Button type="submit" onClick={handleStart}>
                   Start Again
                 </Button>
