@@ -41,7 +41,7 @@ export default function APIEntryPage(): JSX.Element {
             <div className="space-y-8 mb-10">
               <p>What is the endpoint of the API?</p>
               {entries.map(({ id }) => (
-                <>
+                <div key={id}>
                   <div className="flex flex-row space-x-8">
                     <div className="w-8/12">
                       <TextInput
@@ -71,7 +71,7 @@ export default function APIEntryPage(): JSX.Element {
                     </div>
                   )}
                   {entries.length > 1 && <hr />}
-                </>
+                </div>
               ))}
             </div>
             <div className="space-y-8">
