@@ -7,3 +7,4 @@ export { default as Layout } from './layout';
 export { default as Button } from './button';
 export { default as Radio } from './radio';
 export { default as TextInput } from './textInput';
+export { default as Select, SelectOption } from './select';
