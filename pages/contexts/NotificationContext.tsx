@@ -3,23 +3,25 @@ import { v4 as uuid } from 'uuid';
 
 import {
   MailgunData,
-  NotificationContextInterface,
   SendgridData,
-  SlackData,
   SMTPData,
   TeamsData,
   TelegramData,
   WebhookData,
-} from './NotificationContextInterface';
+  WhatsappData,
+} from '@hyperjumptech/monika/lib/interfaces/data';
 
-type Data =
-  | SMTPData
+import { NotificationContextInterface } from './NotificationContextInterface';
+
+type Data = (
   | MailgunData
   | SendgridData
-  | WebhookData
-  | SlackData
+  | SMTPData
   | TeamsData
-  | TelegramData;
+  | TelegramData
+  | WebhookData
+  | WhatsappData
+) & { id: string };
 
 const NotificationContext = createContext<NotificationContextInterface<Data>>({
   notificationData: [],
