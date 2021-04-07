@@ -1,10 +1,18 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { Layout, Radio, Button } from '../components';
+import { useRouter } from 'next/router';
 
 export default function Home(): JSX.Element {
+  const router = useRouter();
+  const [condition, setCondition] = useState<string | null>();
+
   const handleNext = (e: SyntheticEvent) => {
     e.preventDefault();
-    console.log('Click Next');
+    console.log(e.target, 'Click Next');
+
+    if (condition === 'new') {
+      router.push('/what-do-you-want');
+    }
   };
 
   return (
@@ -31,18 +39,21 @@ export default function Home(): JSX.Element {
             <div className="mt-12 space-y-4">
               <Radio
                 name="condition"
+                onClick={(v: string) => setCondition(v)}
                 value="new"
                 help="Select this if you have never tried Monika before. We will guide you one step at a time.">
                 I&apos;m new to Monika
               </Radio>
               <Radio
                 name="condition"
+                onClick={(v: string) => setCondition(v)}
                 value="have_used"
                 help="Select this if you want to jump into customizing Monika's configuration.">
                 I have used Monika before
               </Radio>
               <Radio
                 name="condition"
+                onClick={(v: string) => setCondition(v)}
                 value="have_configuration_file"
                 help="Select this if you want to edit your configuration file.">
                 I have a configuration file
@@ -50,9 +61,7 @@ export default function Home(): JSX.Element {
             </div>
           </fieldset>
           <div className="mt-12 py-3">
-            <Button type="submit" onClick={handleNext}>
-              Next
-            </Button>
+            <Button onClick={handleNext}>Next</Button>
           </div>
         </form>
       </div>
