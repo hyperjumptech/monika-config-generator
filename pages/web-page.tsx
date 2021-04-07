@@ -35,21 +35,23 @@ export default function WebPage(): JSX.Element {
                       placeholder="https://example.com"
                     />
                   </div>
-                  <div className="self-end py-3">
-                    <button
-                      type="button"
-                      className="cursor-pointer underline focus:outline-none"
-                      onClick={() => removeInputField(id)}>
-                      Remove
-                    </button>
-                  </div>
+                  {data.length > 1 && (
+                    <div className="self-end py-3">
+                      <button
+                        type="button"
+                        className="cursor-pointer underline focus:outline-none"
+                        onClick={() => removeInputField(id)}>
+                        Remove
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
               <button
                 className="cursor-pointer underline focus:outline-none"
                 type="button"
                 onClick={addInputField}>
-                Add more data
+                Add another URL
               </button>
             </div>
           </fieldset>
