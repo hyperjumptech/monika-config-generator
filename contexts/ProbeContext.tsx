@@ -6,12 +6,17 @@ import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 
 const ProbeContext = createContext<ProbeContextInterface>({
   probeData: [],
-  handleAddProbe: (data) => data,
-  handleRemoveProbe: (data) => data,
+  handleSetProbes: () => undefined,
+  handleAddProbe: () => undefined,
+  handleRemoveProbe: () => undefined,
 });
 
 const ProbeProvider: FunctionComponent = ({ children }) => {
   const [probes, setProbes] = useState<Probe[]>([]);
+
+  const handleSetProbes = (probes: Probe[]) => {
+    setProbes(probes);
+  };
 
   const handleAddProbe = (probe: Probe) => {
     const probeData = probes.concat({
@@ -32,6 +37,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
     <ProbeContext.Provider
       value={{
         probeData: probes,
+        handleSetProbes,
         handleAddProbe,
         handleRemoveProbe,
       }}>
