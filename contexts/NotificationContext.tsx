@@ -1,38 +1,24 @@
 import { createContext, FunctionComponent, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
-import {
-  MailgunData,
-  SendgridData,
-  SMTPData,
-  TeamsData,
-  TelegramData,
-  WebhookData,
-  WhatsappData,
-} from '@hyperjumptech/monika/lib/interfaces/data';
-
 import { NotificationContextInterface } from './NotificationContextInterface';
+import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
 
-type Data = (
-  | MailgunData
-  | SendgridData
-  | SMTPData
-  | TeamsData
-  | TelegramData
-  | WebhookData
-  | WhatsappData
-) & { id: string };
-
-const NotificationContext = createContext<NotificationContextInterface<Data>>({
+const NotificationContext = createContext<NotificationContextInterface>({
   notificationData: [],
-  handleAddNotification: (data) => data,
-  handleRemoveNotification: (data) => data,
+  handleSetNotifications: () => undefined,
+  handleAddNotification: () => undefined,
+  handleRemoveNotification: () => undefined,
 });
 
 const NotificationProvider: FunctionComponent = ({ children }) => {
-  const [notifications, setNotifications] = useState<Data[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
-  const handleAddNotification = (notification: Data) => {
+  const handleSetNotifications = (notifications: Notification[]) => {
+    setNotifications(notifications);
+  };
+
+  const handleAddNotification = (notification: Notification) => {
     const notifData = notifications.concat({
       ...notification,
       id: uuid(),
@@ -41,7 +27,7 @@ const NotificationProvider: FunctionComponent = ({ children }) => {
     setNotifications(notifData);
   };
 
-  const handleRemoveNotification = (notification: Data) => {
+  const handleRemoveNotification = (notification: Notification) => {
     const data = notifications.filter((data) => data.id !== notification.id);
 
     setNotifications(data);
@@ -51,8 +37,9 @@ const NotificationProvider: FunctionComponent = ({ children }) => {
     <NotificationContext.Provider
       value={{
         notificationData: notifications,
-        handleAddNotification: handleAddNotification,
-        handleRemoveNotification: handleRemoveNotification,
+        handleSetNotifications,
+        handleAddNotification,
+        handleRemoveNotification,
       }}>
       {children}
     </NotificationContext.Provider>
