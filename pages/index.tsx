@@ -1,5 +1,5 @@
 import { ChangeEvent, SyntheticEvent, useRef, useState } from 'react';
-import { Layout, Radio, Button } from '../components';
+import { Layout, Radio, Button, Modal } from '../components';
 import { useRouter } from 'next/router';
 import { useConfigFileImporter } from '../contexts/importer';
 
@@ -109,6 +109,7 @@ export default function Home(): JSX.Element {
           </div>
         </form>
       </div>
+      <Modal />
     </Layout>
   );
 }
