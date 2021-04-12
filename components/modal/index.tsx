@@ -63,12 +63,15 @@ export default function Modal(): JSX.Element {
         <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
+              <div className="float-right">
+                <Button outline>Copy to clipboard</Button>
+              </div>
               <h3
                 className="text-lg leading-6 font-medium text-gray-900"
                 id="modal-title">
                 Configuration File
               </h3>
-              <div className="bg-gray-100 rounded-xl my-5 px-4 py-3 sm:px-6 justify-end sm:flex sm:flex-row-reverse">
+              <div className="bg-gray-100 rounded-xl my-8 px-4 py-3 sm:px-6 justify-end sm:flex sm:flex-row-reverse">
                 <pre className="overflow-x-auto">
                   {JSON.stringify(jsonConfigFile, null, 2)}
                 </pre>
