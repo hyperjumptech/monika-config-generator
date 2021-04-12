@@ -12,9 +12,7 @@ export default function TextInput({
   return (
     <div className="space-y-3">
       {label && (
-        <label
-          htmlFor={inputProps.id}
-          className="text-gray-400 text-sm sm:text-lg">
+        <label htmlFor={inputProps.id} className="text-sm sm:text-lg">
           {label}
         </label>
       )}
