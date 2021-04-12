@@ -1,6 +1,11 @@
-import { SyntheticEvent, useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useRef, useState } from 'react';
 import { Layout, Radio, Button } from '../components';
 import { useRouter } from 'next/router';
+import { useConfigFileImporter } from '../contexts/importer';
+
+const NEW = 'new';
+const HAVE_USED = 'have_used';
+const HAVE_CONFIGURATION_FILE = 'have_configuration_file';
 
 export default function Home(): JSX.Element {
   const router = useRouter();
@@ -10,8 +15,38 @@ export default function Home(): JSX.Element {
     e.preventDefault();
     console.log(e.target, 'Click Next');
 
-    if (condition === 'new') {
-      router.push('/what-do-you-want');
+    switch (condition) {
+      case NEW:
+        router.push('/what-do-you-want');
+        break;
+      case HAVE_USED:
+        /* TODO: Where to go? */
+        break;
+      case HAVE_CONFIGURATION_FILE:
+        // user pick a .json file
+        fileInputElement.current?.click();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const fileInputElement = useRef<HTMLInputElement>(null);
+
+  const importConfigFile = useConfigFileImporter();
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      importConfigFile(file)
+        .then(() => {
+          /* TODO: Show edit page */
+          console.log('context updated');
+        })
+        .catch((error) => {
+          /* TODO: How to display error? */
+          console.log(error.message);
+        });
     }
   };
 
@@ -40,21 +75,21 @@ export default function Home(): JSX.Element {
               <Radio
                 name="condition"
                 onClick={(v: string) => setCondition(v)}
-                value="new"
+                value={NEW}
                 help="Select this if you have never tried Monika before. We will guide you one step at a time.">
                 I&apos;m new to Monika
               </Radio>
               <Radio
                 name="condition"
                 onClick={(v: string) => setCondition(v)}
-                value="have_used"
+                value={HAVE_USED}
                 help="Select this if you want to jump into customizing Monika's configuration.">
                 I have used Monika before
               </Radio>
               <Radio
                 name="condition"
                 onClick={(v: string) => setCondition(v)}
-                value="have_configuration_file"
+                value={HAVE_CONFIGURATION_FILE}
                 help="Select this if you want to edit your configuration file.">
                 I have a configuration file
               </Radio>
@@ -62,6 +97,15 @@ export default function Home(): JSX.Element {
           </fieldset>
           <div className="mt-12 py-3">
             <Button onClick={handleNext}>Next</Button>
+            {/* hidden file input */}
+            <input
+              ref={fileInputElement}
+              type="file"
+              accept="application/json"
+              className="hidden h-0 w-0"
+              aria-hidden="true"
+              onChange={handleFileChange}
+            />
           </div>
         </form>
       </div>
