@@ -28,11 +28,13 @@ export default function Button({
 }
 
 function TextButton(props: any) {
+  const { children, className } = props;
+
   return (
     <button
       {...props}
-      className="inline-flex justify-center py-2 pr-11 font-bold rounded-md underline transition focus:outline-none hover:text-gray-800">
-      {props.children}
+      className={`inline-flex justify-center py-2 font-bold rounded-md underline transition focus:outline-none hover:text-gray-800 ${className}`}>
+      {children}
     </button>
   );
 }

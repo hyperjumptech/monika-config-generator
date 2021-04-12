@@ -1,13 +1,6 @@
 import { v4 as uuid } from 'uuid';
-import {
-  MailgunData,
-  SendgridData,
-  SMTPData,
-  TeamsData,
-  TelegramData,
-  WebhookData,
-  WhatsappData,
-} from '@hyperjumptech/monika/lib/interfaces/data';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import {
   Button,
   Layout,
@@ -134,6 +127,33 @@ function EmailChannel({ formHelper }: { formHelper: FormHelper }): JSX.Element {
     { type: 'mailgun', label: 'Mailgun' },
     { type: 'sendgrid', label: 'Sendgrid' },
   ];
+  const isRecipientMoreThanOne = recipients?.length > 1;
+  const addRecipient = () => {
+    setFieldValue(
+      'recipients',
+      recipients
+        ? [...recipients, { id: uuid(), email: '' }]
+        : [{ id: uuid(), email: '' }]
+    );
+  };
+  const updateRecipient = (id: string, email: string) => {
+    setFieldValue(
+      'recipients',
+      recipients.map((r: Recipient) => {
+        if (r.id === id) {
+          return { id: r.id, email };
+        }
+
+        return r;
+      })
+    );
+  };
+  const removeRecipient = (id: string) => {
+    setFieldValue(
+      'recipients',
+      recipients.filter((rc: Recipient) => rc.id !== id)
+    );
+  };
 
   return (
     <>
@@ -141,36 +161,26 @@ function EmailChannel({ formHelper }: { formHelper: FormHelper }): JSX.Element {
         label="What is the e-mail address to receive the notification?"
         name="recipients">
         {recipients?.map((recipient: Recipient) => (
-          <div key={recipient.id} className="mb-2">
+          <div key={recipient.id} className="flex mb-2">
             <TextInput
               placeholder="monika@example.com"
               value={recipient.email}
               type="email"
-              onChange={(e) =>
-                setFieldValue(
-                  'recipients',
-                  recipients.map((r: Recipient) => {
-                    if (r.id === recipient.id) {
-                      return { id: r.id, email: e.target.value };
-                    }
-
-                    return r;
-                  })
-                )
-              }
+              onChange={(e) => updateRecipient(recipient.id, e.target.value)}
+              className={isRecipientMoreThanOne ? 'w-11/12' : 'w-full'}
             />
+            {isRecipientMoreThanOne && (
+              <Button className="items-center px-5" variant="text">
+                <FontAwesomeIcon
+                  size="lg"
+                  icon={faMinusCircle}
+                  onClick={() => removeRecipient(recipient.id)}
+                />
+              </Button>
+            )}
           </div>
         ))}
-        <Button
-          variant="text"
-          onClick={() =>
-            setFieldValue(
-              'recipients',
-              recipients
-                ? [...recipients, { id: uuid(), email: '' }]
-                : [{ id: uuid(), email: '' }]
-            )
-          }>
+        <Button variant="text" onClick={addRecipient}>
           Add another e-mail address
         </Button>
       </Form.Item>
@@ -252,40 +262,57 @@ function WhatsAppChannel({
 }): JSX.Element {
   const { values, setFieldValue } = formHelper;
   const { recipients, url, username, password } = values;
+  const isRecipientMoreThanOne = recipients?.length > 1;
+  const addRecipient = () => {
+    setFieldValue(
+      'recipients',
+      recipients
+        ? [...recipients, { id: uuid(), number: '' }]
+        : [{ id: uuid(), number: '' }]
+    );
+  };
+  const updateRecipient = (id: string, number: string) => {
+    setFieldValue(
+      'recipients',
+      recipients.map((r: Recipient) => {
+        if (r.id === id) {
+          return { id: r.id, number };
+        }
+
+        return r;
+      })
+    );
+  };
+  const removeRecipient = (id: string) => {
+    setFieldValue(
+      'recipients',
+      recipients.filter((rc: Recipient) => rc.id !== id)
+    );
+  };
 
   return (
     <>
       <Form.Item label="Recipient Number" name="recipients">
         {recipients?.map((recipient: WhatsAppRecipient) => (
-          <div key={recipient.id} className="mb-2">
+          <div key={recipient.id} className="flex mb-2">
             <TextInput
               value={recipient.number}
-              type="number"
-              onChange={(e) =>
-                setFieldValue(
-                  'recipients',
-                  recipients.map((r: WhatsAppRecipient) => {
-                    if (r.id === recipient.id) {
-                      return { id: r.id, number: e.target.value };
-                    }
-
-                    return r;
-                  })
-                )
-              }
+              type="tel"
+              onChange={(e) => updateRecipient(recipient.id, e.target.value)}
+              className={isRecipientMoreThanOne ? 'w-11/12' : 'w-full'}
             />
+            {isRecipientMoreThanOne && (
+              <Button className="items-center px-5" variant="text">
+                <FontAwesomeIcon
+                  size="lg"
+                  icon={faMinusCircle}
+                  onClick={() => removeRecipient(recipient.id)}
+                />
+              </Button>
+            )}
           </div>
         ))}
-        <Button
-          variant="text"
-          onClick={() =>
-            setFieldValue(
-              'recipients',
-              recipients
-                ? [...recipients, { id: uuid(), number: '' }]
-                : [{ id: uuid(), number: '' }]
-            )
-          }>
+        <Button variant="text" onClick={addRecipient}>
           Add another Recipient Number
         </Button>
       </Form.Item>
@@ -401,7 +428,7 @@ function MailgunForm({ formHelper }: { formHelper: FormHelper }): JSX.Element {
           id="apiKey"
           value={apiKey}
           onChange={(e) => setFieldValue('apiKey', e.target.value)}
-          type="apiKey"
+          type="text"
           placeholder="key-xxxx"
         />
       </Form.Item>
@@ -410,7 +437,7 @@ function MailgunForm({ formHelper }: { formHelper: FormHelper }): JSX.Element {
           id="domain"
           value={domain}
           onChange={(e) => setFieldValue('domain', e.target.value)}
-          type="domain"
+          type="text"
           placeholder="mailgun.com"
         />
       </Form.Item>
