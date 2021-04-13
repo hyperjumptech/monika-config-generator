@@ -12,7 +12,7 @@ export default function Footer(): JSX.Element {
         <div className="flex justify-center text-gray-400 md:justify-start lg:w-0 lg:flex-1">
           © Hyperjump Technology 2021
         </div>
-        <div className="flex justify-center items-center gap-8 mt-2 md:mt-0 md:justify-end md:flex-1 lg:w-0">
+        <div className="flex justify-center items-center space-x-8 mt-2 md:mt-0 md:justify-end md:flex-1 lg:w-0">
           <a
             href="https://www.linkedin.com/company/hyperjump"
             target="_blank"
