@@ -68,7 +68,7 @@ export default function Modal({ visible, onClose }: ModalProps): JSX.Element {
                     navigator.clipboard.writeText(
                       JSON.stringify(jsonConfigFile, null, 2)
                     );
-                    alert("Config copied to clipboard")
+                    alert('Config copied to clipboard');
                   }}>
                   Copy to clipboard
                 </Button>

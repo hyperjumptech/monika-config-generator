@@ -8,7 +8,7 @@ export default function Advanced(): JSX.Element {
   const { notificationData, handleAddNotification } = useContext(
     NotificationContext
   );
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const renderProbe = () => {
     return <div>Hello Probe</div>;
@@ -32,8 +32,13 @@ export default function Advanced(): JSX.Element {
   return (
     <Layout>
       <div className="mb-5 flex justify-end">
-        <Button onClick={() => setIsModalVisible(true)}>Generate Config File</Button>
-        <Modal visible={isModalVisible} onClose={() => setIsModalVisible(false)} />
+        <Button onClick={() => setIsModalVisible(true)}>
+          Generate Config File
+        </Button>
+        <Modal
+          visible={isModalVisible}
+          onClose={() => setIsModalVisible(false)}
+        />
       </div>
       <Sidebar>
         {({ activeMenu }) =>
