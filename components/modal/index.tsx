@@ -6,7 +6,8 @@ type ModalProps = {
 };
 
 export default function Modal({ visible, onClose }: ModalProps): JSX.Element {
-  const jsonConfigFile = {
+  // TODO: this hardcoded jsonConfig variable will be replaced with value from context that will be worked om #14: https://github.com/hyperjumptech/monika-config-generator/issues/14
+  const jsonConfig = {
     notifications: [
       {
         id: 'unique-id-smtp',
@@ -66,7 +67,7 @@ export default function Modal({ visible, onClose }: ModalProps): JSX.Element {
                   outline
                   onClick={() => {
                     navigator.clipboard.writeText(
-                      JSON.stringify(jsonConfigFile, null, 2)
+                      JSON.stringify(jsonConfig, null, 2)
                     );
                     alert('Config copied to clipboard');
                   }}>
@@ -80,7 +81,7 @@ export default function Modal({ visible, onClose }: ModalProps): JSX.Element {
               </h3>
               <div className="bg-gray-100 rounded-xl my-8 px-4 py-3 sm:px-6 justify-end sm:flex sm:flex-row-reverse">
                 <pre className="overflow-x-auto">
-                  {JSON.stringify(jsonConfigFile, null, 2)}
+                  {JSON.stringify(jsonConfig, null, 2)}
                 </pre>
               </div>
               <div className="mt-2">
