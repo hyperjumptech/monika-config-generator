@@ -107,7 +107,7 @@ export const webhookForm: NotificationForm<WebhookData>[] = [
     name: 'webhook',
     fields: [
       {
-        label: 'URL',
+        label: 'Webhook URL',
         name: 'url',
       },
     ],
@@ -128,7 +128,7 @@ export const slackForm: NotificationForm<WebhookData>[] = [
     name: 'slack',
     fields: [
       {
-        label: 'URL',
+        label: 'Incoming Webhook URL',
         name: 'url',
       },
     ],
@@ -175,7 +175,7 @@ export const teamsForm: NotificationForm<TeamsData>[] = [
     name: 'teams',
     fields: [
       {
-        label: 'URL',
+        label: 'Incoming Webhook URL',
         name: 'url',
       },
     ],

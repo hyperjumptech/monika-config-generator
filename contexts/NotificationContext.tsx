@@ -8,6 +8,7 @@ import {
   UpdateNotificationData,
   UpdateNotificationType,
 } from './NotificationContextInterface';
+import { v4 as uuid } from 'uuid';
 
 const NotificationContext = createContext<NotificationContextInterface>({
   notificationData: [],
@@ -21,7 +22,7 @@ const NotificationContext = createContext<NotificationContextInterface>({
 const NotificationProvider: FunctionComponent = ({ children }) => {
   const [notifications, setNotifications] = useState<Notification[]>([
     {
-      id: '1',
+      id: uuid().split('-')[0],
       type: 'smtp',
       data: smtpForm[0].defaultValue,
     },
@@ -32,8 +33,10 @@ const NotificationProvider: FunctionComponent = ({ children }) => {
   };
 
   const handleAddNotification = () => {
+    const id = uuid().split('-')[0];
+
     const notifData = notifications.concat({
-      id: (notifications.length + 1).toString(),
+      id,
       type: 'smtp',
       data: smtpForm[0].defaultValue,
     });
