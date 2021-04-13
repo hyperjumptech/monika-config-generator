@@ -18,7 +18,7 @@ export default function Select({
   ...selectProps
 }: SelectProps): JSX.Element {
   return (
-    <>
+    <div className="space-y-3">
       {label && (
         <label
           htmlFor={selectProps.id}
@@ -31,7 +31,7 @@ export default function Select({
         className="w-full border bg-white border-gray-400 rounded-md shadow-md py-3 px-5 text-sm sm:text-lg placeholder-gray-400 h-full">
         {children}
       </select>
-    </>
+    </div>
   );
 }
 

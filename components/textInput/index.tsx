@@ -1,7 +1,6 @@
 import { InputHTMLAttributes } from 'react';
 
-interface TextInputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
+interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
@@ -10,11 +9,9 @@ export default function TextInput({
   ...inputProps
 }: TextInputProps): JSX.Element {
   return (
-    <div className="space-y-3">
+    <div className={`space-y-3 ${inputProps?.className}`}>
       {label && (
-        <label
-          htmlFor={inputProps.id}
-          className="text-gray-400 text-sm sm:text-lg">
+        <label htmlFor={inputProps.id} className="text-sm sm:text-lg">
           {label}
         </label>
       )}
