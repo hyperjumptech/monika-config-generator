@@ -2,8 +2,8 @@ import '../styles/globals.css';
 
 import { AppProps } from 'next/app';
 
-import { NotificationProvider } from '../contexts/NotificationContext';
-import { ProbeProvider } from '../contexts/ProbeContext';
+import { NotificationProvider } from '../contexts/notification-context';
+import { ProbeProvider } from '../contexts/probe-context';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

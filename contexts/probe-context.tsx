@@ -1,7 +1,7 @@
 import { createContext, FunctionComponent, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
-import { ProbeContextInterface } from './ProbeContextInterface';
+import { ProbeContextInterface } from './probe-context-interface';
 import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 
 const ProbeContext = createContext<ProbeContextInterface>({

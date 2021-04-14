@@ -2,12 +2,12 @@ import { createContext, FunctionComponent, useState } from 'react';
 
 import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
 
-import { notificationForms, smtpForm } from '../utils/notificationForms';
+import { notificationForms, smtpForm } from '../utils/notification-forms';
 import {
   NotificationContextInterface,
   UpdateNotificationData,
   UpdateNotificationType,
-} from './NotificationContextInterface';
+} from './notification-context-interface';
 import { v4 as uuid } from 'uuid';
 
 const NotificationContext = createContext<NotificationContextInterface>({
