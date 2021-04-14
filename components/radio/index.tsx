@@ -22,7 +22,7 @@ export default function Radio({
           id={value}
           name={name}
           type="radio"
-          className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+          className="focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300"
           onClick={() => (onClick ? onClick(value) : {})}
         />
         <label
@@ -31,7 +31,7 @@ export default function Radio({
           {children}
         </label>
       </div>
-      <span className="ml-7 text-sm sm:text-lg text-gray-400">{help}</span>
+      <span className="ml-8 text-sm sm:text-lg text-gray-400">{help}</span>
     </div>
   );
 }

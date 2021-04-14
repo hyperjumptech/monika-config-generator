@@ -9,5 +9,5 @@ export { default as Sidebar } from './sidebar';
 export { default as Button } from './button';
 export { default as Form } from './form';
 export { default as Radio } from './radio';
-export { default as TextInput } from './textInput';
+export { default as TextInput } from './text-input';
 export { default as Select, SelectOption } from './select';

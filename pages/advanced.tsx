@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 
 import { Button, Layout, Sidebar, Modal } from '../components';
-import NotifCard from '../components/notifcard';
-import { NotificationContext } from '../contexts/NotificationContext';
+import NotifCard from '../components/notif-card';
+import { NotificationContext } from '../contexts/notification-context';
 
 export default function Advanced(): JSX.Element {
   const { notificationData, handleAddNotification } = useContext(
