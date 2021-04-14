@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 
-type Menu = 'probe' | 'notification';
+type Menu = 'Probe' | 'Notification';
 
 interface SidebarChildrenProps {
   activeMenu: Menu;
@@ -12,7 +12,7 @@ interface SidebarComponent {
 }
 
 const Sidebar: FunctionComponent<SidebarComponent> = ({ children }) => {
-  const [activeMenu, setActiveMenu] = useState<Menu>('probe');
+  const [activeMenu, setActiveMenu] = useState<Menu>('Probe');
 
   const handleSetActiveMenu = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -27,10 +27,12 @@ const Sidebar: FunctionComponent<SidebarComponent> = ({ children }) => {
     <div className="flex flex-col md:flex-row space-x-0 space-y-8 md:space-y-0 md:space-x-8">
       <div className="w-full md:w-3/12">
         <ul>
-          {(['probe', 'notification'] as Menu[]).map((menu) => (
+          {(['Probe', 'Notification'] as Menu[]).map((menu) => (
             <li
               key={menu}
-              className="border border-solid p-4 rounded-md border-l-8">
+              className={`border border-solid p-4 first:rounded-t-md last:rounded-b-md border-l-8 ${
+                activeMenu === menu && 'border-gray-600'
+              }`}>
               <a href="#" onClick={(event) => handleSetActiveMenu(event, menu)}>
                 {menu}
               </a>

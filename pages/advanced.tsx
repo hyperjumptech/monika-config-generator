@@ -48,7 +48,7 @@ export default function Advanced(): JSX.Element {
     <Layout>
       <Sidebar>
         {({ activeMenu }) =>
-          activeMenu === 'probe' ? renderProbe() : renderNotification()
+          activeMenu === 'Probe' ? renderProbe() : renderNotification()
         }
       </Sidebar>
     </Layout>
