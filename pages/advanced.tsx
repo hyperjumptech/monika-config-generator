@@ -1,6 +1,6 @@
-import { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
-import { Layout, Sidebar } from '../components';
+import { Button, Layout, Sidebar, GenerateConfigModal } from '../components';
 import NotifCard from '../components/notif-card';
 import { NotificationContext } from '../contexts/notification-context';
 
@@ -8,6 +8,7 @@ export default function Advanced(): JSX.Element {
   const { notificationData, handleAddNotification } = useContext(
     NotificationContext
   );
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const renderProbe = () => {
     return <div>Hello Probe</div>;
@@ -30,6 +31,15 @@ export default function Advanced(): JSX.Element {
 
   return (
     <Layout>
+      <div className="mb-5 flex justify-end">
+        <Button onClick={() => setIsModalVisible(true)}>
+          Generate Config File
+        </Button>
+        <GenerateConfigModal
+          visible={isModalVisible}
+          onClose={() => setIsModalVisible(false)}
+        />
+      </div>
       <Sidebar>
         {({ activeMenu }) =>
           activeMenu === 'probe' ? renderProbe() : renderNotification()
