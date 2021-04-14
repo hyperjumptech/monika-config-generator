@@ -2,7 +2,7 @@
 export { default as Header } from './header';
 export { default as Footer } from './footer';
 export { default as Layout } from './layout';
-export { default as Modal } from './modal';
+export { default as GenerateConfigModal } from './generate-config-modal';
 export { default as Sidebar } from './sidebar';
 
 // form

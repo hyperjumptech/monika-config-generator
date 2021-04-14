@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 
-import { Button, Layout, Sidebar, Modal } from '../components';
+import { Button, Layout, Sidebar, GenerateConfigModal } from '../components';
 import NotifCard from '../components/notif-card';
 import { NotificationContext } from '../contexts/notification-context';
 
@@ -35,7 +35,7 @@ export default function Advanced(): JSX.Element {
         <Button onClick={() => setIsModalVisible(true)}>
           Generate Config File
         </Button>
-        <Modal
+        <GenerateConfigModal
           visible={isModalVisible}
           onClose={() => setIsModalVisible(false)}
         />

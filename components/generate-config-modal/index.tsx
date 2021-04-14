@@ -1,11 +1,14 @@
-import { Button } from '../';
+import { Button } from '..';
 
-type ModalProps = {
+type GenerateConfigModalProps = {
   visible: boolean;
   onClose: () => void;
 };
 
-export default function Modal({ visible, onClose }: ModalProps): JSX.Element {
+export default function GenerateConfigModal({
+  visible,
+  onClose,
+}: GenerateConfigModalProps): JSX.Element {
   // TODO: this hardcoded jsonConfig variable will be replaced with value from context that will be worked om #14: https://github.com/hyperjumptech/monika-config-generator/issues/14
   const jsonConfig = {
     notifications: [
