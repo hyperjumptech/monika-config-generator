@@ -41,6 +41,17 @@ export default function GenerateConfigModal({
     ],
   };
 
+  const downloadJsonFile = (jsonString: string) => {
+    const element = document.createElement('a');
+    const file = new Blob([jsonString], { type: 'text/plain' });
+    element.href = URL.createObjectURL(file);
+    element.download = 'config.json';
+    document.body.appendChild(element); // Required for this to work in FireFox
+    element.click();
+  };
+
+  const jsonString = JSON.stringify(jsonConfig, null, 2);
+
   return (
     <div
       className={`fixed z-10 inset-0 overflow-y-auto ${
@@ -66,15 +77,8 @@ export default function GenerateConfigModal({
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
               <div className="float-right">
-                <Button
-                  outline
-                  onClick={() => {
-                    navigator.clipboard.writeText(
-                      JSON.stringify(jsonConfig, null, 2)
-                    );
-                    alert('Config copied to clipboard');
-                  }}>
-                  Copy to clipboard
+                <Button outline onClick={() => downloadJsonFile(jsonString)}>
+                  Download file
                 </Button>
               </div>
               <h3
@@ -83,9 +87,7 @@ export default function GenerateConfigModal({
                 Configuration File
               </h3>
               <div className="bg-gray-100 rounded-xl my-8 px-4 py-3 sm:px-6 justify-end sm:flex sm:flex-row-reverse">
-                <pre className="overflow-x-auto">
-                  {JSON.stringify(jsonConfig, null, 2)}
-                </pre>
+                <pre className="overflow-x-auto">{jsonString}</pre>
               </div>
               <div className="mt-2">
                 <b>How to use</b>
