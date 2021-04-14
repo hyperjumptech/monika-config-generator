@@ -93,8 +93,8 @@ export default function GenerateConfigModal({
                 <b>How to use</b>
                 <ol className="list-decimal list-inside py-3">
                   <li>
-                    Get the generated configuration by clicking "Download file"
-                    button
+                    Get the generated configuration by clicking &quot;Download
+                    file&quot; button
                   </li>
                   <li>Run monika by using the downloaded config.json file</li>
                 </ol>
