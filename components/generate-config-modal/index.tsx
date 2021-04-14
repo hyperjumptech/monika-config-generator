@@ -92,9 +92,11 @@ export default function GenerateConfigModal({
               <div className="mt-2">
                 <b>How to use</b>
                 <ol className="list-decimal list-inside py-3">
-                  <li>Create a file called config.json</li>
-                  <li>Fill it up with the generated configuration above</li>
-                  <li>Run monika</li>
+                  <li>
+                    Get the generated configuration by clicking "Download file"
+                    button
+                  </li>
+                  <li>Run monika by using the downloaded config.json file</li>
                 </ol>
               </div>
             </div>
