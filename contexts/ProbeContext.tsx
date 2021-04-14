@@ -13,6 +13,8 @@ const ProbeContext = createContext<ProbeContextInterface>({
   handleAddProbe: () => undefined,
   handleRemoveProbe: () => undefined,
   handleUpdateProbeData: () => undefined,
+  handleAddProbeRequest: () => undefined,
+  handleRemoveProbeRequest: () => undefined,
 });
 
 const ProbeProvider: FunctionComponent = ({ children }) => {
@@ -21,8 +23,15 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
       id: uuid().split('-')[0],
       name: '',
       description: '',
-      interval: 0,
-      requests: [],
+      interval: 10,
+      requests: [
+        {
+          url: '',
+          body: {} as JSON,
+          timeout: 0,
+          headers: {},
+        },
+      ],
       incidentThreshold: 5,
       recoveryThreshold: 5,
       alerts: [],
@@ -40,8 +49,15 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
       id,
       name: '',
       description: '',
-      interval: 0,
-      requests: [],
+      interval: 10,
+      requests: [
+        {
+          url: '',
+          body: {} as JSON,
+          timeout: 0,
+          headers: {},
+        },
+      ],
       incidentThreshold: 5,
       recoveryThreshold: 5,
       alerts: [],
@@ -61,16 +77,55 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
     const selectedProbeData = (selectedProbe ?? {}) as any;
     selectedProbeData[data.field] = data.value;
 
-    const notifData = probes.map((notif) => {
-      return notif.id === data.id
+    const probeData = probes.map((probe) => {
+      return probe.id === data.id
         ? {
-            ...notif,
+            ...probe,
             ...selectedProbeData,
           }
-        : notif;
+        : probe;
     });
 
-    setProbes(notifData);
+    setProbes(probeData);
+  };
+
+  const handleAddProbeRequest = (id: string) => {
+    const foundProbe = probes.find((data) => data.id === id);
+    const probeRequestData = (foundProbe as Probe).requests.concat({
+      url: '',
+      body: {} as JSON,
+      timeout: 0,
+      headers: {},
+    });
+
+    const newProbeData = probes.map((probe) => {
+      return probe.id === id
+        ? {
+            ...probe,
+            requests: [...probeRequestData],
+          }
+        : probe;
+    });
+
+    setProbes(newProbeData);
+  };
+
+  const handleRemoveProbeRequest = (id: string, index: number) => {
+    const foundProbe = probes.find((data) => data.id === id);
+    const filteredProbeRequest = (foundProbe as Probe).requests.filter(
+      (_, idx) => index !== idx
+    );
+
+    const newProbeData = probes.map((probe) => {
+      return probe.id === id
+        ? {
+            ...probe,
+            requests: [...filteredProbeRequest],
+          }
+        : probe;
+    });
+
+    setProbes(newProbeData);
   };
 
   return (
@@ -81,6 +136,8 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
         handleAddProbe,
         handleRemoveProbe,
         handleUpdateProbeData,
+        handleAddProbeRequest,
+        handleRemoveProbeRequest,
       }}>
       {children}
     </ProbeContext.Provider>
