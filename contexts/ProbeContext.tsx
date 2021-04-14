@@ -1,7 +1,10 @@
 import { createContext, FunctionComponent, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
-import { ProbeContextInterface } from './ProbeContextInterface';
+import {
+  ProbeContextInterface,
+  UpdateProbeData,
+} from './ProbeContextInterface';
 import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 
 const ProbeContext = createContext<ProbeContextInterface>({
@@ -9,28 +12,65 @@ const ProbeContext = createContext<ProbeContextInterface>({
   handleSetProbes: () => undefined,
   handleAddProbe: () => undefined,
   handleRemoveProbe: () => undefined,
+  handleUpdateProbeData: () => undefined,
 });
 
 const ProbeProvider: FunctionComponent = ({ children }) => {
-  const [probes, setProbes] = useState<Probe[]>([]);
+  const [probes, setProbes] = useState<Probe[]>([
+    {
+      id: uuid().split('-')[0],
+      name: '',
+      description: '',
+      interval: 0,
+      requests: [],
+      incidentThreshold: 5,
+      recoveryThreshold: 5,
+      alerts: [],
+    },
+  ]);
 
   const handleSetProbes = (probes: Probe[]) => {
     setProbes(probes);
   };
 
-  const handleAddProbe = (probe: Probe) => {
+  const handleAddProbe = () => {
+    const id = uuid().split('-')[0];
+
     const probeData = probes.concat({
-      ...probe,
-      id: uuid(),
+      id,
+      name: '',
+      description: '',
+      interval: 0,
+      requests: [],
+      incidentThreshold: 5,
+      recoveryThreshold: 5,
+      alerts: [],
     });
 
     setProbes(probeData);
   };
 
-  const handleRemoveProbe = (probe: Probe) => {
-    const probeData = probes.filter((data) => data.id !== probe.id);
+  const handleRemoveProbe = (id: string) => {
+    const probeData = probes.filter((data) => data.id !== id);
 
     setProbes(probeData);
+  };
+
+  const handleUpdateProbeData = (data: UpdateProbeData) => {
+    const selectedProbe = probes.find((probe) => probe.id === data.id);
+    const selectedProbeData = (selectedProbe ?? {}) as any;
+    selectedProbeData[data.field] = data.value;
+
+    const notifData = probes.map((notif) => {
+      return notif.id === data.id
+        ? {
+            ...notif,
+            ...selectedProbeData,
+          }
+        : notif;
+    });
+
+    setProbes(notifData);
   };
 
   return (
@@ -40,6 +80,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
         handleSetProbes,
         handleAddProbe,
         handleRemoveProbe,
+        handleUpdateProbeData,
       }}>
       {children}
     </ProbeContext.Provider>
