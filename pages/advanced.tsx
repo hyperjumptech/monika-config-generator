@@ -2,15 +2,29 @@ import { useContext } from 'react';
 
 import { Layout, Sidebar } from '../components';
 import NotifCard from '../components/notifcard';
+import ProbeCard from '../components/probecard';
 import { NotificationContext } from '../contexts/NotificationContext';
+import { ProbeContext } from '../contexts/ProbeContext';
 
 export default function Advanced(): JSX.Element {
   const { notificationData, handleAddNotification } = useContext(
     NotificationContext
   );
+  const { probeData, handleAddProbe } = useContext(ProbeContext);
 
   const renderProbe = () => {
-    return <div>Hello Probe</div>;
+    return (
+      <div>
+        {probeData.map((probe) => (
+          <ProbeCard key={probe.id} id={probe.id} />
+        ))}
+        <button
+          onClick={handleAddProbe}
+          className="w-full border-4 border-dashed rounded-md p-4">
+          <p>Add another probe</p>
+        </button>
+      </div>
+    );
   };
 
   const renderNotification = () => {

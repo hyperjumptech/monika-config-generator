@@ -9,7 +9,7 @@ export interface UpdateProbeData {
 export interface ProbeContextInterface {
   probeData: Probe[];
   handleSetProbes: (probes: Probe[]) => void;
-  handleAddProbe: (probe: Probe) => void;
+  handleAddProbe: () => void;
   handleRemoveProbe: (id: string) => void;
   handleUpdateProbeData: (data: UpdateProbeData) => void;
 }
