@@ -5,6 +5,8 @@ import NotifCard from '../components/notifcard';
 import ProbeCard from '../components/probecard';
 import { NotificationContext } from '../contexts/NotificationContext';
 import { ProbeContext } from '../contexts/ProbeContext';
+import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
+import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
 
 export default function Advanced(): JSX.Element {
   const { notificationData, handleAddNotification } = useContext(
@@ -15,8 +17,8 @@ export default function Advanced(): JSX.Element {
   const renderProbe = () => {
     return (
       <div>
-        {probeData.map((probe) => (
-          <ProbeCard key={probe.id} id={probe.id} />
+        {probeData.map((probe: Probe) => (
+          <ProbeCard probe={probe} key={probe.id} id={probe.id} />
         ))}
         <button
           onClick={handleAddProbe}
@@ -30,7 +32,7 @@ export default function Advanced(): JSX.Element {
   const renderNotification = () => {
     return (
       <div>
-        {notificationData.map((notif) => (
+        {notificationData.map((notif: Notification) => (
           <NotifCard key={notif.id} id={notif.id} type={notif.type} />
         ))}
         <button
