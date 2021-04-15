@@ -45,4 +45,9 @@ export interface ProbeContextInterface {
     prevValue: number,
     nextValue: number
   ) => void;
+  handleUpdateProbeAlert: (
+    probeId: string,
+    alert: string,
+    value: boolean
+  ) => void;
 }

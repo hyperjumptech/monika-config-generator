@@ -11,9 +11,8 @@ import { TextInput } from '..';
 import { ProbeContext } from '../../contexts/probe-context';
 import Select, { SelectOption } from '../select';
 import Textarea from '../textarea';
-import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
-import Button from '../button';
 import Checkbox from '../checkbox';
+import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 import { RequestConfig } from '@hyperjumptech/monika/lib/interfaces/request';
 
 export interface ProbeCardProps {
@@ -27,6 +26,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
     handleAddProbeRequest,
     handleAddProbeRequestHeader,
     handleUpdateProbeData,
+    handleUpdateProbeAlert,
     handleUpdateProbeRequestData,
     handleUpdateProbeRequestPosition,
     handleUpdateProbeRequestHeaderKey,
