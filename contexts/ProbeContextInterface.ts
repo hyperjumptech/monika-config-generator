@@ -14,4 +14,21 @@ export interface ProbeContextInterface {
   handleUpdateProbeData: (data: UpdateProbeData) => void;
   handleAddProbeRequest: (id: string) => void;
   handleRemoveProbeRequest: (id: string, index: number) => void;
+  handleAddProbeRequestHeader: (probeId: string, requestIndex: number) => void;
+  handleUpdateProbeRequestHeaderKey: (
+    probeId: string,
+    requestIndex: number,
+    headerIndex: number,
+    key: string
+  ) => void;
+  handleUpdateProbeRequestHeaderValue: (
+    probeId: string,
+    requestIndex: number,
+    headerIndex: number,
+    value: string
+  ) => void;
+  handleRemoveProbeRequestHeader: (
+    probeId: string,
+    headerIndex: number
+  ) => void;
 }

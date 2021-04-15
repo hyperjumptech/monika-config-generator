@@ -15,6 +15,10 @@ const ProbeContext = createContext<ProbeContextInterface>({
   handleUpdateProbeData: () => undefined,
   handleAddProbeRequest: () => undefined,
   handleRemoveProbeRequest: () => undefined,
+  handleAddProbeRequestHeader: () => undefined,
+  handleUpdateProbeRequestHeaderKey: () => undefined,
+  handleUpdateProbeRequestHeaderValue: () => undefined,
+  handleRemoveProbeRequestHeader: () => undefined,
 });
 
 const ProbeProvider: FunctionComponent = ({ children }) => {
@@ -30,6 +34,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
           body: {} as JSON,
           timeout: 0,
           headers: {},
+          method: 'GET',
         },
       ],
       incidentThreshold: 5,
@@ -37,6 +42,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
       alerts: [],
     },
   ]);
+  const [headersCount, setHeadersCount] = useState(0);
 
   const handleSetProbes = (probes: Probe[]) => {
     setProbes(probes);
@@ -56,6 +62,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
           body: {} as JSON,
           timeout: 0,
           headers: {},
+          method: 'POST',
         },
       ],
       incidentThreshold: 5,
@@ -128,6 +135,135 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
     setProbes(newProbeData);
   };
 
+  const handleAddProbeRequestHeader = (
+    probeId: string,
+    requestIndex: number
+  ) => {
+    const foundProbe = probes.find((data) => data.id === probeId);
+    const foundRequest = (foundProbe as Probe).requests.map(
+      (request, index) => {
+        return index === requestIndex
+          ? {
+              ...request,
+              headers: {
+                ...request.headers,
+                [`key-${headersCount}`]: `value${headersCount}`,
+              },
+            }
+          : request;
+      }
+    );
+
+    const newProbeData = probes.map((probe) => {
+      return probe.id === probeId
+        ? {
+            ...probe,
+            requests: [...foundRequest],
+          }
+        : probe;
+    });
+
+    setProbes(newProbeData);
+
+    setHeadersCount(headersCount + 1);
+  };
+
+  const handleUpdateProbeRequestHeaderKey = (
+    probeId: string,
+    requestIndex: number,
+    headerIndex: number,
+    key: string
+  ) => {
+    const foundProbe = probes.find((data) => data.id === probeId);
+    const foundRequest = (foundProbe as Probe).requests.map(
+      (request, index) => {
+        const newHeaders = Object.entries(request.headers).map(([k, v], i) => {
+          return i === headerIndex ? [key, v] : [k, v];
+        });
+
+        return index === requestIndex
+          ? {
+              ...request,
+              headers: Object.fromEntries(newHeaders),
+            }
+          : request;
+      }
+    );
+
+    const newProbeData = probes.map((probe) => {
+      return probe.id === probeId
+        ? {
+            ...probe,
+            requests: [...foundRequest],
+          }
+        : probe;
+    });
+
+    setProbes(newProbeData);
+  };
+
+  const handleUpdateProbeRequestHeaderValue = (
+    probeId: string,
+    requestIndex: number,
+    headerIndex: number,
+    value: string
+  ) => {
+    const foundProbe = probes.find((data) => data.id === probeId);
+    const foundRequest = (foundProbe as Probe).requests.map(
+      (request, index) => {
+        const newHeaders = Object.entries(request.headers).map(([k, v], i) => {
+          return i === headerIndex ? [k, value] : [k, v];
+        });
+
+        return index === requestIndex
+          ? {
+              ...request,
+              headers: Object.fromEntries(newHeaders),
+            }
+          : request;
+      }
+    );
+
+    const newProbeData = probes.map((probe) => {
+      return probe.id === probeId
+        ? {
+            ...probe,
+            requests: [...foundRequest],
+          }
+        : probe;
+    });
+
+    setProbes(newProbeData);
+  };
+
+  const handleRemoveProbeRequestHeader = (
+    probeId: string,
+    headerIndex: number
+  ) => {
+    const foundProbe = probes.find((data) => data.id === probeId);
+    const filteredRequest = (foundProbe as Probe).requests.map((request) => {
+      const newHeaders = Object.entries(request.headers).filter((_, i) => {
+        return i !== headerIndex;
+      });
+
+      return {
+        ...request,
+        headers: Object.fromEntries(newHeaders),
+      };
+    });
+
+    const newProbeData = probes.map((probe) => {
+      return probe.id === probeId
+        ? {
+            ...probe,
+            requests: [...filteredRequest],
+          }
+        : probe;
+    });
+
+    setProbes(newProbeData);
+  };
+
   return (
     <ProbeContext.Provider
       value={{
@@ -138,6 +274,10 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
         handleUpdateProbeData,
         handleAddProbeRequest,
         handleRemoveProbeRequest,
+        handleAddProbeRequestHeader,
+        handleUpdateProbeRequestHeaderKey,
+        handleUpdateProbeRequestHeaderValue,
+        handleRemoveProbeRequestHeader,
       }}>
       {children}
     </ProbeContext.Provider>

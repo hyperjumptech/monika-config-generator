@@ -14,19 +14,24 @@ import Textarea from '../textarea';
 import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 import Button from '../button';
 import Checkbox from '../checkbox';
+import { RequestConfig } from '@hyperjumptech/monika/lib/interfaces/request';
 
 export interface ProbeCardProps {
   id: string;
   probe: Probe;
 }
 
-const NotifCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
+const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
   const {
     probeData,
     handleUpdateProbeData,
     handleRemoveProbe,
     handleAddProbeRequest,
     handleRemoveProbeRequest,
+    handleAddProbeRequestHeader,
+    handleUpdateProbeRequestHeaderKey,
+    handleUpdateProbeRequestHeaderValue,
+    handleRemoveProbeRequestHeader,
   } = useContext(ProbeContext);
 
   return (
@@ -90,36 +95,131 @@ const NotifCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                       <TextInput
                         id={`probe_${id}_request_${index}_url`}
                         placeholder="https://github.com"
+                        onChange={(event) =>
+                          handleUpdateProbeData({
+                            id,
+                            field: item.url,
+                            value: event.target.value,
+                          })
+                        }
                       />
                     </div>
                     <div className="w-4/12">
-                      <Select id={`probe_${id}_method`}>
+                      <Select
+                        id={`probe_${id}_method`}
+                        value={item.method}
+                        onChange={(event) =>
+                          handleUpdateProbeData({
+                            id,
+                            field: item.method as string,
+                            value: event.target.value,
+                          })
+                        }>
                         <SelectOption value="GET">GET</SelectOption>
                         <SelectOption value="POST">POST</SelectOption>
+                        <SelectOption value="PUT">PUT</SelectOption>
+                        <SelectOption value="PATCH">PATCH</SelectOption>
+                        <SelectOption value="DELETE">DELETE</SelectOption>
+                        <SelectOption value="OPTIONS">OPTIONS</SelectOption>
+                        <SelectOption value="HEAD">HEAD</SelectOption>
                       </Select>
                     </div>
                   </div>
-                  <button className="w-full border-4 border-dashed rounded-md p-4">
-                    <p>Add header</p>
-                  </button>
-                  <div className="flex flex-row items-center space-x-8">
-                    <p>Body</p>
-                    <div className="w-full sm:w-3/12">
-                      <Select id={`probe_${id}_content_type`}>
-                        <SelectOption value="JSON">JSON</SelectOption>
-                      </Select>
-                    </div>
+                  <div className="flex flex-col space-y-8">
+                    <p>Headers</p>
+                    {Object.keys((item as RequestConfig).headers).map(
+                      (header, idx) => (
+                        <div className="flex flex-row space-x-8" key={idx}>
+                          <TextInput
+                            id={`probe_${id}_request_${index}_headers_${idx}`}
+                            value={header}
+                            onChange={(event) =>
+                              handleUpdateProbeRequestHeaderKey(
+                                id,
+                                index,
+                                idx,
+                                event.target.value
+                              )
+                            }
+                          />
+                          <TextInput
+                            id={`probe_${id}_request_${index}_headers_${idx}_value`}
+                            value={(item as RequestConfig).headers[header]}
+                            onChange={(event) =>
+                              handleUpdateProbeRequestHeaderValue(
+                                id,
+                                index,
+                                idx,
+                                event.target.value
+                              )
+                            }
+                          />
+                          <button
+                            type="button"
+                            onClick={() =>
+                              handleRemoveProbeRequestHeader(id, idx)
+                            }>
+                            <FontAwesomeIcon icon={faTrash} />
+                          </button>
+                        </div>
+                      )
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => handleAddProbeRequestHeader(id, index)}
+                      className="w-full border-4 border-dashed rounded-md p-4">
+                      <p>Add header</p>
+                    </button>
                   </div>
-                  <Textarea placeholder="{ }" id={`probe_${id}_body`} />
-                  {probe.requests.length > 1 && (
-                    <div className="flex justify-end">
-                      <Button
-                        type="button"
-                        onClick={() => handleRemoveProbeRequest(id, index)}>
-                        Remove
-                      </Button>
+                  <div className="flex flex-col space-y-8">
+                    <div className="flex items-center space-x-8 flex-row">
+                      <p>Body</p>
+                      <div className="w-full sm:w-3/12">
+                        <Select id={`probe_${id}_content_type`}>
+                          <SelectOption value="JSON">JSON</SelectOption>
+                        </Select>
+                      </div>
                     </div>
-                  )}
+                    <Textarea
+                      placeholder="{ }"
+                      id={`probe_${id}_body`}
+                      defaultValue={JSON.stringify(item.body)}
+                      onChange={(event) =>
+                        handleUpdateProbeData({
+                          id,
+                          field: JSON.stringify(item.body),
+                          value: event.target.value,
+                        })
+                      }
+                    />
+                    <div className="flex flex-row items-center justify-start space-x-8">
+                      <p className="text-sm sm:text-lg">Timeout</p>
+                      <TextInput
+                        id={`probe_${id}_timeout`}
+                        type="number"
+                        placeholder="10"
+                        value={item.timeout}
+                        className="w-full md:w-64"
+                        onChange={(event) => {
+                          handleUpdateProbeData({
+                            id,
+                            field: 'timeout',
+                            value: event.target.value,
+                          });
+                        }}
+                      />
+                      <p className="text-sm sm:text-lg">seconds</p>
+                    </div>
+                    {probe.requests.length > 1 && (
+                      <div className="flex justify-end">
+                        <Button
+                          type="button"
+                          onClick={() => handleRemoveProbeRequest(id, index)}>
+                          Remove
+                        </Button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
               <button
@@ -148,24 +248,6 @@ const NotifCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                   />
                   <p className="text-sm sm:text-lg">seconds</p>
                 </div>
-                <div className="flex flex-row items-center justify-start space-x-8">
-                  <p className="text-sm sm:text-lg">Timeout</p>
-                  <TextInput
-                    id={`probe_${id}_timeout`}
-                    type="number"
-                    placeholder="10"
-                    value={probe.interval}
-                    className="w-full md:w-64"
-                    onChange={(event) => {
-                      handleUpdateProbeData({
-                        id,
-                        field: 'interval',
-                        value: event.target.value,
-                      });
-                    }}
-                  />
-                  <p className="text-sm sm:text-lg">seconds</p>
-                </div>
                 <div className="flex flex-col space-y-4 space-x-4">
                   <p className="text-sm sm:text-lg">Notify on</p>
                   <Checkbox
@@ -176,9 +258,19 @@ const NotifCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                   </Checkbox>
                   <Checkbox
                     name={`probe_${id}_response-time`}
-                    value="status-not-2xx"
+                    value="response-time"
                     help="Response time is longer than">
-                    Response time is longer than
+                    <div className="flex flex-row align-middle items-center space-x-4">
+                      <span>Response time is longer than</span>
+                      <TextInput
+                        id={`probe_${id}_interval`}
+                        type="number"
+                        placeholder="10"
+                        value={`response-time-greater-than-xxx-ms`}
+                        className="w-full md:w-64"
+                      />
+                      <span>seconds</span>
+                    </div>
                   </Checkbox>
                 </div>
                 <div className="flex flex-row items-center justify-start space-x-8">
@@ -187,12 +279,12 @@ const NotifCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                     id={`probe_${id}_threshold`}
                     type="number"
                     placeholder="10"
-                    value={probe.interval}
+                    value={probe.incidentThreshold}
                     className="w-full md:w-64"
                     onChange={(event) => {
                       handleUpdateProbeData({
                         id,
-                        field: 'interval',
+                        field: 'incidentThreshold',
                         value: event.target.value,
                       });
                     }}
@@ -207,4 +299,4 @@ const NotifCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
   );
 };
 
-export default NotifCard;
+export default ProbeCard;
