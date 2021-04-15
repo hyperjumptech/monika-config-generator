@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
 import { Layout, Sidebar } from '../components';
-import ProbeCard from '../components/probecard';
+import ProbeCard from '../components/probe-card';
 import { ProbeContext } from '../contexts/probe-context';
 import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
