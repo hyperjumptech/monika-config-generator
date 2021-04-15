@@ -1,19 +1,19 @@
-import { ReactNode } from 'react';
+import { ReactNode, InputHTMLAttributes } from 'react';
 
-type CheckboxProps = {
+interface CheckboxProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
   children: ReactNode;
   help: string;
   value: string;
   name: string;
-  onClick?: (value: string) => void;
-};
+}
 
 export default function Checkbox({
   children,
   help,
   value,
   name,
-  onClick,
+  onChange,
 }: CheckboxProps): JSX.Element {
   return (
     <div className="flex flex-col">
@@ -23,7 +23,7 @@ export default function Checkbox({
           name={name}
           type="checkbox"
           className="focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300"
-          onClick={() => (onClick ? onClick(value) : {})}
+          onChange={onChange}
         />
         <label
           htmlFor={value}
