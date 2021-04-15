@@ -24,14 +24,16 @@ export interface ProbeCardProps {
 const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
   const {
     probeData,
-    handleUpdateProbeData,
-    handleRemoveProbe,
     handleAddProbeRequest,
-    handleRemoveProbeRequest,
     handleAddProbeRequestHeader,
+    handleUpdateProbeData,
+    handleUpdateProbeRequestData,
     handleUpdateProbeRequestHeaderKey,
     handleUpdateProbeRequestHeaderValue,
+    handleUpdateProbeAlertResponseTimeGreaterThanValue,
+    handleRemoveProbe,
     handleRemoveProbeRequestHeader,
+    handleRemoveProbeRequest,
   } = useContext(ProbeContext);
 
   return (
@@ -96,9 +98,10 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                         id={`probe_${id}_request_${index}_url`}
                         placeholder="https://github.com"
                         onChange={(event) =>
-                          handleUpdateProbeData({
+                          handleUpdateProbeRequestData({
                             id,
-                            field: item.url,
+                            index,
+                            field: 'url',
                             value: event.target.value,
                           })
                         }
@@ -109,9 +112,10 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                         id={`probe_${id}_method`}
                         value={item.method}
                         onChange={(event) =>
-                          handleUpdateProbeData({
+                          handleUpdateProbeRequestData({
                             id,
-                            field: item.method as string,
+                            index,
+                            field: 'method',
                             value: event.target.value,
                           })
                         }>
@@ -185,9 +189,10 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                       id={`probe_${id}_body`}
                       defaultValue={JSON.stringify(item.body)}
                       onChange={(event) =>
-                        handleUpdateProbeData({
+                        handleUpdateProbeRequestData({
                           id,
-                          field: JSON.stringify(item.body),
+                          index,
+                          field: 'body',
                           value: event.target.value,
                         })
                       }
@@ -201,8 +206,9 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                         value={item.timeout}
                         className="w-full md:w-64"
                         onChange={(event) => {
-                          handleUpdateProbeData({
+                          handleUpdateProbeRequestData({
                             id,
+                            index,
                             field: 'timeout',
                             value: event.target.value,
                           });
@@ -257,19 +263,24 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                     Status Code not 2XX (Not Success)
                   </Checkbox>
                   <Checkbox
-                    name={`probe_${id}_response-time`}
+                    name={`probe_${id}_response_time`}
                     value="response-time"
                     help="Response time is longer than">
                     <div className="flex flex-row align-middle items-center space-x-4">
                       <span>Response time is longer than</span>
                       <TextInput
-                        id={`probe_${id}_interval`}
+                        id={`probe_${id}_response_time_value`}
                         type="number"
                         placeholder="10"
-                        value={`response-time-greater-than-xxx-ms`}
                         className="w-full md:w-64"
+                        onChange={(event) =>
+                          handleUpdateProbeAlertResponseTimeGreaterThanValue(
+                            id,
+                            parseInt(event.target.value, 10)
+                          )
+                        }
                       />
-                      <span>seconds</span>
+                      <span>milliseconds</span>
                     </div>
                   </Checkbox>
                 </div>

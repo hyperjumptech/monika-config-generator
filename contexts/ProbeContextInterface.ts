@@ -6,6 +6,10 @@ export interface UpdateProbeData {
   value: string;
 }
 
+export interface UpdateProbeRequestData extends UpdateProbeData {
+  index: number;
+}
+
 export interface ProbeContextInterface {
   probeData: Probe[];
   handleSetProbes: (probes: Probe[]) => void;
@@ -14,6 +18,7 @@ export interface ProbeContextInterface {
   handleUpdateProbeData: (data: UpdateProbeData) => void;
   handleAddProbeRequest: (id: string) => void;
   handleRemoveProbeRequest: (id: string, index: number) => void;
+  handleUpdateProbeRequestData: (data: UpdateProbeRequestData) => void;
   handleAddProbeRequestHeader: (probeId: string, requestIndex: number) => void;
   handleUpdateProbeRequestHeaderKey: (
     probeId: string,
@@ -30,5 +35,9 @@ export interface ProbeContextInterface {
   handleRemoveProbeRequestHeader: (
     probeId: string,
     headerIndex: number
+  ) => void;
+  handleUpdateProbeAlertResponseTimeGreaterThanValue: (
+    probeID: string,
+    value: number
   ) => void;
 }
