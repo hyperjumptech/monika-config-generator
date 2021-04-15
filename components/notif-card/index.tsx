@@ -4,8 +4,8 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Select, SelectOption, TextInput } from '../';
-import { NotificationContext } from '../../contexts/NotificationContext';
-import { notificationForms } from '../../utils/notificationForms';
+import { NotificationContext } from '../../contexts/notification-context';
+import { notificationForms } from '../../utils/notification-forms';
 
 export interface NotifCardProps {
   id: string;

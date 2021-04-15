@@ -1,18 +1,20 @@
-import { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Layout, Sidebar } from '../components';
-import NotifCard from '../components/notifcard';
 import ProbeCard from '../components/probecard';
-import { NotificationContext } from '../contexts/NotificationContext';
-import { ProbeContext } from '../contexts/ProbeContext';
+import { ProbeContext } from '../contexts/probe-context';
 import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
+import { Button, GenerateConfigModal } from '../components';
+import NotifCard from '../components/notif-card';
+import { NotificationContext } from '../contexts/notification-context';
 
 export default function Advanced(): JSX.Element {
   const { notificationData, handleAddNotification } = useContext(
     NotificationContext
   );
   const { probeData, handleAddProbe } = useContext(ProbeContext);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const renderProbe = () => {
     return (
@@ -46,6 +48,15 @@ export default function Advanced(): JSX.Element {
 
   return (
     <Layout>
+      <div className="mb-5 flex justify-end">
+        <Button onClick={() => setIsModalVisible(true)}>
+          Generate Config File
+        </Button>
+        <GenerateConfigModal
+          visible={isModalVisible}
+          onClose={() => setIsModalVisible(false)}
+        />
+      </div>
       <Sidebar>
         {({ activeMenu }) =>
           activeMenu === 'Probe' ? renderProbe() : renderNotification()

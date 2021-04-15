@@ -5,7 +5,7 @@ import {
   ProbeContextInterface,
   UpdateProbeData,
   UpdateProbeRequestData,
-} from './ProbeContextInterface';
+} from './probe-context-interface';
 import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 
 const ProbeContext = createContext<ProbeContextInterface>({
