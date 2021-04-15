@@ -1,4 +1,8 @@
-import { Button } from '..';
+import { useContext } from 'react';
+
+import { Button } from '../';
+import { NotificationContext } from '../../contexts/notification-context';
+import { ProbeContext } from '../../contexts/probe-context';
 
 type GenerateConfigModalProps = {
   visible: boolean;
@@ -9,36 +13,12 @@ export default function GenerateConfigModal({
   visible,
   onClose,
 }: GenerateConfigModalProps): JSX.Element {
-  // TODO: this hardcoded jsonConfig variable will be replaced with value from context that will be worked om #14: https://github.com/hyperjumptech/monika-config-generator/issues/14
+  const { notificationData } = useContext(NotificationContext);
+  const { probeData } = useContext(ProbeContext);
+
   const jsonConfig = {
-    notifications: [
-      {
-        id: 'unique-id-smtp',
-        type: 'smtp',
-        data: {
-          recipients: ['YOUR_EMAIL_ADDRESS_HERE'],
-          hostname: 'smtp.gmail.com',
-          port: 587,
-          username: 'YOUR_GMAIL_ACCOUNT',
-          password: 'YOUR_GMAIL_PASSWORD_OR_APP_PASSWORD',
-        },
-      },
-    ],
-    probes: [
-      {
-        id: '1',
-        name: 'Monika Landing Page',
-        description: 'Landing page of awesome Monika',
-        interval: 10,
-        requests: [
-          {
-            url: 'https://hyperjumptech.github.io/monika',
-            timeout: 7000,
-          },
-        ],
-        alerts: ['status-not-2xx'],
-      },
-    ],
+    notifications: notificationData,
+    probes: probeData,
   };
 
   const downloadJsonFile = (jsonString: string) => {
