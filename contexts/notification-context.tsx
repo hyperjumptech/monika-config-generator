@@ -66,7 +66,16 @@ const NotificationProvider: FunctionComponent = ({ children }) => {
   const handleUpdateNotificationData = (data: UpdateNotificationData) => {
     const selectedNotif = notifications.find((notif) => notif.id === data.id);
     const selectedNotifData = (selectedNotif?.data ?? {}) as any;
-    selectedNotifData[data.field] = data.value;
+
+    if (data.field === 'port') {
+      selectedNotifData[data.field] = parseInt(data.value ?? 0);
+    } else if (data.field === 'recipients') {
+      selectedNotifData[data.field] = data.value
+        ?.replace(/\s/g, '')
+        ?.split(',');
+    } else {
+      selectedNotifData[data.field] = data.value;
+    }
 
     const notifData = notifications.map((notif) => {
       return notif.id === data.id

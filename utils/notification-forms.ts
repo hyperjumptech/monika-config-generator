@@ -101,7 +101,7 @@ export const sendgridForm: NotificationForm<SendgridData>[] = [
   },
 ];
 
-export const webhookForm: NotificationForm<WebhookData>[] = [
+export const webhookForm: NotificationForm<Omit<WebhookData, 'body'>>[] = [
   {
     label: 'Webhook',
     name: 'webhook',
@@ -113,16 +113,11 @@ export const webhookForm: NotificationForm<WebhookData>[] = [
     ],
     defaultValue: {
       url: '',
-      body: {
-        url: '',
-        time: '',
-        alert: '',
-      },
     },
   },
 ];
 
-export const slackForm: NotificationForm<WebhookData>[] = [
+export const slackForm: NotificationForm<Omit<WebhookData, 'body'>>[] = [
   {
     label: 'Slack',
     name: 'slack',
@@ -134,16 +129,11 @@ export const slackForm: NotificationForm<WebhookData>[] = [
     ],
     defaultValue: {
       url: '',
-      body: {
-        url: '',
-        time: '',
-        alert: '',
-      },
     },
   },
 ];
 
-export const telegramForm: NotificationForm<TelegramData>[] = [
+export const telegramForm: NotificationForm<Omit<TelegramData, 'body'>>[] = [
   {
     label: 'Telegram',
     name: 'telegram',
@@ -160,16 +150,11 @@ export const telegramForm: NotificationForm<TelegramData>[] = [
     defaultValue: {
       bot_token: '',
       group_id: '',
-      body: {
-        url: '',
-        time: '',
-        alert: '',
-      },
     },
   },
 ];
 
-export const teamsForm: NotificationForm<TeamsData>[] = [
+export const teamsForm: NotificationForm<Omit<TeamsData, 'body'>>[] = [
   {
     label: 'Teams',
     name: 'teams',
@@ -181,12 +166,6 @@ export const teamsForm: NotificationForm<TeamsData>[] = [
     ],
     defaultValue: {
       url: '',
-      body: {
-        url: '',
-        time: '',
-        alert: '',
-        status: '',
-      },
     },
   },
 ];

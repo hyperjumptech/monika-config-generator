@@ -34,6 +34,7 @@ const NotifCard: FunctionComponent<NotifCardProps> = ({ id, type }) => {
         <div className="mb-4">
           <Select
             label="Type"
+            value={notificationData.find((notif) => notif.id === id)?.type}
             onChange={(e) => {
               handleUpdateNotificationType({ id, type: e.target.value });
             }}>
@@ -48,21 +49,27 @@ const NotifCard: FunctionComponent<NotifCardProps> = ({ id, type }) => {
           <fieldset>
             {notificationForms
               ?.find((form) => form.name === type)
-              ?.fields.map((field) => (
-                <div key={field.name} className="mb-4">
-                  <TextInput
-                    id={field.name}
-                    label={field.label}
-                    onChange={(event) => {
-                      handleUpdateNotificationData({
-                        id,
-                        field: field.name,
-                        value: event.target.value,
-                      });
-                    }}
-                  />
-                </div>
-              ))}
+              ?.fields.map((field) => {
+                const data = notificationData.find((notif) => notif.id === id)
+                  ?.data as any;
+
+                return (
+                  <div key={field.name} className="mb-4">
+                    <TextInput
+                      id={field.name}
+                      label={field.label}
+                      defaultValue={data[field.name]}
+                      onChange={(event) => {
+                        handleUpdateNotificationData({
+                          id,
+                          field: field.name,
+                          value: event.target.value,
+                        });
+                      }}
+                    />
+                  </div>
+                );
+              })}
           </fieldset>
         </form>
       </div>
