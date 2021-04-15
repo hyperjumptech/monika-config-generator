@@ -40,8 +40,7 @@ export default function Home(): JSX.Element {
     if (file) {
       importConfigFile(file)
         .then(() => {
-          /* TODO: Show edit page */
-          console.log('context updated');
+          router.push('/advanced');
         })
         .catch((error) => {
           /* TODO: How to display error? */
