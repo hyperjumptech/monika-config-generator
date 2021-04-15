@@ -12,16 +12,17 @@ const ProbeContext = createContext<ProbeContextInterface>({
   probeData: [],
   handleSetProbes: () => undefined,
   handleAddProbe: () => undefined,
-  handleRemoveProbe: () => undefined,
-  handleUpdateProbeData: () => undefined,
   handleAddProbeRequest: () => undefined,
-  handleRemoveProbeRequest: () => undefined,
   handleAddProbeRequestHeader: () => undefined,
+  handleUpdateProbeData: () => undefined,
+  handleUpdateProbeRequestPosition: () => undefined,
   handleUpdateProbeRequestData: () => undefined,
   handleUpdateProbeRequestHeaderKey: () => undefined,
   handleUpdateProbeRequestHeaderValue: () => undefined,
-  handleRemoveProbeRequestHeader: () => undefined,
   handleUpdateProbeAlertResponseTimeGreaterThanValue: () => undefined,
+  handleRemoveProbeRequest: () => undefined,
+  handleRemoveProbe: () => undefined,
+  handleRemoveProbeRequestHeader: () => undefined,
 });
 
 const ProbeProvider: FunctionComponent = ({ children }) => {
@@ -65,7 +66,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
           body: {} as JSON,
           timeout: 0,
           headers: {},
-          method: 'POST',
+          method: 'GET',
         },
       ],
       incidentThreshold: 5,
@@ -106,6 +107,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
       body: {} as JSON,
       timeout: 0,
       headers: {},
+      method: 'GET',
     });
 
     const newProbeData = probes.map((probe) => {
@@ -317,22 +319,48 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
     setProbes(newProbeData);
   };
 
+  const handleUpdateProbeRequestPosition = (
+    probeId: string,
+    prevIndex: number,
+    nextIndex: number
+  ) => {
+    const foundProbe = probes.find((data) => data.id === probeId);
+    const foundRequest = (foundProbe as Probe).requests;
+
+    // Swap the value
+    const temp = foundRequest[nextIndex];
+    foundRequest[nextIndex] = foundRequest[prevIndex];
+    foundRequest[prevIndex] = temp;
+
+    const newProbeData = probes.map((probe) => {
+      return probe.id === probeId
+        ? {
+            ...probe,
+            requests: [...foundRequest],
+          }
+        : probe;
+    });
+
+    setProbes(newProbeData);
+  };
+
   return (
     <ProbeContext.Provider
       value={{
         probeData: probes,
         handleSetProbes,
         handleAddProbe,
-        handleRemoveProbe,
-        handleUpdateProbeData,
         handleAddProbeRequest,
-        handleRemoveProbeRequest,
-        handleUpdateProbeRequestData,
         handleAddProbeRequestHeader,
+        handleUpdateProbeData,
+        handleUpdateProbeRequestPosition,
+        handleUpdateProbeRequestData,
         handleUpdateProbeRequestHeaderKey,
         handleUpdateProbeRequestHeaderValue,
-        handleRemoveProbeRequestHeader,
         handleUpdateProbeAlertResponseTimeGreaterThanValue,
+        handleRemoveProbe,
+        handleRemoveProbeRequest,
+        handleRemoveProbeRequestHeader,
       }}>
       {children}
     </ProbeContext.Provider>

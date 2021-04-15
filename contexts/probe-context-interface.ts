@@ -40,4 +40,9 @@ export interface ProbeContextInterface {
     probeID: string,
     value: number
   ) => void;
+  handleUpdateProbeRequestPosition: (
+    probeId: string,
+    prevValue: number,
+    nextValue: number
+  ) => void;
 }

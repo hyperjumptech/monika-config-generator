@@ -28,6 +28,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
     handleAddProbeRequestHeader,
     handleUpdateProbeData,
     handleUpdateProbeRequestData,
+    handleUpdateProbeRequestPosition,
     handleUpdateProbeRequestHeaderKey,
     handleUpdateProbeRequestHeaderValue,
     handleUpdateProbeAlertResponseTimeGreaterThanValue,
@@ -77,19 +78,46 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                 }}
               />
               <p className="text-sm sm:text-lg">Requests</p>
-              {(probe as Probe).requests.map((item, index) => (
+              {(probe as Probe).requests.map((item, index, requests) => (
                 <div
                   className="w-full p-8 rounded-md bg-gray-100 border border-solid border-gray-300 space-y-8"
                   key={index}>
                   <div className="flex flex-row align-middle justify-between">
                     <div className="flex align-middle">#{index + 1}</div>
                     <div className="flex align-middle space-x-4">
-                      <button>
-                        <FontAwesomeIcon icon={faArrowUp} />
-                      </button>
-                      <button>
-                        <FontAwesomeIcon icon={faArrowDown} />
-                      </button>
+                      {index !== 0 && (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleUpdateProbeRequestPosition(
+                              id,
+                              index,
+                              index - 1
+                            )
+                          }>
+                          <FontAwesomeIcon icon={faArrowUp} />
+                        </button>
+                      )}
+                      {index !== requests.length - 1 && (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleUpdateProbeRequestPosition(
+                              id,
+                              index,
+                              index + 1
+                            )
+                          }>
+                          <FontAwesomeIcon icon={faArrowDown} />
+                        </button>
+                      )}
+                      {requests.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveProbeRequest(id, index)}>
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                      )}
                     </div>
                   </div>
                   <div className="flex flex-row space-x-8">
@@ -97,6 +125,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                       <TextInput
                         id={`probe_${id}_request_${index}_url`}
                         placeholder="https://github.com"
+                        value={item.url}
                         onChange={(event) =>
                           handleUpdateProbeRequestData({
                             id,
@@ -203,6 +232,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                         id={`probe_${id}_timeout`}
                         type="number"
                         placeholder="10"
+                        min={1}
                         value={item.timeout}
                         className="w-full md:w-64"
                         onChange={(event) => {
@@ -216,15 +246,6 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                       />
                       <p className="text-sm sm:text-lg">seconds</p>
                     </div>
-                    {probe.requests.length > 1 && (
-                      <div className="flex justify-end">
-                        <Button
-                          type="button"
-                          onClick={() => handleRemoveProbeRequest(id, index)}>
-                          Remove
-                        </Button>
-                      </div>
-                    )}
                   </div>
                 </div>
               ))}
@@ -265,7 +286,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                   <Checkbox
                     name={`probe_${id}_response_time`}
                     value="response-time"
-                    help="Response time is longer than">
+                    help="Response time is longer than xxx milliseconds">
                     <div className="flex flex-row align-middle items-center space-x-4">
                       <span>Response time is longer than</span>
                       <TextInput
