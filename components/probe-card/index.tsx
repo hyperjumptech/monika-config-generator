@@ -7,8 +7,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { TextInput } from '../';
-import { ProbeContext } from '../../contexts/ProbeContext';
+import { TextInput } from '..';
+import { ProbeContext } from '../../contexts/probe-context';
 import Select, { SelectOption } from '../select';
 import Textarea from '../textarea';
 import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
