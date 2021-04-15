@@ -14,6 +14,7 @@ import Textarea from '../textarea';
 import Checkbox from '../checkbox';
 import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 import { RequestConfig } from '@hyperjumptech/monika/lib/interfaces/request';
+import ProbeResponseTime from '../probe-response-time/probe-response-time';
 
 export interface ProbeCardProps {
   id: string;
@@ -31,7 +32,6 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
     handleUpdateProbeRequestPosition,
     handleUpdateProbeRequestHeaderKey,
     handleUpdateProbeRequestHeaderValue,
-    handleUpdateProbeAlertResponseTimeGreaterThanValue,
     handleRemoveProbe,
     handleRemoveProbeRequestHeader,
     handleRemoveProbeRequest,
@@ -280,30 +280,17 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                   <Checkbox
                     name={`probe_${id}_status_not_2xx`}
                     value="status-not-2xx"
-                    help="Checks if status code is not 2xx (200-204)">
+                    help="Checks if status code is not 2xx (200-204)"
+                    onChange={(e) =>
+                      handleUpdateProbeAlert(
+                        id,
+                        `status-not-2xx`,
+                        e.target.checked
+                      )
+                    }>
                     Status Code not 2XX (Not Success)
                   </Checkbox>
-                  <Checkbox
-                    name={`probe_${id}_response_time`}
-                    value="response-time"
-                    help="Response time is longer than xxx milliseconds">
-                    <div className="flex flex-row align-middle items-center space-x-4">
-                      <span>Response time is longer than</span>
-                      <TextInput
-                        id={`probe_${id}_response_time_value`}
-                        type="number"
-                        placeholder="10"
-                        className="w-full md:w-64"
-                        onChange={(event) =>
-                          handleUpdateProbeAlertResponseTimeGreaterThanValue(
-                            id,
-                            parseInt(event.target.value, 10)
-                          )
-                        }
-                      />
-                      <span>milliseconds</span>
-                    </div>
-                  </Checkbox>
+                  <ProbeResponseTime probeId={id} />
                 </div>
                 <div className="flex flex-row items-center justify-start space-x-8">
                   <p className="text-sm sm:text-lg">Threshold</p>
