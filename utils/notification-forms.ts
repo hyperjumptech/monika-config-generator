@@ -51,7 +51,7 @@ export const smtpForm: NotificationForm<SMTPData>[] = [
     ].concat(mail),
     defaultValue: {
       hostname: '',
-      port: 0,
+      port: 587,
       username: '',
       password: '',
       recipients: [],
