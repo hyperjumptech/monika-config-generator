@@ -30,6 +30,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
     handleUpdateProbeData,
     handleUpdateProbeAlert,
     handleUpdateProbeRequestData,
+    handleUpdateProbeRequestBody,
     handleUpdateProbeRequestPosition,
     handleUpdateProbeRequestHeaderKey,
     handleUpdateProbeRequestHeaderValue,
@@ -217,9 +218,8 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                     <Textarea
                       placeholder="{ }"
                       id={`probe_${id}_body`}
-                      defaultValue={JSON.parse(JSON.stringify(item.body))}
                       onChange={(event) =>
-                        handleUpdateProbeRequestData({
+                        handleUpdateProbeRequestBody({
                           id,
                           index,
                           field: 'body',

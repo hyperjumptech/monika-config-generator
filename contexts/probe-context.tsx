@@ -18,6 +18,7 @@ const ProbeContext = createContext<ProbeContextInterface>({
   handleUpdateProbeAlert: () => undefined,
   handleUpdateProbeRequestPosition: () => undefined,
   handleUpdateProbeRequestData: () => undefined,
+  handleUpdateProbeRequestBody: () => undefined,
   handleUpdateProbeRequestHeaderKey: () => undefined,
   handleUpdateProbeRequestHeaderValue: () => undefined,
   handleUpdateProbeAlertResponseTimeGreaterThanValue: () => undefined,
@@ -116,6 +117,35 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
         ? {
             ...probe,
             ...selectedProbeData,
+          }
+        : probe;
+    });
+
+    setProbes(probeData);
+  };
+
+  const handleUpdateProbeRequestBody = (data: UpdateProbeRequestData) => {
+    const [selectedProbe] = probes.filter((probe) => probe.id === data.id);
+    const selectedProbeRequest = selectedProbe?.requests.find(
+      (_, index) => index === data.index
+    );
+    const selectedProbeRequestData = (selectedProbeRequest ?? {}) as any;
+
+    try {
+      selectedProbeRequestData[data.field] = JSON.parse(data.value);
+    } catch (error) {
+      selectedProbeRequestData[data.field] = JSON.parse('{}');
+    }
+
+    const newProbeRequests = selectedProbe?.requests.map((request, idx) => {
+      return idx !== data.index ? request : selectedProbeRequestData;
+    });
+
+    const probeData = probes.map((probe) => {
+      return probe.id === data.id
+        ? {
+            ...probe,
+            requests: newProbeRequests,
           }
         : probe;
     });
@@ -382,6 +412,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
         handleUpdateProbeAlert,
         handleUpdateProbeRequestPosition,
         handleUpdateProbeRequestData,
+        handleUpdateProbeRequestBody,
         handleUpdateProbeRequestHeaderKey,
         handleUpdateProbeRequestHeaderValue,
         handleUpdateProbeAlertResponseTimeGreaterThanValue,
