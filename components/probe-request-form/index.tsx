@@ -27,6 +27,7 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
     handleUpdateProbeRequestPosition,
     handleUpdateProbeRequestData,
     handleUpdateProbeRequestBody,
+    handleUpdateProbeRequestEnableBody,
     handleUpdateProbeRequestHeaderKey,
     handleUpdateProbeRequestHeaderValue,
     handleRemoveProbeRequestHeader,
@@ -165,24 +166,36 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
         <div className="flex items-center space-x-8 flex-row">
           <p>Body</p>
           <div className="w-full sm:w-3/12">
-            <Select id={`probe_${probeId}_content_type`}>
+            <Select
+              id={`probe_${probeId}_content_type`}
+              onChange={(e) =>
+                handleUpdateProbeRequestEnableBody(
+                  probeId,
+                  requestIndex,
+                  e.target.value
+                )
+              }>
+              <SelectOption value="No Body">No Body</SelectOption>
               <SelectOption value="JSON">JSON</SelectOption>
             </Select>
           </div>
         </div>
-        <Textarea
-          placeholder="{ }"
-          id={`probe_${probeId}_body`}
-          onBlur={(event) => validateJSON(event.target.value)}
-          onChange={(event) =>
-            handleUpdateProbeRequestBody({
-              id: probeId,
-              index: requestIndex,
-              field: 'body',
-              value: event.target.value,
-            })
-          }
-        />
+        {JSON.stringify(request.body) !== '{}' && (
+          <Textarea
+            placeholder="{ }"
+            id={`probe_${probeId}_body`}
+            onBlur={(event) => validateJSON(event.target.value)}
+            value={JSON.stringify(request.body)}
+            onChange={(event) =>
+              handleUpdateProbeRequestBody({
+                id: probeId,
+                index: requestIndex,
+                field: 'body',
+                value: event.target.value,
+              })
+            }
+          />
+        )}
         <div className="flex flex-row items-center justify-start space-x-8">
           <p className="text-sm sm:text-lg">Timeout</p>
           <TextInput
