@@ -21,7 +21,7 @@ const ProbeContext = createContext<ProbeContextInterface>({
   handleUpdateProbeRequestBody: () => undefined,
   handleUpdateProbeRequestHeaderKey: () => undefined,
   handleUpdateProbeRequestHeaderValue: () => undefined,
-  handleUpdateProbeAlertResponseTimeGreaterThanValue: () => undefined,
+  handleUpdateProbeResponseTimeAlert: () => undefined,
   handleRemoveProbeRequest: () => undefined,
   handleRemoveProbe: () => undefined,
   handleRemoveProbeRequestHeader: () => undefined,
@@ -324,22 +324,23 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
     setProbes(newProbeData);
   };
 
-  const handleUpdateProbeAlertResponseTimeGreaterThanValue = (
+  const handleUpdateProbeResponseTimeAlert = (
     probeId: string,
     value: number,
     checked: boolean
   ) => {
     const foundProbe = probes.find((data) => data.id === probeId);
 
-    let newAlerts: string[];
+    let newAlerts = (foundProbe as Probe).alerts;
+
     if (!checked) {
-      newAlerts = (foundProbe as Probe).alerts.filter(
+      newAlerts = newAlerts.filter(
         (alert) => !alert.includes('response-time-greater-than')
       );
     } else {
-      newAlerts = (foundProbe as Probe).alerts.concat(
-        `response-time-greater-than-${value}-ms`
-      );
+      newAlerts = newAlerts
+        .filter((alert) => !alert.includes('response-time-greater-than'))
+        .concat(`response-time-greater-than-${value}-ms`);
     }
 
     console.log(newAlerts);
@@ -423,7 +424,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
         handleUpdateProbeRequestBody,
         handleUpdateProbeRequestHeaderKey,
         handleUpdateProbeRequestHeaderValue,
-        handleUpdateProbeAlertResponseTimeGreaterThanValue,
+        handleUpdateProbeResponseTimeAlert,
         handleRemoveProbe,
         handleRemoveProbeRequest,
         handleRemoveProbeRequestHeader,

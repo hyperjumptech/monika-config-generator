@@ -36,7 +36,7 @@ export interface ProbeContextInterface {
     probeId: string,
     headerIndex: number
   ) => void;
-  handleUpdateProbeAlertResponseTimeGreaterThanValue: (
+  handleUpdateProbeResponseTimeAlert: (
     probeID: string,
     value: number,
     checked: boolean

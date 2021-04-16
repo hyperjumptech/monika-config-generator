@@ -15,10 +15,19 @@ export interface ProbeResponseTimeProps
 const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
   probeId,
 }) => {
-  const { handleUpdateProbeAlertResponseTimeGreaterThanValue } = useContext(
-    ProbeContext
-  );
+  const { handleUpdateProbeResponseTimeAlert } = useContext(ProbeContext);
   const [responseTime, setResponseTime] = useState(1000);
+  const [checked, setChecked] = useState(false);
+
+  const handleUpdateResponseTime = (
+    probeId: string,
+    value: number,
+    checked: boolean
+  ) => {
+    setResponseTime(value);
+    setChecked(checked);
+    handleUpdateProbeResponseTimeAlert(probeId, value, checked);
+  };
 
   return (
     <Checkbox
@@ -26,11 +35,7 @@ const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
       value="response-time"
       help="Response time is longer than xxx milliseconds"
       onChange={(e) =>
-        handleUpdateProbeAlertResponseTimeGreaterThanValue(
-          probeId,
-          responseTime,
-          e.target.checked
-        )
+        handleUpdateResponseTime(probeId, responseTime, e.target.checked)
       }>
       <div className="flex flex-row align-middle items-center space-x-4">
         <span>Response time is longer than</span>
@@ -40,7 +45,10 @@ const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
           placeholder="1000"
           className="w-full md:w-64"
           value={responseTime}
-          onChange={(e) => setResponseTime(parseInt(e.target.value, 10))}
+          disabled={!checked}
+          onChange={(e) =>
+            handleUpdateResponseTime(probeId, e.target.valueAsNumber, checked)
+          }
         />
         <span>milliseconds</span>
       </div>
