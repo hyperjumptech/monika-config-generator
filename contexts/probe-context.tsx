@@ -30,7 +30,7 @@ const ProbeContext = createContext<ProbeContextInterface>({
 const ProbeProvider: FunctionComponent = ({ children }) => {
   const [probes, setProbes] = useState<Probe[]>([
     {
-      id: uuid().split('-')[0],
+      id: uuid(),
       name: '',
       description: '',
       interval: 10,
@@ -55,7 +55,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
   };
 
   const handleAddProbe = () => {
-    const id = uuid().split('-')[0];
+    const id = uuid();
 
     const probeData = probes.concat({
       id,

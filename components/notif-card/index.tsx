@@ -5,7 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Select, SelectOption, TextInput } from '../';
 import { NotificationContext } from '../../contexts/notification-context';
-import { notificationForms } from '../../utils/notification-forms';
+import {
+  notificationForms,
+  NotificationFormField,
+} from '../../utils/notification-forms';
 
 export interface NotifCardProps {
   id: string;
@@ -23,7 +26,7 @@ const NotifCard: FunctionComponent<NotifCardProps> = ({ id, type }) => {
   return (
     <div className="border border-solid rounded-md mb-8">
       <div className="flex flex-row items-center justify-between p-4 bg-gray-50 border-b">
-        <p>Notification ID : {id}</p>
+        <p>Notification ID : {id.split('-')[0]}</p>
         {notificationData.length > 1 && (
           <button onClick={() => handleRemoveNotification(id)}>
             <FontAwesomeIcon icon={faTrash} />
@@ -49,7 +52,7 @@ const NotifCard: FunctionComponent<NotifCardProps> = ({ id, type }) => {
           <fieldset>
             {notificationForms
               ?.find((form) => form.name === type)
-              ?.fields.map((field) => {
+              ?.fields.map((field: NotificationFormField) => {
                 const data = notificationData.find((notif) => notif.id === id)
                   ?.data as any;
 

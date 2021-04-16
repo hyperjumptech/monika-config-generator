@@ -14,7 +14,7 @@ interface NotificationForm<T> {
   defaultValue: T;
 }
 
-interface NotificationFormField {
+export interface NotificationFormField {
   label: string;
   name: string;
   info?: string;
