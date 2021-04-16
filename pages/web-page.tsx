@@ -1,8 +1,11 @@
+import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
 
 import { Button, Layout, TextInput } from '../components';
 
 export default function WebPage(): JSX.Element {
+  const router = useRouter();
+
   const [data, setData] = useState([{ id: 1, name: '', value: '' }]);
 
   const addInputField = () => {
@@ -18,6 +21,7 @@ export default function WebPage(): JSX.Element {
 
   const handleNext = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    router.push('/download');
   };
 
   return (
@@ -56,7 +60,7 @@ export default function WebPage(): JSX.Element {
             </div>
           </fieldset>
           <div className="mt-12 py-3 space-x-7">
-            <Button type="button" outline>
+            <Button type="button" outline onClick={() => router.back()}>
               Back
             </Button>
             <Button type="submit">Next</Button>
