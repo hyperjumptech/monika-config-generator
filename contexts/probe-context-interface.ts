@@ -38,7 +38,8 @@ export interface ProbeContextInterface {
   ) => void;
   handleUpdateProbeAlertResponseTimeGreaterThanValue: (
     probeID: string,
-    value: number
+    value: number,
+    checked: boolean
   ) => void;
   handleUpdateProbeRequestPosition: (
     probeId: string,

@@ -15,8 +15,10 @@ export interface ProbeResponseTimeProps
 const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
   probeId,
 }) => {
-  const { handleUpdateProbeAlert } = useContext(ProbeContext);
-  const [responseTime, setResponseTime] = useState(10);
+  const { handleUpdateProbeAlertResponseTimeGreaterThanValue } = useContext(
+    ProbeContext
+  );
+  const [responseTime, setResponseTime] = useState(1000);
 
   return (
     <Checkbox
@@ -24,9 +26,9 @@ const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
       value="response-time"
       help="Response time is longer than xxx milliseconds"
       onChange={(e) =>
-        handleUpdateProbeAlert(
+        handleUpdateProbeAlertResponseTimeGreaterThanValue(
           probeId,
-          `response-time-greater-than-${responseTime}-ms`,
+          responseTime,
           e.target.checked
         )
       }>
@@ -35,7 +37,7 @@ const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
         <TextInput
           id={`probe_${probeId}_response_time_value`}
           type="number"
-          placeholder="10"
+          placeholder="1000"
           className="w-full md:w-64"
           value={responseTime}
           onChange={(e) => setResponseTime(parseInt(e.target.value, 10))}

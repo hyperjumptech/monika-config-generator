@@ -326,15 +326,23 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
 
   const handleUpdateProbeAlertResponseTimeGreaterThanValue = (
     probeId: string,
-    value: number
+    value: number,
+    checked: boolean
   ) => {
     const foundProbe = probes.find((data) => data.id === probeId);
-    const filteredAlert = (foundProbe as Probe).alerts.filter(
-      (alert) => !alert.includes('response-time-greater')
-    );
-    const newAlerts = filteredAlert.concat(
-      `response-time-greater-than-${value}-s`
-    );
+
+    let newAlerts: string[];
+    if (!checked) {
+      newAlerts = (foundProbe as Probe).alerts.filter(
+        (alert) => !alert.includes('response-time-greater-than')
+      );
+    } else {
+      newAlerts = (foundProbe as Probe).alerts.concat(
+        `response-time-greater-than-${value}-ms`
+      );
+    }
+
+    console.log(newAlerts);
 
     const newProbeData = probes.map((probe) => {
       return probe.id === probeId
