@@ -32,6 +32,15 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
     handleRemoveProbeRequestHeader,
     handleRemoveProbeRequest,
   } = useContext(ProbeContext);
+
+  const validateJSON = (value: string) => {
+    try {
+      JSON.parse(value);
+    } catch (e) {
+      alert(e);
+    }
+  };
+
   return (
     <div className="w-full p-8 rounded-md bg-gray-100 border border-solid border-gray-300 space-y-8">
       <div className="flex flex-row align-middle justify-between">
@@ -164,6 +173,7 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
         <Textarea
           placeholder="{ }"
           id={`probe_${probeId}_body`}
+          onBlur={(event) => validateJSON(event.target.value)}
           onChange={(event) =>
             handleUpdateProbeRequestBody({
               id: probeId,
