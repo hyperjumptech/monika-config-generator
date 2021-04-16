@@ -1,21 +1,15 @@
 import React, { FunctionComponent, useContext } from 'react';
 
-import {
-  faTrash,
-  faArrowUp,
-  faArrowDown,
-} from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { TextInput } from '..';
 import { ProbeContext } from '../../contexts/probe-context';
-import Select, { SelectOption } from '../select';
-import Textarea from '../textarea';
 import Checkbox from '../checkbox';
 import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
-import { RequestConfig } from '@hyperjumptech/monika/lib/interfaces/request';
 import ProbeResponseTime from '../probe-response-time';
 import ProbeThreshold from '../probe-threshold';
+import ProbeRequestForm from '../probe-request-form';
 
 export interface ProbeCardProps {
   id: string;
@@ -26,17 +20,10 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
   const {
     probeData,
     handleAddProbeRequest,
-    handleAddProbeRequestHeader,
     handleUpdateProbeData,
     handleUpdateProbeAlert,
-    handleUpdateProbeRequestData,
-    handleUpdateProbeRequestBody,
-    handleUpdateProbeRequestPosition,
-    handleUpdateProbeRequestHeaderKey,
-    handleUpdateProbeRequestHeaderValue,
+
     handleRemoveProbe,
-    handleRemoveProbeRequestHeader,
-    handleRemoveProbeRequest,
   } = useContext(ProbeContext);
 
   return (
@@ -81,174 +68,13 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
               />
               <p className="text-sm sm:text-lg">Requests</p>
               {(probe as Probe).requests.map((item, index, requests) => (
-                <div
-                  className="w-full p-8 rounded-md bg-gray-100 border border-solid border-gray-300 space-y-8"
-                  key={index}>
-                  <div className="flex flex-row align-middle justify-between">
-                    <div className="flex align-middle">#{index + 1}</div>
-                    <div className="flex align-middle space-x-4">
-                      {index !== 0 && (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handleUpdateProbeRequestPosition(
-                              id,
-                              index,
-                              index - 1
-                            )
-                          }>
-                          <FontAwesomeIcon icon={faArrowUp} />
-                        </button>
-                      )}
-                      {index !== requests.length - 1 && (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handleUpdateProbeRequestPosition(
-                              id,
-                              index,
-                              index + 1
-                            )
-                          }>
-                          <FontAwesomeIcon icon={faArrowDown} />
-                        </button>
-                      )}
-                      {requests.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveProbeRequest(id, index)}>
-                          <FontAwesomeIcon icon={faTrash} />
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex flex-row space-x-8">
-                    <div className="w-8/12">
-                      <TextInput
-                        id={`probe_${id}_request_${index}_url`}
-                        placeholder="https://github.com"
-                        value={item.url}
-                        onChange={(event) =>
-                          handleUpdateProbeRequestData({
-                            id,
-                            index,
-                            field: 'url',
-                            value: event.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="w-4/12">
-                      <Select
-                        id={`probe_${id}_method`}
-                        value={item.method}
-                        onChange={(event) =>
-                          handleUpdateProbeRequestData({
-                            id,
-                            index,
-                            field: 'method',
-                            value: event.target.value,
-                          })
-                        }>
-                        <SelectOption value="GET">GET</SelectOption>
-                        <SelectOption value="POST">POST</SelectOption>
-                        <SelectOption value="PUT">PUT</SelectOption>
-                        <SelectOption value="PATCH">PATCH</SelectOption>
-                        <SelectOption value="DELETE">DELETE</SelectOption>
-                        <SelectOption value="OPTIONS">OPTIONS</SelectOption>
-                        <SelectOption value="HEAD">HEAD</SelectOption>
-                      </Select>
-                    </div>
-                  </div>
-                  <div className="flex flex-col space-y-8">
-                    <p>Headers</p>
-                    {Object.keys((item as RequestConfig).headers).map(
-                      (header, idx) => (
-                        <div className="flex flex-row space-x-8" key={idx}>
-                          <TextInput
-                            id={`probe_${id}_request_${index}_headers_${idx}`}
-                            value={header}
-                            onChange={(event) =>
-                              handleUpdateProbeRequestHeaderKey(
-                                id,
-                                index,
-                                idx,
-                                event.target.value
-                              )
-                            }
-                          />
-                          <TextInput
-                            id={`probe_${id}_request_${index}_headers_${idx}_value`}
-                            value={(item as RequestConfig).headers[header]}
-                            onChange={(event) =>
-                              handleUpdateProbeRequestHeaderValue(
-                                id,
-                                index,
-                                idx,
-                                event.target.value
-                              )
-                            }
-                          />
-                          <button
-                            type="button"
-                            onClick={() =>
-                              handleRemoveProbeRequestHeader(id, idx)
-                            }>
-                            <FontAwesomeIcon icon={faTrash} />
-                          </button>
-                        </div>
-                      )
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => handleAddProbeRequestHeader(id, index)}
-                      className="w-full border-4 border-dashed rounded-md p-4">
-                      <p>Add header</p>
-                    </button>
-                  </div>
-                  <div className="flex flex-col space-y-8">
-                    <div className="flex items-center space-x-8 flex-row">
-                      <p>Body</p>
-                      <div className="w-full sm:w-3/12">
-                        <Select id={`probe_${id}_content_type`}>
-                          <SelectOption value="JSON">JSON</SelectOption>
-                        </Select>
-                      </div>
-                    </div>
-                    <Textarea
-                      placeholder="{ }"
-                      id={`probe_${id}_body`}
-                      onChange={(event) =>
-                        handleUpdateProbeRequestBody({
-                          id,
-                          index,
-                          field: 'body',
-                          value: event.target.value,
-                        })
-                      }
-                    />
-                    <div className="flex flex-row items-center justify-start space-x-8">
-                      <p className="text-sm sm:text-lg">Timeout</p>
-                      <TextInput
-                        id={`probe_${id}_timeout`}
-                        type="number"
-                        placeholder="10"
-                        min={1}
-                        value={item.timeout}
-                        className="w-full md:w-64"
-                        onChange={(event) => {
-                          handleUpdateProbeRequestData({
-                            id,
-                            index,
-                            field: 'timeout',
-                            value: event.target.value,
-                          });
-                        }}
-                      />
-                      <p className="text-sm sm:text-lg">milliseconds</p>
-                    </div>
-                  </div>
-                </div>
+                <ProbeRequestForm
+                  probeId={id}
+                  request={item}
+                  requestIndex={index}
+                  requestArray={requests}
+                  key={index}
+                />
               ))}
               <button
                 type="button"

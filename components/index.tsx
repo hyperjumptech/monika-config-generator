@@ -12,3 +12,4 @@ export { default as Form } from './form';
 export { default as Radio } from './radio';
 export { default as TextInput } from './text-input';
 export { default as Select, SelectOption } from './select';
+export { default as Textarea } from './textarea';
