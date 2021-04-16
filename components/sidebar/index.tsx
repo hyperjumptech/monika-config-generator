@@ -1,29 +1,29 @@
 import React, { FunctionComponent } from 'react';
 
-type Menu = 'Probe' | 'Notification';
-
 interface SidebarProps {
-  activeMenu: Menu;
+  menu: string[];
+  activeMenu: string;
   onMenuChange: (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    menu: Menu
+    selectedMenu: string
   ) => void;
 }
 
 const Sidebar: FunctionComponent<SidebarProps> = ({
+  menu,
   activeMenu,
   onMenuChange,
 }) => {
   return (
     <ul>
-      {(['Probe', 'Notification'] as Menu[]).map((menu) => (
+      {menu.map((item) => (
         <li
-          key={menu}
+          key={item}
           className={`border border-solid p-4 first:rounded-t-md last:rounded-b-md border-l-8 ${
-            activeMenu === menu && 'border-gray-600'
+            activeMenu === item && 'border-gray-600'
           }`}>
-          <a href="#" onClick={(event) => onMenuChange(event, menu)}>
-            {menu}
+          <a href="#" onClick={(event) => onMenuChange(event, item)}>
+            {item}
           </a>
         </li>
       ))}

@@ -16,15 +16,15 @@ export default function Advanced(): JSX.Element {
   const { probeData, handleAddProbe } = useContext(ProbeContext);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
-  type Menu = 'Probe' | 'Notification';
-  const [activeMenu, setActiveMenu] = useState<Menu>('Probe');
+  const menu: string[] = ['Probe', 'Notification'];
+  const [activeMenu, setActiveMenu] = useState('Probe');
   const handleSetActiveMenu = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    menu: Menu
+    selectedMenu: string
   ) => {
     event.preventDefault();
 
-    setActiveMenu(menu);
+    setActiveMenu(selectedMenu);
   };
 
   const render = () => {
@@ -75,6 +75,7 @@ export default function Advanced(): JSX.Element {
       <div className="flex flex-col md:flex-row space-x-0 space-y-8 md:space-y-0 md:space-x-8">
         <div className="w-full md:w-3/12">
           <Sidebar
+            menu={menu}
             activeMenu={activeMenu}
             onMenuChange={(event, menu) => handleSetActiveMenu(event, menu)}
           />
