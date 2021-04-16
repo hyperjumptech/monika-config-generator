@@ -14,7 +14,8 @@ import Textarea from '../textarea';
 import Checkbox from '../checkbox';
 import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 import { RequestConfig } from '@hyperjumptech/monika/lib/interfaces/request';
-import ProbeResponseTime from '../probe-response-time/probe-response-time';
+import ProbeResponseTime from '../probe-response-time';
+import ProbeThreshold from '../probe-threshold';
 
 export interface ProbeCardProps {
   id: string;
@@ -216,7 +217,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                     <Textarea
                       placeholder="{ }"
                       id={`probe_${id}_body`}
-                      defaultValue={JSON.stringify(item.body)}
+                      defaultValue={JSON.parse(JSON.stringify(item.body))}
                       onChange={(event) =>
                         handleUpdateProbeRequestData({
                           id,
@@ -244,7 +245,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                           });
                         }}
                       />
-                      <p className="text-sm sm:text-lg">seconds</p>
+                      <p className="text-sm sm:text-lg">milliseconds</p>
                     </div>
                   </div>
                 </div>
@@ -294,20 +295,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                 </div>
                 <div className="flex flex-row items-center justify-start space-x-8">
                   <p className="text-sm sm:text-lg">Threshold</p>
-                  <TextInput
-                    id={`probe_${id}_threshold`}
-                    type="number"
-                    placeholder="10"
-                    value={probe.incidentThreshold}
-                    className="w-full md:w-64"
-                    onChange={(event) => {
-                      handleUpdateProbeData({
-                        id,
-                        field: 'incidentThreshold',
-                        value: event.target.value,
-                      });
-                    }}
-                  />
+                  <ProbeThreshold probeId={id} />
                 </div>
               </div>
             </div>

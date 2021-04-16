@@ -37,7 +37,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
         {
           url: '',
           body: {} as JSON,
-          timeout: 0,
+          timeout: 10000,
           headers: {},
           method: 'GET',
         },
@@ -65,7 +65,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
         {
           url: '',
           body: {} as JSON,
-          timeout: 0,
+          timeout: 10000,
           headers: {},
           method: 'GET',
         },
@@ -83,7 +83,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
     const probeRequestData = (foundProbe as Probe).requests.concat({
       url: '',
       body: {} as JSON,
-      timeout: 0,
+      timeout: 10000,
       headers: {},
       method: 'GET',
     });
@@ -149,11 +149,9 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
     const selectedProbeRequestData = (selectedProbeRequest ?? {}) as any;
     selectedProbeRequestData[data.field] = data.value;
 
-    const newProbeRequests = selectedProbe?.requests
-      .filter((_, idx) => {
-        return idx !== data.index;
-      })
-      .concat(selectedProbeRequestData);
+    const newProbeRequests = selectedProbe?.requests.map((request, idx) => {
+      return idx !== data.index ? request : selectedProbeRequestData;
+    });
 
     const probeData = probes.map((probe) => {
       return probe.id === data.id
