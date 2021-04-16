@@ -153,9 +153,6 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
         .filter((alert) => !alert.includes('response-time-greater-than'))
         .concat(`response-time-greater-than-${value}-ms`);
     }
-
-    console.log(newAlerts);
-
     const newProbeData = probes.map((probe) => {
       return probe.id === probeId
         ? {
@@ -250,8 +247,6 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
     value: string
   ) => {
     const foundProbe = probes.find((data) => data.id === probeId);
-
-    console.log(value);
 
     const foundRequest = (foundProbe as Probe).requests.map(
       (request, index) => {
