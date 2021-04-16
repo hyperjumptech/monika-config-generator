@@ -1,8 +1,11 @@
+import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
 import { Layout, TextInput, Select, SelectOption, Button } from '../components';
 import Textarea from '../components/textarea';
 
 export default function APIEntryPage(): JSX.Element {
+  const router = useRouter();
+
   const [entries, setEntries] = useState([
     {
       id: 1,
@@ -30,7 +33,7 @@ export default function APIEntryPage(): JSX.Element {
 
   const handleNext = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Click Next');
+    router.push('/download');
   };
 
   return (
@@ -84,7 +87,7 @@ export default function APIEntryPage(): JSX.Element {
             </div>
           </fieldset>
           <div className="mt-12 py-3 space-x-7">
-            <Button type="button" outline>
+            <Button type="button" outline onClick={() => router.back()}>
               Back
             </Button>
             <Button type="submit">Next</Button>
