@@ -16,8 +16,8 @@ const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
   probeId,
 }) => {
   const { handleUpdateProbeResponseTimeAlert } = useContext(ProbeContext);
-  const [responseTime, setResponseTime] = useState(1000);
-  const [checked, setChecked] = useState(false);
+  const [responseTime, setResponseTime] = useState(2000);
+  const [checked, setChecked] = useState(true);
 
   const handleUpdateResponseTime = (
     probeId: string,
@@ -34,6 +34,8 @@ const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
       name={`probe_${probeId}_response_time`}
       value="response-time"
       help="Response time is longer than xxx milliseconds"
+      defaultChecked={true}
+      checked={true}
       onChange={(e) =>
         handleUpdateResponseTime(probeId, responseTime, e.target.checked)
       }>
@@ -42,7 +44,7 @@ const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
         <TextInput
           id={`probe_${probeId}_response_time_value`}
           type="number"
-          placeholder="1000"
+          placeholder="2000"
           className="w-full md:w-64"
           value={responseTime}
           disabled={!checked}

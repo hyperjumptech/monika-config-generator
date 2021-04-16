@@ -6,6 +6,7 @@ interface CheckboxProps
   help: string;
   value: string;
   name: string;
+  defaultChecked?: boolean;
 }
 
 export default function Checkbox({
@@ -13,6 +14,7 @@ export default function Checkbox({
   help,
   value,
   name,
+  defaultChecked,
   onChange,
 }: CheckboxProps): JSX.Element {
   return (
@@ -22,6 +24,7 @@ export default function Checkbox({
           id={value}
           name={name}
           type="checkbox"
+          defaultChecked={defaultChecked}
           className="focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300"
           onChange={onChange}
         />

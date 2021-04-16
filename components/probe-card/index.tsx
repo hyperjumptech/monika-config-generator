@@ -108,6 +108,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                     name={`probe_${id}_status_not_2xx`}
                     value="status-not-2xx"
                     help="Checks if status code is not 2xx (200-204)"
+                    defaultChecked={true}
                     onChange={(e) =>
                       handleUpdateProbeAlert(
                         id,

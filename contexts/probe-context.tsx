@@ -45,7 +45,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
       ],
       incidentThreshold: 5,
       recoveryThreshold: 5,
-      alerts: [],
+      alerts: ['status-not-2xx', 'response-time-greater-than-2000-ms'],
     },
   ]);
   const [headersCount, setHeadersCount] = useState(0);
@@ -73,7 +73,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
       ],
       incidentThreshold: 5,
       recoveryThreshold: 5,
-      alerts: [],
+      alerts: ['status-not-2xx', 'response-time-greater-than-2000-ms'],
     });
 
     setProbes(probeData);
