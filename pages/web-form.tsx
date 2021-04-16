@@ -1,8 +1,16 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useContext } from 'react';
+import { useRouter } from 'next/router';
+import { v4 as uuid } from 'uuid';
 import { Button, Layout, TextInput } from '../components';
+import { ProbeContext } from '../contexts/probe-context';
 
 export default function WebForm(): JSX.Element {
-  const [formData, setFormData] = useState([{ id: 1, name: '', value: '' }]);
+  const router = useRouter();
+  const [url, setUrl] = useState('');
+  const [formData, setFormData] = useState([
+    { id: uuid(), name: '', value: '' },
+  ]);
+  const { handleSetProbes } = useContext(ProbeContext);
 
   const addInputField = () => {
     setFormData((fd) => [
@@ -11,13 +19,49 @@ export default function WebForm(): JSX.Element {
     ]);
   };
 
-  const removeInputField = (id: number) => {
+  const removeInputField = (id: string) => {
     setFormData((fd) => fd.filter((r) => r.id !== id));
+  };
+  const handleFormDataChange = (id: string, key: string, value: string) => {
+    setFormData((fd) =>
+      fd.map((data) => {
+        if (data.id === id) {
+          return { ...data, [key]: value };
+        }
+        return data;
+      })
+    );
   };
 
   const handleNext = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Click Next');
+    const body: any = {};
+
+    Object.values(formData)
+      .filter((fd) => fd.name)
+      .forEach((fd) => (body[fd.name] = fd.value));
+
+    handleSetProbes([
+      {
+        id: uuid(),
+        name: '',
+        description: '',
+        interval: 10,
+        requests: [
+          {
+            url,
+            body,
+            timeout: 10000,
+            headers: {},
+            method: 'POST',
+          },
+        ],
+        incidentThreshold: 5,
+        recoveryThreshold: 5,
+        alerts: [],
+      },
+    ]);
+    router.push('/notifications');
   };
 
   return (
@@ -27,17 +71,34 @@ export default function WebForm(): JSX.Element {
           <fieldset>
             <div className="space-y-8 mb-10">
               <p>What is the address (URL) of the web form?</p>
-              <TextInput />
+              <TextInput
+                id="url"
+                onChange={(e) => setUrl(e.target.value)}
+                type="url"
+                placeholder="https://example.com"
+              />
             </div>
             <div>
               <p className="mb-6">What are the data to send?</p>
               {formData.map(({ id }) => (
                 <div key={id} className="flex space-x-7 mb-6">
                   <div className="flex-1">
-                    <TextInput id={`data${id}_name`} label="Name" />
+                    <TextInput
+                      id={`data${id}_name`}
+                      label="Name"
+                      onChange={(e) =>
+                        handleFormDataChange(id, 'name', e.target.value)
+                      }
+                    />
                   </div>
                   <div className="flex-1">
-                    <TextInput id={`data${id}_value`} label="Value" />
+                    <TextInput
+                      id={`data${id}_value`}
+                      label="Value"
+                      onChange={(e) =>
+                        handleFormDataChange(id, 'value', e.target.value)
+                      }
+                    />
                   </div>
                   <div className="self-end py-3">
                     <button
