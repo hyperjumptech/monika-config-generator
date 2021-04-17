@@ -13,12 +13,8 @@ export default function WebForm(): JSX.Element {
   const { handleSetProbes } = useContext(ProbeContext);
 
   const addInputField = () => {
-    setFormData((fd) => [
-      ...fd,
-      { id: (fd[fd.length - 1]?.id ?? 0) + 1, name: '', value: '' },
-    ]);
+    setFormData((fd) => [...fd, { id: uuid(), name: '', value: '' }]);
   };
-
   const removeInputField = (id: string) => {
     setFormData((fd) => fd.filter((r) => r.id !== id));
   };
@@ -32,7 +28,6 @@ export default function WebForm(): JSX.Element {
       })
     );
   };
-
   const handleNext = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body: any = {};
@@ -45,14 +40,11 @@ export default function WebForm(): JSX.Element {
       {
         id: uuid(),
         name: '',
-        description: '',
-        interval: 10,
         requests: [
           {
             url,
             body,
             timeout: 10000,
-            headers: {},
             method: 'POST',
           },
         ],
@@ -61,7 +53,7 @@ export default function WebForm(): JSX.Element {
         alerts: [],
       },
     ]);
-    router.push('/notifications');
+    router.push('/download');
   };
 
   return (
@@ -74,42 +66,49 @@ export default function WebForm(): JSX.Element {
               <TextInput
                 id="url"
                 onChange={(e) => setUrl(e.target.value)}
+                value={url}
                 type="url"
                 placeholder="https://example.com"
               />
             </div>
             <div>
               <p className="mb-6">What are the data to send?</p>
-              {formData.map(({ id }) => (
-                <div key={id} className="flex space-x-7 mb-6">
-                  <div className="flex-1">
-                    <TextInput
-                      id={`data${id}_name`}
-                      label="Name"
-                      onChange={(e) =>
-                        handleFormDataChange(id, 'name', e.target.value)
-                      }
-                    />
+              {formData.map((formDatum) => {
+                const { id, name, value } = formDatum;
+
+                return (
+                  <div key={id} className="flex space-x-7 mb-6">
+                    <div className="flex-1">
+                      <TextInput
+                        id={`data${id}-name`}
+                        label="Name"
+                        onChange={(e) =>
+                          handleFormDataChange(id, 'name', e.target.value)
+                        }
+                        value={name}
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <TextInput
+                        id={`data${id}-value`}
+                        label="Value"
+                        onChange={(e) =>
+                          handleFormDataChange(id, 'value', e.target.value)
+                        }
+                        value={value}
+                      />
+                    </div>
+                    <div className="self-end py-3">
+                      <button
+                        type="button"
+                        className="cursor-pointer underline focus:outline-none"
+                        onClick={() => removeInputField(id)}>
+                        Remove
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <TextInput
-                      id={`data${id}_value`}
-                      label="Value"
-                      onChange={(e) =>
-                        handleFormDataChange(id, 'value', e.target.value)
-                      }
-                    />
-                  </div>
-                  <div className="self-end py-3">
-                    <button
-                      type="button"
-                      className="cursor-pointer underline focus:outline-none"
-                      onClick={() => removeInputField(id)}>
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
               <button
                 className="cursor-pointer underline focus:outline-none"
                 type="button"
@@ -119,7 +118,7 @@ export default function WebForm(): JSX.Element {
             </div>
           </fieldset>
           <div className="mt-12 py-3 space-x-7">
-            <Button type="button" outline>
+            <Button type="button" outline onClick={() => router.back()}>
               Back
             </Button>
             <Button type="submit">Next</Button>

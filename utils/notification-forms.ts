@@ -14,7 +14,7 @@ interface NotificationForm<T> {
   defaultValue: T;
 }
 
-interface NotificationFormField {
+export interface NotificationFormField {
   label: string;
   name: string;
   info?: string;
@@ -51,7 +51,7 @@ export const smtpForm: NotificationForm<SMTPData>[] = [
     ].concat(mail),
     defaultValue: {
       hostname: '',
-      port: 0,
+      port: 587,
       username: '',
       password: '',
       recipients: [],

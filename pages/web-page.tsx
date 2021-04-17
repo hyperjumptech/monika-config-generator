@@ -49,27 +49,23 @@ export default function WebPage(): JSX.Element {
   };
   const handleNext = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleSetProbes(
-      probeRequests.map((pr: ProbeRequest) => ({
-        id: uuid(),
-        name: '',
-        description: '',
-        interval: 10,
-        requests: [
-          {
-            url: pr.url,
-            body: {} as JSON,
-            timeout: 10000,
-            headers: {},
-            method: 'GET',
-          },
-        ],
-        incidentThreshold: 5,
-        recoveryThreshold: 5,
-        alerts: [],
-      }))
-    );
-    router.push('/notifications');
+    const probes = probeRequests.map((pr: ProbeRequest) => ({
+      id: pr.id,
+      name: '',
+      requests: [
+        {
+          url: pr.url,
+          body: {} as JSON,
+          timeout: 10000,
+        },
+      ],
+      incidentThreshold: 5,
+      recoveryThreshold: 5,
+      alerts: [],
+    }));
+
+    handleSetProbes(probes);
+    router.push('/download');
   };
 
   return (
@@ -77,33 +73,38 @@ export default function WebPage(): JSX.Element {
       <div className="lg:py-20 xl:py-32 xl:px-80">
         <form className="text-sm sm:text-lg" onSubmit={handleNext}>
           <Form.Item label="What is the address (URL) of the web page?">
-            {probeRequests.map(({ id }: ProbeRequest) => (
-              <div key={id} className="flex space-x-7 mb-6">
-                <div className="flex-1">
-                  <TextInput
-                    id={`data${id}_name`}
-                    onChange={(e) => updateProbeRequests(id, e.target.value)}
-                    type="url"
-                    placeholder="https://example.com"
-                  />
-                </div>
-                {isProbeRequestsMoreThanOne && (
-                  <div className="self-end py-3">
-                    <Button
-                      variant="text"
-                      onClick={() => removeProbeRequests(id)}>
-                      Remove
-                    </Button>
+            {probeRequests.map((probeRequest: ProbeRequest) => {
+              const { id, url } = probeRequest;
+
+              return (
+                <div key={id} className="flex space-x-7 mb-6">
+                  <div className="flex-1">
+                    <TextInput
+                      id={`data${id}-name`}
+                      onChange={(e) => updateProbeRequests(id, e.target.value)}
+                      value={url}
+                      type="url"
+                      placeholder="https://example.com"
+                    />
                   </div>
-                )}
-              </div>
-            ))}
+                  {isProbeRequestsMoreThanOne && (
+                    <div className="self-end py-3">
+                      <Button
+                        variant="text"
+                        onClick={() => removeProbeRequests(id)}>
+                        Remove
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
             <Button variant="text" type="button" onClick={addProbeRequests}>
               Add another URL
             </Button>
           </Form.Item>
           <div className="py-3 space-x-7">
-            <Button type="button" outline>
+            <Button type="button" outline onClick={() => router.back()}>
               Back
             </Button>
             <Button type="submit">Next</Button>
