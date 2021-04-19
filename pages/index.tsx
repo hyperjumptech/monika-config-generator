@@ -20,7 +20,7 @@ export default function Home(): JSX.Element {
         router.push('/what-do-you-want');
         break;
       case HAVE_USED:
-        /* TODO: Where to go? */
+        router.push('/advanced');
         break;
       case HAVE_CONFIGURATION_FILE:
         // user pick a .json file
