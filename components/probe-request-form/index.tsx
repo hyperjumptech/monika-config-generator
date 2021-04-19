@@ -122,39 +122,40 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
       </div>
       <div className="flex flex-col space-y-8">
         <p>Headers</p>
-        {Object.keys((request as RequestConfig).headers).map((header, idx) => (
-          <div className="flex flex-row space-x-8" key={idx}>
-            <TextInput
-              id={`probe_${probeId}_request_${requestIndex}_headers_${idx}`}
-              value={header}
-              onChange={(event) =>
-                handleUpdateProbeRequestHeaderKey(
-                  probeId,
-                  requestIndex,
-                  idx,
-                  event.target.value
-                )
-              }
-            />
-            <TextInput
-              id={`probe_${probeId}_request_${requestIndex}_headers_${idx}_value`}
-              value={(request as RequestConfig).headers[header]}
-              onChange={(event) =>
-                handleUpdateProbeRequestHeaderValue(
-                  probeId,
-                  requestIndex,
-                  idx,
-                  event.target.value
-                )
-              }
-            />
-            <button
-              type="button"
-              onClick={() => handleRemoveProbeRequestHeader(probeId, idx)}>
-              <FontAwesomeIcon icon={faTrash} />
-            </button>
-          </div>
-        ))}
+        {request.headers &&
+          Object.keys((request as RequestConfig).headers).map((header, idx) => (
+            <div className="flex flex-row space-x-8" key={idx}>
+              <TextInput
+                id={`probe_${probeId}_request_${requestIndex}_headers_${idx}`}
+                value={header}
+                onChange={(event) =>
+                  handleUpdateProbeRequestHeaderKey(
+                    probeId,
+                    requestIndex,
+                    idx,
+                    event.target.value
+                  )
+                }
+              />
+              <TextInput
+                id={`probe_${probeId}_request_${requestIndex}_headers_${idx}_value`}
+                value={(request as RequestConfig).headers[header]}
+                onChange={(event) =>
+                  handleUpdateProbeRequestHeaderValue(
+                    probeId,
+                    requestIndex,
+                    idx,
+                    event.target.value
+                  )
+                }
+              />
+              <button
+                type="button"
+                onClick={() => handleRemoveProbeRequestHeader(probeId, idx)}>
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+            </div>
+          ))}
         <button
           type="button"
           onClick={() => handleAddProbeRequestHeader(probeId, requestIndex)}
