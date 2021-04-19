@@ -1,6 +1,7 @@
-import { FormEvent, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
+import { FormEvent, useContext, useState } from 'react';
 import { v4 as uuid } from 'uuid';
+
 import { Button, Layout, TextInput } from '../components';
 import { ProbeContext } from '../contexts/probe-context';
 
@@ -53,7 +54,8 @@ export default function WebForm(): JSX.Element {
         alerts: [],
       },
     ]);
-    router.push('/download');
+
+    router.push('/advanced');
   };
 
   return (

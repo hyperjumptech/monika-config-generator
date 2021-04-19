@@ -1,8 +1,9 @@
-import { FormEvent, useState, useContext } from 'react';
-import { useRouter } from 'next/router';
-import { v4 as uuid } from 'uuid';
 import { Method } from 'axios';
-import { Layout, TextInput, Select, SelectOption, Button } from '../components';
+import { useRouter } from 'next/router';
+import { FormEvent, useContext, useState } from 'react';
+import { v4 as uuid } from 'uuid';
+
+import { Button, Layout, Select, SelectOption, TextInput } from '../components';
 import Textarea from '../components/textarea';
 import { ProbeContext } from '../contexts/probe-context';
 
@@ -74,7 +75,8 @@ export default function APIEntryPage(): JSX.Element {
     });
 
     handleSetProbes(probes);
-    router.push('/download');
+
+    router.push('/advanced');
   };
 
   return (
