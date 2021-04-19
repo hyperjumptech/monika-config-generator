@@ -7,6 +7,15 @@ import Textarea from '../components/textarea';
 import { ProbeContext } from '../contexts/probe-context';
 
 export default function APIEntryPage(): JSX.Element {
+  const HTTPMethods = [
+    'GET',
+    'DELETE',
+    'HEAD',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+  ];
   const router = useRouter();
   const { handleSetProbes } = useContext(ProbeContext);
   const [entries, setEntries] = useState([
@@ -99,8 +108,11 @@ export default function APIEntryPage(): JSX.Element {
                             handleFormDataChange(id, 'method', e.target.value)
                           }
                           value={method}>
-                          <SelectOption value="GET">GET</SelectOption>
-                          <SelectOption value="POST">POST</SelectOption>
+                          {HTTPMethods.map((method) => (
+                            <SelectOption key={method} value={method}>
+                              {method}
+                            </SelectOption>
+                          ))}
                         </Select>
                       </div>
                     </div>
