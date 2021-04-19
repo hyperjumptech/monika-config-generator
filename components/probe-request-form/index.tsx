@@ -42,6 +42,14 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
     }
   };
 
+  const isJSON = (value: string) => {
+    try {
+      return !!JSON.parse(value);
+    } catch (e) {
+      return false;
+    }
+  };
+
   return (
     <div className="w-full p-8 rounded-md bg-gray-100 border border-solid border-gray-300 space-y-8">
       <div className="flex flex-row align-middle justify-between">
@@ -175,13 +183,16 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
                   requestIndex,
                   e.target.value
                 )
+              }
+              defaultValue={
+                isJSON(JSON.stringify(request?.body)) ? 'JSON' : 'No Body'
               }>
               <SelectOption value="No Body">No Body</SelectOption>
               <SelectOption value="JSON">JSON</SelectOption>
             </Select>
           </div>
         </div>
-        {JSON.stringify(request.body) !== '{}' && (
+        {isJSON(JSON.stringify(request?.body)) && (
           <Textarea
             placeholder="{ }"
             id={`probe_${probeId}_body`}
