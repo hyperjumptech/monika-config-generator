@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { Button } from '../';
 import { NotificationContext } from '../../contexts/notification-context';
 import { ProbeContext } from '../../contexts/probe-context';
+import { downloadJsonConfig } from '../../utils/download-json-config';
 
 type GenerateConfigModalProps = {
   visible: boolean;
@@ -19,15 +20,6 @@ export default function GenerateConfigModal({
   const jsonConfig = {
     notifications: notificationData,
     probes: probeData,
-  };
-
-  const downloadJsonFile = (jsonString: string) => {
-    const element = document.createElement('a');
-    const file = new Blob([jsonString], { type: 'text/plain' });
-    element.href = URL.createObjectURL(file);
-    element.download = 'monika.json';
-    document.body.appendChild(element); // Required for this to work in FireFox
-    element.click();
   };
 
   const jsonString = JSON.stringify(jsonConfig, null, 2);
@@ -57,7 +49,7 @@ export default function GenerateConfigModal({
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
               <div className="float-right">
-                <Button outline onClick={() => downloadJsonFile(jsonString)}>
+                <Button outline onClick={() => downloadJsonConfig(jsonConfig)}>
                   Download file
                 </Button>
               </div>
