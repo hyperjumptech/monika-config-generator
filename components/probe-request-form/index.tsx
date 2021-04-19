@@ -197,7 +197,7 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
             placeholder="{ }"
             id={`probe_${probeId}_body`}
             onBlur={(event) => validateJSON(event.target.value)}
-            value={JSON.stringify(request.body)}
+            value={JSON.stringify(request.body, null, 2)}
             onChange={(event) =>
               handleUpdateProbeRequestBody({
                 id: probeId,
@@ -206,6 +206,7 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
                 value: event.target.value,
               })
             }
+            rows={5}
           />
         )}
         <div className="flex flex-row items-center justify-start space-x-8">
