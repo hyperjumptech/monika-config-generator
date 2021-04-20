@@ -1,9 +1,10 @@
-import { useContext, FormEvent } from 'react';
 import { useRouter } from 'next/router';
+import { FormEvent, useContext } from 'react';
 import { v4 as uuid } from 'uuid';
+
 import { Button, Form, Layout, TextInput } from '../components';
-import { useForm } from '../hooks/use-form';
 import { ProbeContext } from '../contexts/probe-context';
+import { useForm } from '../hooks/use-form';
 
 type ProbeRequest = {
   id: string;
@@ -65,7 +66,8 @@ export default function WebPage(): JSX.Element {
     }));
 
     handleSetProbes(probes);
-    router.push('/download');
+
+    router.push('/notifications');
   };
 
   return (
