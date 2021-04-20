@@ -29,7 +29,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
   return (
     <div className="border border-solid rounded-md mb-8">
       <div className="flex flex-row items-center justify-between p-4 bg-gray-50 border-b">
-        <p>Probe ID : {id.split('-')[0]}</p>
+        <p>Probe ID : {id?.split('-')[0]}</p>
         {probeData.length > 1 && (
           <button onClick={() => handleRemoveProbe(id)}>
             <FontAwesomeIcon icon={faTrash} />
@@ -111,7 +111,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                     value="status-not-2xx"
                     help="Checks if status code is not 2xx (200-204)"
                     defaultChecked={
-                      probe.alerts.find((alert) => alert === 'status-not-2xx')
+                      probe?.alerts?.find((alert) => alert === 'status-not-2xx')
                         ? true
                         : false
                     }
@@ -127,7 +127,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                   <ProbeResponseTime
                     probeId={id}
                     defaultChecked={
-                      probe.alerts.find((alert) =>
+                      probe?.alerts?.find((alert) =>
                         alert.includes('response-time-greater-than')
                       )
                         ? true

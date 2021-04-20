@@ -28,11 +28,7 @@ export const useConfigFileImporter = () => {
             throw new Error('something wrong in probes key');
           }
 
-          if (notifications) {
-            handleSetNotifications(notifications);
-          } else {
-            throw new Error('something wrong in notifications key');
-          }
+          if (notifications) handleSetNotifications(notifications);
 
           resolve();
         } catch (error) {
