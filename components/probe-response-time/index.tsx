@@ -10,10 +10,12 @@ import { ProbeContext } from '../../contexts/probe-context';
 export interface ProbeResponseTimeProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
   probeId: string;
+  defaultChecked: boolean;
 }
 
 const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
   probeId,
+  defaultChecked,
 }) => {
   const { handleUpdateProbeResponseTimeAlert } = useContext(ProbeContext);
   const [responseTime, setResponseTime] = useState(2000);
@@ -34,7 +36,7 @@ const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
       name={`probe_${probeId}_response_time`}
       value="response-time"
       help="Response time is longer than xxx milliseconds"
-      defaultChecked={true}
+      defaultChecked={defaultChecked}
       checked={true}
       onChange={(e) =>
         handleUpdateResponseTime(probeId, responseTime, e.target.checked)

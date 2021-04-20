@@ -42,6 +42,14 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
     }
   };
 
+  const isJSON = (value: string) => {
+    try {
+      return !!JSON.parse(value);
+    } catch (e) {
+      return false;
+    }
+  };
+
   return (
     <div className="w-full p-8 rounded-md bg-gray-100 border border-solid border-gray-300 space-y-8">
       <div className="flex flex-row align-middle justify-between">
@@ -122,39 +130,40 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
       </div>
       <div className="flex flex-col space-y-8">
         <p>Headers</p>
-        {Object.keys((request as RequestConfig).headers).map((header, idx) => (
-          <div className="flex flex-row space-x-8" key={idx}>
-            <TextInput
-              id={`probe_${probeId}_request_${requestIndex}_headers_${idx}`}
-              value={header}
-              onChange={(event) =>
-                handleUpdateProbeRequestHeaderKey(
-                  probeId,
-                  requestIndex,
-                  idx,
-                  event.target.value
-                )
-              }
-            />
-            <TextInput
-              id={`probe_${probeId}_request_${requestIndex}_headers_${idx}_value`}
-              value={(request as RequestConfig).headers[header]}
-              onChange={(event) =>
-                handleUpdateProbeRequestHeaderValue(
-                  probeId,
-                  requestIndex,
-                  idx,
-                  event.target.value
-                )
-              }
-            />
-            <button
-              type="button"
-              onClick={() => handleRemoveProbeRequestHeader(probeId, idx)}>
-              <FontAwesomeIcon icon={faTrash} />
-            </button>
-          </div>
-        ))}
+        {request.headers &&
+          Object.keys((request as RequestConfig).headers).map((header, idx) => (
+            <div className="flex flex-row space-x-8" key={idx}>
+              <TextInput
+                id={`probe_${probeId}_request_${requestIndex}_headers_${idx}`}
+                value={header}
+                onChange={(event) =>
+                  handleUpdateProbeRequestHeaderKey(
+                    probeId,
+                    requestIndex,
+                    idx,
+                    event.target.value
+                  )
+                }
+              />
+              <TextInput
+                id={`probe_${probeId}_request_${requestIndex}_headers_${idx}_value`}
+                value={(request as RequestConfig).headers[header]}
+                onChange={(event) =>
+                  handleUpdateProbeRequestHeaderValue(
+                    probeId,
+                    requestIndex,
+                    idx,
+                    event.target.value
+                  )
+                }
+              />
+              <button
+                type="button"
+                onClick={() => handleRemoveProbeRequestHeader(probeId, idx)}>
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+            </div>
+          ))}
         <button
           type="button"
           onClick={() => handleAddProbeRequestHeader(probeId, requestIndex)}
@@ -174,18 +183,21 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
                   requestIndex,
                   e.target.value
                 )
+              }
+              defaultValue={
+                isJSON(JSON.stringify(request?.body)) ? 'JSON' : 'No Body'
               }>
               <SelectOption value="No Body">No Body</SelectOption>
               <SelectOption value="JSON">JSON</SelectOption>
             </Select>
           </div>
         </div>
-        {JSON.stringify(request.body) !== '{}' && (
+        {isJSON(JSON.stringify(request?.body)) && (
           <Textarea
             placeholder="{ }"
             id={`probe_${probeId}_body`}
             onBlur={(event) => validateJSON(event.target.value)}
-            value={JSON.stringify(request.body)}
+            value={JSON.stringify(request.body, null, 2)}
             onChange={(event) =>
               handleUpdateProbeRequestBody({
                 id: probeId,
@@ -194,6 +206,7 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
                 value: event.target.value,
               })
             }
+            rows={5}
           />
         )}
         <div className="flex flex-row items-center justify-start space-x-8">

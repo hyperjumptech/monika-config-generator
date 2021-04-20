@@ -22,7 +22,12 @@ export const useConfigFileImporter = () => {
             notifications?: Notification[];
           } = JSON.parse(String(reader.result));
 
-          if (probes) handleSetProbes(probes);
+          if (probes) {
+            handleSetProbes(probes);
+          } else {
+            throw new Error('something wrong in probes key');
+          }
+
           if (notifications) handleSetNotifications(notifications);
 
           resolve();

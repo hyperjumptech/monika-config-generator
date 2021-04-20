@@ -10,6 +10,7 @@ const HAVE_CONFIGURATION_FILE = 'have_configuration_file';
 export default function Home(): JSX.Element {
   const router = useRouter();
   const [condition, setCondition] = useState<string | null>();
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const handleNext = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -43,8 +44,7 @@ export default function Home(): JSX.Element {
           router.push('/advanced');
         })
         .catch((error) => {
-          /* TODO: How to display error? */
-          console.log(error.message);
+          setErrorMessage(error.message);
         });
     }
   };
@@ -95,6 +95,19 @@ export default function Home(): JSX.Element {
             </div>
           </fieldset>
           <div className="mt-12 py-3">
+            {/* Display error messsage */}
+            {!!errorMessage && (
+              <p className="text-red-500 mb-4">
+                {`JSON file is not valid: ${errorMessage}. Please check the right format from our `}
+                <a
+                  className="underline font-bold text-black"
+                  href="https://hyperjumptech.github.io/monika/overview"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  docs
+                </a>
+              </p>
+            )}
             <Button onClick={handleNext}>Next</Button>
             {/* hidden file input */}
             <input

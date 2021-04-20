@@ -29,7 +29,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
   return (
     <div className="border border-solid rounded-md mb-8">
       <div className="flex flex-row items-center justify-between p-4 bg-gray-50 border-b">
-        <p>Probe ID : {id.split('-')[0]}</p>
+        <p>Probe ID : {id?.split('-')[0]}</p>
         {probeData.length > 1 && (
           <button onClick={() => handleRemoveProbe(id)}>
             <FontAwesomeIcon icon={faTrash} />
@@ -52,6 +52,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                     value: event.target.value,
                   });
                 }}
+                value={probe.name}
               />
               <TextInput
                 label="Description"
@@ -65,6 +66,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                     value: event.target.value,
                   });
                 }}
+                value={probe.description}
               />
               <p className="text-sm sm:text-lg">Requests</p>
               {(probe as Probe).requests.map((item, index, requests) => (
@@ -108,7 +110,11 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                     name={`probe_${id}_status_not_2xx`}
                     value="status-not-2xx"
                     help="Checks if status code is not 2xx (200-204)"
-                    defaultChecked={true}
+                    defaultChecked={
+                      probe?.alerts?.find((alert) => alert === 'status-not-2xx')
+                        ? true
+                        : false
+                    }
                     onChange={(e) =>
                       handleUpdateProbeAlert(
                         id,
@@ -118,7 +124,16 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                     }>
                     Status Code not 2XX (Not Success)
                   </Checkbox>
-                  <ProbeResponseTime probeId={id} />
+                  <ProbeResponseTime
+                    probeId={id}
+                    defaultChecked={
+                      probe?.alerts?.find((alert) =>
+                        alert.includes('response-time-greater-than')
+                      )
+                        ? true
+                        : false
+                    }
+                  />
                 </div>
                 <div className="flex flex-row items-center justify-start space-x-8">
                   <p className="text-sm sm:text-lg">Threshold</p>
