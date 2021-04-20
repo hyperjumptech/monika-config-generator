@@ -82,7 +82,7 @@ export default function Notifications(): JSX.Element {
   const handleNext = () => {
     const notification = transformToNotificationData(values);
     handleSetNotifications(notification ? [notification] : []);
-    router.push('/advanced');
+    router.push('/download');
   };
 
   return (
