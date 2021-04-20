@@ -46,13 +46,13 @@ const checkProbeAlerts = (probes: Probe[]) => {
     if (!item.alerts)
       return {
         ...item,
-        alerts: ['status-not-2xx', 'response-time-greater-than-2-s'],
+        alerts: ['status-not-2xx', 'response-time-greater-than-2000-ms'],
       };
 
     return item.alerts?.length === 0
       ? {
           ...item,
-          alerts: ['status-not-2xx', 'response-time-greater-than-2-s'],
+          alerts: ['status-not-2xx', 'response-time-greater-than-2000-ms'],
         }
       : item;
   });
