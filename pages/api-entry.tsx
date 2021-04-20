@@ -76,7 +76,7 @@ export default function APIEntryPage(): JSX.Element {
 
     handleSetProbes(probes);
 
-    router.push('/advanced');
+    router.push('/notifications');
   };
 
   return (

@@ -67,7 +67,7 @@ export default function WebPage(): JSX.Element {
 
     handleSetProbes(probes);
 
-    router.push('/advanced');
+    router.push('/notifications');
   };
 
   return (

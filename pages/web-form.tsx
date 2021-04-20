@@ -55,7 +55,7 @@ export default function WebForm(): JSX.Element {
       },
     ]);
 
-    router.push('/advanced');
+    router.push('/notifications');
   };
 
   return (
