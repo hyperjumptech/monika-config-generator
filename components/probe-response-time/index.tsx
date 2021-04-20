@@ -16,6 +16,7 @@ export interface ProbeResponseTimeProps
 const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
   probeId,
   defaultChecked,
+  disabled,
 }) => {
   const { handleUpdateProbeResponseTimeAlert } = useContext(ProbeContext);
   const [responseTime, setResponseTime] = useState(2000);
@@ -31,6 +32,8 @@ const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
     handleUpdateProbeResponseTimeAlert(probeId, value, checked);
   };
 
+  console.log(disabled);
+
   return (
     <Checkbox
       name={`probe_${probeId}_response_time`}
@@ -38,6 +41,7 @@ const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
       help="Response time is longer than xxx milliseconds"
       defaultChecked={defaultChecked}
       checked={true}
+      disabled={disabled}
       onChange={(e) =>
         handleUpdateResponseTime(probeId, responseTime, e.target.checked)
       }>

@@ -14,6 +14,7 @@ export default function Checkbox({
   help,
   value,
   name,
+  disabled,
   defaultChecked,
   onChange,
 }: CheckboxProps): JSX.Element {
@@ -24,6 +25,7 @@ export default function Checkbox({
           id={value}
           name={name}
           type="checkbox"
+          disabled={disabled}
           defaultChecked={defaultChecked}
           className="focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300"
           onChange={onChange}
