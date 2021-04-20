@@ -3,24 +3,35 @@ import {
   InputHTMLAttributes,
   useState,
   useContext,
+  useEffect,
 } from 'react';
 import { TextInput, Checkbox } from '..';
 import { ProbeContext } from '../../contexts/probe-context';
+import { parseAlertStringTime } from '../../utils/parse-alert-string-time';
 
 export interface ProbeResponseTimeProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
   probeId: string;
+  alert: string | undefined;
   defaultChecked: boolean;
 }
 
 const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
   probeId,
+  alert,
   defaultChecked,
   disabled,
 }) => {
   const { handleUpdateProbeResponseTimeAlert } = useContext(ProbeContext);
-  const [responseTime, setResponseTime] = useState(2000);
+  const [responseTime, setResponseTime] = useState(0);
   const [checked, setChecked] = useState(true);
+
+  useEffect(() => {
+    if (alert) {
+      const newResponseTime = parseAlertStringTime(alert);
+      setResponseTime(newResponseTime);
+    }
+  }, [alert]);
 
   const handleUpdateResponseTime = (
     probeId: string,

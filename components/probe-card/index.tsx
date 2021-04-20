@@ -136,6 +136,9 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                   </Checkbox>
                   <ProbeResponseTime
                     probeId={id}
+                    alert={probe?.alerts?.find((alert) =>
+                      alert.includes('response-time-greater-than-')
+                    )}
                     disabled={
                       probe.alerts?.length < 2 &&
                       isAlertSelected('response-time-greater-than')
