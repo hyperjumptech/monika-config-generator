@@ -1,6 +1,14 @@
+import { useContext } from 'react';
+import { useRouter } from 'next/router';
 import { v4 as uuid } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
+import {
+  TelegramData,
+  WebhookData,
+  WhatsappData,
+} from '@hyperjumptech/monika/lib/interfaces/data';
 import {
   Button,
   Layout,
@@ -10,6 +18,7 @@ import {
   TextInput,
 } from '../components';
 import { useForm, FormHelper } from '../hooks/use-form';
+import { NotificationContext } from '../contexts/notification-context';
 
 type Recipient = {
   id: string;
@@ -26,13 +35,15 @@ type SelectAttribute = {
   label: string;
 };
 
-export default function Notification(): JSX.Element {
+export default function Notifications(): JSX.Element {
+  const router = useRouter();
   const formHelper = useForm({
     initialValues: {
       notificationChannel: 'email',
       recipients: [{ id: uuid(), email: '' }],
     },
   });
+  const { handleSetNotifications } = useContext(NotificationContext);
   const { values, setFieldValue } = formHelper;
   const { notificationChannel } = values;
   const notificationChannels = [
@@ -66,11 +77,12 @@ export default function Notification(): JSX.Element {
     },
   ];
   const handleBack = () => {
-    console.log('Click back');
+    router.back();
   };
   const handleNext = () => {
-    console.log('Click next');
-    console.log(JSON.stringify(values, null, 2));
+    const notification = transformToNotificationData(values);
+    handleSetNotifications(notification ? [notification] : []);
+    router.push('/download');
   };
 
   return (
@@ -477,4 +489,90 @@ function SendgridForm({ formHelper }: { formHelper: FormHelper }): JSX.Element {
       </Form.Item>
     </>
   );
+}
+
+function transformToNotificationData(formData: any): Notification | undefined {
+  const id = uuid();
+  const { notificationChannel } = formData;
+
+  switch (notificationChannel) {
+    case 'email':
+      return getEmailNotificationData(id, formData);
+    case 'webhook':
+    case 'slack':
+    case 'teams':
+    case 'discord':
+      return {
+        id,
+        type: notificationChannel,
+        data: {
+          url: formData?.url,
+        } as WebhookData,
+      };
+    case 'telegram':
+      return {
+        id,
+        type: notificationChannel,
+        data: {
+          group_id: formData?.group_id,
+          bot_token: formData?.bot_token,
+        } as TelegramData,
+      };
+    case 'whatsapp':
+      return {
+        id,
+        type: notificationChannel,
+        data: {
+          recipients: formData?.recipients,
+          url: formData?.url,
+          username: formData?.username,
+          password: formData?.password,
+        } as WhatsappData,
+      };
+
+    default:
+      break;
+  }
+}
+
+function getEmailNotificationData(
+  id: string,
+  formData: any
+): Notification | undefined {
+  switch (formData?.emailService) {
+    case 'smtp':
+      return {
+        id,
+        type: formData?.emailService,
+        data: {
+          recipients: formData?.recipients,
+          hostname: formData?.hostname,
+          port: formData?.port,
+          username: formData?.username,
+          password: formData?.password,
+        },
+      };
+    case 'mailgun':
+      return {
+        id,
+        type: formData?.emailService,
+        data: {
+          recipients: formData?.recipients,
+          apiKey: formData?.apiKey,
+          domain: formData?.domain,
+        },
+      };
+    case 'sendgrid':
+      return {
+        id,
+        type: formData?.emailService,
+        data: {
+          recipients: formData?.recipients,
+          apiKey: formData?.apiKey,
+        },
+      };
+
+    default:
+      break;
+  }
 }
