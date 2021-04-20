@@ -116,7 +116,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                     name={`probe_${id}_status_not_2xx`}
                     value="status-not-2xx"
                     disabled={
-                      probe.alerts.length < 2 &&
+                      probe.alerts?.length < 2 &&
                       isAlertSelected('status-not-2xx')
                     }
                     help="Checks if status code is not 2xx (200-204)"
@@ -137,7 +137,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                   <ProbeResponseTime
                     probeId={id}
                     disabled={
-                      probe.alerts.length < 2 &&
+                      probe.alerts?.length < 2 &&
                       isAlertSelected('response-time-greater-than')
                     }
                     defaultChecked={

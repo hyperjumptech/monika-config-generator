@@ -32,8 +32,6 @@ const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
     handleUpdateProbeResponseTimeAlert(probeId, value, checked);
   };
 
-  console.log(disabled);
-
   return (
     <Checkbox
       name={`probe_${probeId}_response_time`}
