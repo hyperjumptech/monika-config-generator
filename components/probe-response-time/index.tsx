@@ -12,7 +12,7 @@ import { parseAlertStringTime } from '../../utils/parse-alert-string-time';
 export interface ProbeResponseTimeProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
   probeId: string;
-  alert: string | undefined;
+  alert?: string;
   defaultChecked: boolean;
 }
 
