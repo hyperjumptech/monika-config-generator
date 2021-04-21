@@ -23,7 +23,8 @@ export const useConfigFileImporter = () => {
           } = JSON.parse(String(reader.result));
 
           if (probes) {
-            handleSetProbes(probes);
+            const finalProbes = checkProbeAlerts(probes);
+            handleSetProbes(finalProbes);
           } else {
             throw new Error('something wrong in probes key');
           }
@@ -38,4 +39,23 @@ export const useConfigFileImporter = () => {
 
       reader.readAsText(file);
     });
+};
+
+const checkProbeAlerts = (probes: Probe[]) => {
+  const validated = probes.map((item: Probe) => {
+    if (!item.alerts)
+      return {
+        ...item,
+        alerts: ['status-not-2xx', 'response-time-greater-than-2000-ms'],
+      };
+
+    return item.alerts?.length === 0
+      ? {
+          ...item,
+          alerts: ['status-not-2xx', 'response-time-greater-than-2000-ms'],
+        }
+      : item;
+  });
+
+  return validated;
 };

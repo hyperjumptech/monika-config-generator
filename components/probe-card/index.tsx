@@ -26,6 +26,12 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
     handleRemoveProbe,
   } = useContext(ProbeContext);
 
+  const isAlertSelected = (alert: string) => {
+    const exists = probe.alerts.filter((item: string) => item.includes(alert));
+    if (exists.length > 0) return true;
+    return false;
+  };
+
   return (
     <div className="border border-solid rounded-md mb-8">
       <div className="flex flex-row items-center justify-between p-4 bg-gray-50 border-b">
@@ -105,10 +111,14 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                   <p className="text-sm sm:text-lg">seconds</p>
                 </div>
                 <div className="flex flex-col space-y-4 space-x-4">
-                  <p className="text-sm sm:text-lg">Notify on</p>
+                  <p className="text-sm sm:text-lg">Notify on (min. 1):</p>
                   <Checkbox
                     name={`probe_${id}_status_not_2xx`}
                     value="status-not-2xx"
+                    disabled={
+                      probe.alerts?.length < 2 &&
+                      isAlertSelected('status-not-2xx')
+                    }
                     help="Checks if status code is not 2xx (200-204)"
                     defaultChecked={
                       probe?.alerts?.find((alert) => alert === 'status-not-2xx')
@@ -126,9 +136,16 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                   </Checkbox>
                   <ProbeResponseTime
                     probeId={id}
+                    alert={probe?.alerts?.find((alert) =>
+                      alert.includes('response-time-greater-than-')
+                    )}
+                    disabled={
+                      probe.alerts?.length < 2 &&
+                      isAlertSelected('response-time-greater-than')
+                    }
                     defaultChecked={
                       probe?.alerts?.find((alert) =>
-                        alert.includes('response-time-greater-than')
+                        alert.includes('response-time-greater-than-')
                       )
                         ? true
                         : false
