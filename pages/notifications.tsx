@@ -545,9 +545,11 @@ function getEmailNotificationData(
         id,
         type: formData?.emailService,
         data: {
-          recipients: formData?.recipients,
+          recipients: formData?.recipients.map(
+            (recipient: Recipient) => recipient.email
+          ),
           hostname: formData?.hostname,
-          port: formData?.port,
+          port: parseInt(formData?.port ?? 0),
           username: formData?.username,
           password: formData?.password,
         },
@@ -557,7 +559,9 @@ function getEmailNotificationData(
         id,
         type: formData?.emailService,
         data: {
-          recipients: formData?.recipients,
+          recipients: formData?.recipients.map(
+            (recipient: Recipient) => recipient.email
+          ),
           apiKey: formData?.apiKey,
           domain: formData?.domain,
         },
@@ -567,7 +571,9 @@ function getEmailNotificationData(
         id,
         type: formData?.emailService,
         data: {
-          recipients: formData?.recipients,
+          recipients: formData?.recipients.map(
+            (recipient: Recipient) => recipient.email
+          ),
           apiKey: formData?.apiKey,
         },
       };
