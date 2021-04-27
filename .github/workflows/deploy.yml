@@ -24,11 +24,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm ci
-      - run: npm run build
         env:
           CI: true
           NEXT_PUBLIC_GA_ID: ${{ secrets.GA_ID }}
+      - run: npm ci
+      - run: npm run build
       - run: npm run export
       - run: touch out/.nojekyll
         env:
