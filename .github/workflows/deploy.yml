@@ -26,6 +26,9 @@ jobs:
           node-version: 12
       - run: npm ci
       - run: npm run build
+        env:
+          CI: true
+          NEXT_PUBLIC_GA_ID: ${{ secrets.GA_ID }}
       - run: npm run export
       - run: touch out/.nojekyll
         env:
