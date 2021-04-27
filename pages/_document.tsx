@@ -5,7 +5,6 @@ const isGATrackingDisabled = 'true';
 
 export default class MyDocument extends Document {
   render() {
-    console.log(GA_TRACKING_ID, 'GA_TRACKING_ID');
     return (
       <Html>
         <Head>
