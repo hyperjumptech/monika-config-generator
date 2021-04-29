@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import router from 'next/router';
 import { useContext } from 'react';
-import { Layout, Button } from '../components';
+import { Layout, Button, HeadPage } from '../components';
 import { downloadJsonConfig } from '../utils/download-json-config';
 import { NotificationContext } from '../contexts/notification-context';
 import { ProbeContext } from '../contexts/probe-context';
@@ -17,6 +17,7 @@ export default function Download(): JSX.Element {
 
   return (
     <Layout>
+      <HeadPage subtitle="Download" />
       <div className="lg:py-20 xl:py-32 xl:px-80">
         <fieldset>
           <p className="text-md md:text-lg md:font-bold">Congratulations!</p>

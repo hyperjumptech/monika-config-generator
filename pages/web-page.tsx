@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { FormEvent, useContext } from 'react';
 import { v4 as uuid } from 'uuid';
 
-import { Button, Form, Layout, TextInput } from '../components';
+import { Button, Form, HeadPage, Layout, TextInput } from '../components';
 import { ProbeContext } from '../contexts/probe-context';
 import { useForm } from '../hooks/use-form';
 
@@ -72,6 +72,7 @@ export default function WebPage(): JSX.Element {
 
   return (
     <Layout>
+      <HeadPage subtitle="Add website URL" />
       <div className="lg:py-20 xl:py-32 xl:px-80">
         <form className="text-sm sm:text-lg" onSubmit={handleNext}>
           <Form.Item label="What is the address (URL) of the web page?">
