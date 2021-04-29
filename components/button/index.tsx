@@ -33,6 +33,7 @@ function TextButton(props: any) {
   return (
     <button
       {...props}
+      data-testid="text-button"
       className={`inline-flex justify-center py-2 font-bold rounded-md underline transition focus:outline-none hover:text-gray-800 ${className}`}>
       {children}
     </button>

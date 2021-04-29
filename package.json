@@ -11,7 +11,9 @@
     "check-lint": "eslint . --ignore-path .gitignore",
     "check-format": "prettier --check . --ignore-path .gitignore",
     "check-types": "tsc",
-    "static-analysis": "run-p check-types check-format check-lint"
+    "static-analysis": "run-p check-types check-format check-lint",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "1.2.35",
@@ -26,16 +28,21 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
+    "@types/jest": "^26.0.23",
     "@types/react": "^17.0.3",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^4.20.0",
     "autoprefixer": "^10.2.5",
+    "babel-jest": "^26.6.3",
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.1",
+    "jest": "^26.6.3",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.2.8",
     "prettier": "^2.2.1",
