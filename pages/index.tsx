@@ -14,7 +14,6 @@ export default function Home(): JSX.Element {
 
   const handleNext = (e: SyntheticEvent) => {
     e.preventDefault();
-    console.log(e.target, 'Click Next');
 
     switch (condition) {
       case NEW:
@@ -72,6 +71,7 @@ export default function Home(): JSX.Element {
             </div>
             <div className="mt-12 space-y-4">
               <Radio
+                data-testid={NEW}
                 name="condition"
                 onClick={(v: string) => setCondition(v)}
                 value={NEW}
@@ -108,7 +108,9 @@ export default function Home(): JSX.Element {
                 </a>
               </p>
             )}
-            <Button onClick={handleNext}>Next</Button>
+            <Button data-testid="next-button" onClick={handleNext}>
+              Next
+            </Button>
             {/* hidden file input */}
             <input
               ref={fileInputElement}
