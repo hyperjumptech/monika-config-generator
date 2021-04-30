@@ -1,5 +1,6 @@
 // layout
 export { default as Header } from './header';
+export { default as HeadPage } from './head-page';
 export { default as Footer } from './footer';
 export { default as Layout } from './layout';
 export { default as GenerateConfigModal } from './generate-config-modal';

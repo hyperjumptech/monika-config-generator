@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { FormEvent, useContext, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
-import { Button, Layout, TextInput } from '../components';
+import { Button, HeadPage, Layout, TextInput } from '../components';
 import { ProbeContext } from '../contexts/probe-context';
 
 export default function WebForm(): JSX.Element {
@@ -60,6 +60,7 @@ export default function WebForm(): JSX.Element {
 
   return (
     <Layout>
+      <HeadPage subtitle="Add web form data" />
       <div className="lg:py-20 xl:py-32 xl:px-80">
         <form className="text-sm sm:text-lg" onSubmit={handleNext}>
           <fieldset>

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 
-import { Layout, Sidebar } from '../components';
+import { HeadPage, Layout, Sidebar } from '../components';
 import ProbeCard from '../components/probe-card';
 import { ProbeContext } from '../contexts/probe-context';
 import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
@@ -63,6 +63,7 @@ export default function Advanced(): JSX.Element {
 
   return (
     <Layout>
+      <HeadPage subtitle="Advanced" />
       <div className="mb-5 flex justify-end">
         <Button onClick={() => setIsModalVisible(true)}>
           Generate Config File

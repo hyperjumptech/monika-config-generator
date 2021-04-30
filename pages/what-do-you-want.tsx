@@ -1,4 +1,4 @@
-import { Layout, Radio, Button } from '../components';
+import { Layout, Radio, Button, HeadPage } from '../components';
 import { useRouter } from 'next/router';
 
 export default function WhatDoYouWant(): JSX.Element {
@@ -6,6 +6,7 @@ export default function WhatDoYouWant(): JSX.Element {
 
   return (
     <Layout>
+      <HeadPage subtitle="Select what to monitor" />
       <div className="lg:py-20 xl:py-32 xl:px-80">
         <form>
           <fieldset>

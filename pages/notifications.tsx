@@ -16,6 +16,7 @@ import {
   SelectOption,
   Form,
   TextInput,
+  HeadPage,
 } from '../components';
 import { useForm, FormHelper } from '../hooks/use-form';
 import { NotificationContext } from '../contexts/notification-context';
@@ -87,6 +88,7 @@ export default function Notifications(): JSX.Element {
 
   return (
     <Layout>
+      <HeadPage subtitle="Add notifications" />
       <div className="lg:py-20 xl:py-32 xl:px-80">
         <Form.Item
           label="How do you want to be notified when your website is down?"
