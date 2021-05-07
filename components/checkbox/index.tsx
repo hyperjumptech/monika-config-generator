@@ -36,7 +36,11 @@ export default function Checkbox({
           {children}
         </label>
       </div>
-      <span className="ml-8 text-sm sm:text-lg text-gray-400">{help}</span>
+      <span
+        data-testid="text-checkbox"
+        className="ml-8 text-sm sm:text-lg text-gray-400">
+        {help}
+      </span>
     </div>
   );
 }
