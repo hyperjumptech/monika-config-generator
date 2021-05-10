@@ -58,6 +58,7 @@ export default function Header({
 
       {/* Mobile menu, show/hide based on mobile menu state. */}
       <div
+        data-testid="mobile-menu"
         className={
           isMobileMenuCollapsed
             ? 'absolute top-0 inset-x-0 p-2 transition transform origin-top-right duration-200 ease-out md:hidden'
