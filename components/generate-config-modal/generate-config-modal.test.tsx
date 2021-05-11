@@ -4,7 +4,7 @@ import GenerateConfigModal from '.';
 describe('renders modal with correct props', () => {
   it('render modal visibility', () => {
     const { container } = render(
-      <GenerateConfigModal visible={false} onClose={() => {}} />
+      <GenerateConfigModal visible={false} onClose={() => undefined} />
     );
     const modal = container.firstChild;
     expect(modal).toHaveClass('hidden');

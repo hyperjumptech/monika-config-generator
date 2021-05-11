@@ -4,7 +4,9 @@ import Radio from '.';
 describe('renders radio with props', () => {
   it('render props', () => {
     const { container } = render(
-      <Radio children help="lorem ipsum" value="fake-id" name="fake-id" />
+      <Radio help="lorem ipsum" value="fake-id" name="fake-id">
+        <></>
+      </Radio>
     );
     const input = container.querySelector('input');
     expect(input).toBeVisible();

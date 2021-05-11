@@ -10,6 +10,6 @@ describe('renders button with correct props', () => {
 
   it('renders a text button', () => {
     const { getByTestId } = render(<Button variant="text" />);
-    expect(getByTestId('text-button')).toBeVisible()
+    expect(getByTestId('text-button')).toBeVisible();
   });
 });

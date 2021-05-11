@@ -5,13 +5,13 @@ describe('renders checkbox with correct props', () => {
   it('renders props', () => {
     const { container } = render(
       <Checkbox
-        children
         help="GT 500"
         value="moto-granprix"
         name="bike"
         disabled
-        defaultChecked
-      />
+        defaultChecked>
+        <></>
+      </Checkbox>
     );
     const checkbox = container.querySelector('input');
     expect(checkbox).toHaveProperty('id', 'moto-granprix');
@@ -23,13 +23,13 @@ describe('renders checkbox with correct props', () => {
   it('renders text', () => {
     const { getByTestId } = render(
       <Checkbox
-        children
         help="GT 500"
         value="moto-granprix"
         name="bike"
         disabled
-        defaultChecked
-      />
+        defaultChecked>
+        <></>
+      </Checkbox>
     );
     expect(getByTestId('text-checkbox')).toHaveTextContent('GT 500');
   });
