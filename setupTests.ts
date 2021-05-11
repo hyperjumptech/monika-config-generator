@@ -1,4 +1,5 @@
 import { SendgridData } from '@hyperjumptech/monika/lib/interfaces/data';
+import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 import { NotificationContextInterface } from './contexts/notification-context-interface';
 import { ProbeContextInterface } from './contexts/probe-context-interface';
 
@@ -10,7 +11,7 @@ jest.mock(
         {
           id: 'anu-id',
           type: 'sendgrid',
-          data: { apiKey: 'yyyyy' } as SendgridData,
+          data: <SendgridData>{ apiKey: 'yyyyy' },
         },
       ],
       handleSetNotifications: () => undefined,
@@ -25,7 +26,16 @@ jest.mock(
   './contexts/probe-context',
   () =>
     <ProbeContextInterface>{
-      probeData: [],
+      probeData: [
+        <Probe>{
+          id: 'fake-id',
+          name: 'fake-probe',
+          incidentThreshold: 3,
+          recoveryThreshold: 3,
+          alerts: [{}],
+          requests: [{}],
+        },
+      ],
       handleSetProbes: () => undefined,
       handleAddProbe: () => undefined,
       handleAddProbeRequest: () => undefined,
