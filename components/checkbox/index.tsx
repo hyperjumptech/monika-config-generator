@@ -19,7 +19,7 @@ export default function Checkbox({
   onChange,
 }: CheckboxProps): JSX.Element {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col" data-testid="checkbox-root">
       <div className="flex items-center">
         <input
           id={value}
