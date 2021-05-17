@@ -1,5 +1,5 @@
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { Router, useRouter } from 'next/router';
+import { render, fireEvent } from '@testing-library/react';
+import { useRouter } from 'next/router';
 import Home from '../pages';
 
 jest.mock('next/router', () => ({
