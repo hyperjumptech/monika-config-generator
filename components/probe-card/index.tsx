@@ -22,7 +22,6 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
     handleAddProbeRequest,
     handleUpdateProbeData,
     handleUpdateProbeAlert,
-
     handleRemoveProbe,
   } = useContext(ProbeContext);
 

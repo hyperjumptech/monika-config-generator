@@ -9,7 +9,9 @@ export default function TextInput({
   ...inputProps
 }: TextInputProps): JSX.Element {
   return (
-    <div className={`space-y-3 ${inputProps?.className}`}>
+    <div
+      className={`space-y-3 ${inputProps?.className}`}
+      data-testid="text-input-root">
       {label && (
         <label htmlFor={inputProps.id} className="text-sm sm:text-lg">
           {label}

@@ -14,11 +14,13 @@ export default function Radio({
   value,
   name,
   onClick,
+  ...props
 }: RadioProps): JSX.Element {
   return (
     <div className="flex flex-col">
       <div className="flex items-center">
         <input
+          {...props}
           id={value}
           name={name}
           type="radio"

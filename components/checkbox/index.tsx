@@ -19,7 +19,7 @@ export default function Checkbox({
   onChange,
 }: CheckboxProps): JSX.Element {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col" data-testid="checkbox-root">
       <div className="flex items-center">
         <input
           id={value}
@@ -36,7 +36,11 @@ export default function Checkbox({
           {children}
         </label>
       </div>
-      <span className="ml-8 text-sm sm:text-lg text-gray-400">{help}</span>
+      <span
+        data-testid="text-checkbox"
+        className="ml-8 text-sm sm:text-lg text-gray-400">
+        {help}
+      </span>
     </div>
   );
 }
