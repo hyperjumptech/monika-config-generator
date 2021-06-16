@@ -10,9 +10,8 @@ import NotifCard from '../components/notif-card';
 import { NotificationContext } from '../contexts/notification-context';
 
 export default function Advanced(): JSX.Element {
-  const { notificationData, handleAddNotification } = useContext(
-    NotificationContext
-  );
+  const { notificationData, handleAddNotification } =
+    useContext(NotificationContext);
   const { probeData, handleAddProbe } = useContext(ProbeContext);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 

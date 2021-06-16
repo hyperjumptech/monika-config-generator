@@ -63,18 +63,20 @@ export const mailgunForm: NotificationForm<MailgunData>[] = [
   {
     label: 'Mailgun',
     name: 'mailgun',
-    fields: ([
-      {
-        label: 'API Key',
-        name: 'apiKey',
-        info: 'Lorem ipsum dolor sit amet',
-      },
-      {
-        label: 'Domain',
-        name: 'domain',
-        info: 'Lorem ipsum dolor sit amet',
-      },
-    ] as NotificationFormField[]).concat(mail),
+    fields: (
+      [
+        {
+          label: 'API Key',
+          name: 'apiKey',
+          info: 'Lorem ipsum dolor sit amet',
+        },
+        {
+          label: 'Domain',
+          name: 'domain',
+          info: 'Lorem ipsum dolor sit amet',
+        },
+      ] as NotificationFormField[]
+    ).concat(mail),
     defaultValue: {
       apiKey: '',
       domain: '',
@@ -87,13 +89,15 @@ export const sendgridForm: NotificationForm<SendgridData>[] = [
   {
     label: 'Sengrid',
     name: 'sengrid',
-    fields: ([
-      {
-        label: 'API Key',
-        name: 'apiKey',
-        info: 'Lorem ipsum dolor sit amet',
-      },
-    ] as NotificationFormField[]).concat(mail),
+    fields: (
+      [
+        {
+          label: 'API Key',
+          name: 'apiKey',
+          info: 'Lorem ipsum dolor sit amet',
+        },
+      ] as NotificationFormField[]
+    ).concat(mail),
     defaultValue: {
       apiKey: '',
       recipients: [],
