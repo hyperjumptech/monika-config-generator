@@ -1,10 +1,12 @@
 import {
   MailgunData,
+  MonikaNotifData,
   SendgridData,
   SMTPData,
   TeamsData,
   TelegramData,
   WebhookData,
+  WorkplaceData,
 } from '@hyperjumptech/monika/lib/interfaces/data';
 
 interface NotificationForm<T> {
@@ -174,10 +176,49 @@ export const teamsForm: NotificationForm<Omit<TeamsData, 'body'>>[] = [
   },
 ];
 
+const monikaWhatsAppForm: NotificationForm<Omit<MonikaNotifData, 'body'>>[] = [
+  {
+    label: 'Monika WhatsApp Notifier',
+    name: 'monika-notif',
+    fields: [
+      {
+        label: 'Webhook URL',
+        name: 'url',
+      },
+    ],
+    defaultValue: {
+      url: '',
+    },
+  },
+];
+
+const workplaceForm: NotificationForm<Omit<WorkplaceData, 'body'>>[] = [
+  {
+    label: 'Facebook Workplace',
+    name: 'workplace',
+    fields: [
+      {
+        label: 'Thread ID',
+        name: 'thread_id',
+      },
+      {
+        label: 'Access Token',
+        name: 'access_token',
+      },
+    ],
+    defaultValue: {
+      thread_id: '',
+      access_token: '',
+    },
+  },
+];
+
 export const notificationForms = [
   smtpForm,
   mailgunForm,
   sendgridForm,
+  monikaWhatsAppForm,
+  workplaceForm,
   slackForm,
   teamsForm,
   telegramForm,
