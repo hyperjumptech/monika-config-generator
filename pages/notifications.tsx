@@ -8,6 +8,7 @@ import {
   TelegramData,
   WebhookData,
   WhatsappData,
+  WorkplaceData,
 } from '@hyperjumptech/monika/lib/interfaces/data';
 import {
   Button,
@@ -36,12 +37,24 @@ type SelectAttribute = {
   label: string;
 };
 
+type notificationChannel = {
+  type: string;
+  label: string;
+  formComponent: JSX.Element;
+};
+
+type ChannelFormProps = {
+  formHelper: FormHelper;
+};
+
 export default function Notifications(): JSX.Element {
   const router = useRouter();
+  const notificationID = uuid();
+  const recipientID = uuid();
   const formHelper = useForm({
     initialValues: {
       notificationChannel: 'email',
-      recipients: [{ id: uuid(), email: '' }],
+      recipients: [{ id: recipientID, email: '' }],
     },
   });
   const { handleSetNotifications } = useContext(NotificationContext);
@@ -51,37 +64,119 @@ export default function Notifications(): JSX.Element {
     {
       type: 'email',
       label: 'Email',
-    },
-    {
-      type: 'webhook',
-      label: 'Webhook',
-    },
-    {
-      type: 'slack',
-      label: 'Slack',
-    },
-    {
-      type: 'telegram',
-      label: 'Telegram',
-    },
-    {
-      type: 'whatsapp',
-      label: 'WhatsApp',
-    },
-    {
-      type: 'teams',
-      label: 'Microsoft Teams',
+      formComponent: <EmailChannel formHelper={formHelper} />,
+      data: getEmailNotificationData(notificationID, values),
     },
     {
       type: 'discord',
       label: 'Discord',
+      formComponent: <WebhookChannel formHelper={formHelper} />,
+      data: {
+        id: notificationID,
+        type: notificationChannel,
+        data: {
+          url: values?.url,
+        } as WebhookData,
+      },
+    },
+    {
+      type: 'workplace',
+      label: 'Facebook Workplace',
+      formComponent: <FacebookWorkplaceChannel formHelper={formHelper} />,
+      data: {
+        id: notificationID,
+        type: notificationChannel,
+        data: {
+          thread_id: values?.thread_id,
+          access_token: values?.access_token,
+        } as WorkplaceData,
+      },
+    },
+    {
+      type: 'teams',
+      label: 'Microsoft Teams',
+      formComponent: <WebhookChannel formHelper={formHelper} />,
+      data: {
+        id: notificationID,
+        type: notificationChannel,
+        data: {
+          url: values?.url,
+        } as WebhookData,
+      },
+    },
+    {
+      type: 'monika-notif',
+      label: 'Monika WhatsApp Notifier',
+      formComponent: <WebhookChannel formHelper={formHelper} />,
+      data: {
+        id: notificationID,
+        type: notificationChannel,
+        data: {
+          url: values?.url,
+        } as WebhookData,
+      },
+    },
+    {
+      type: 'slack',
+      label: 'Slack',
+      formComponent: <WebhookChannel formHelper={formHelper} />,
+      data: {
+        id: notificationID,
+        type: notificationChannel,
+        data: {
+          url: values?.url,
+        } as WebhookData,
+      },
+    },
+    {
+      type: 'telegram',
+      label: 'Telegram',
+      formComponent: <TelegramChannel formHelper={formHelper} />,
+      data: {
+        id: notificationID,
+        type: notificationChannel,
+        data: {
+          group_id: values?.group_id,
+          bot_token: values?.bot_token,
+        } as TelegramData,
+      },
+    },
+    {
+      type: 'webhook',
+      label: 'Webhook',
+      formComponent: <WebhookChannel formHelper={formHelper} />,
+      data: {
+        id: notificationID,
+        type: notificationChannel,
+        data: {
+          url: values?.url,
+        } as WebhookData,
+      },
+    },
+    {
+      type: 'whatsapp',
+      label: 'WhatsApp',
+      formComponent: <WhatsAppChannel formHelper={formHelper} />,
+      data: {
+        id: notificationID,
+        type: notificationChannel,
+        data: {
+          recipients: values?.recipients,
+          url: values?.url,
+          username: values?.username,
+          password: values?.password,
+        } as WhatsappData,
+      },
     },
   ];
   const handleBack = () => {
     router.back();
   };
   const handleNext = () => {
-    const notification = transformToNotificationData(values);
+    const notification = notificationChannels.find(
+      (nc: notificationChannel) => nc.type === notificationChannel
+    )?.data;
+
     handleSetNotifications(notification ? [notification] : []);
     router.push('/download');
   };
@@ -106,21 +201,11 @@ export default function Notifications(): JSX.Element {
             ))}
           </Select>
         </Form.Item>
-        {notificationChannel === 'email' && (
-          <EmailChannel formHelper={formHelper} />
-        )}
-        {(notificationChannel === 'webhook' ||
-          notificationChannel === 'slack' ||
-          notificationChannel === 'teams' ||
-          notificationChannel === 'discord') && (
-          <WebhookChannel formHelper={formHelper} />
-        )}
-        {notificationChannel === 'telegram' && (
-          <TelegramChannel formHelper={formHelper} />
-        )}
-        {notificationChannel === 'whatsapp' && (
-          <WhatsAppChannel formHelper={formHelper} />
-        )}
+        {
+          notificationChannels.find(
+            (nc: notificationChannel) => nc.type === notificationChannel
+          )?.formComponent
+        }
         <div className="mt-12 py-3">
           <Button onClick={handleBack} outline className="mr-7">
             Back
@@ -132,7 +217,7 @@ export default function Notifications(): JSX.Element {
   );
 }
 
-function EmailChannel({ formHelper }: { formHelper: FormHelper }): JSX.Element {
+function EmailChannel({ formHelper }: ChannelFormProps): JSX.Element {
   const { values, setFieldValue } = formHelper;
   const { emailService, recipients } = values;
   const emailServices = [
@@ -219,11 +304,35 @@ function EmailChannel({ formHelper }: { formHelper: FormHelper }): JSX.Element {
   );
 }
 
-function WebhookChannel({
+function FacebookWorkplaceChannel({
   formHelper,
-}: {
-  formHelper: FormHelper;
-}): JSX.Element {
+}: ChannelFormProps): JSX.Element {
+  const { values, setFieldValue } = formHelper;
+  const { thread_id, access_token } = values;
+
+  return (
+    <>
+      <Form.Item label="Thread ID" name="thread_id">
+        <TextInput
+          id="thread_id"
+          value={thread_id}
+          onChange={(e) => setFieldValue('thread_id', e.target.value)}
+          placeholder="12345678910"
+        />
+      </Form.Item>
+      <Form.Item label="Access Token" name="access_token">
+        <TextInput
+          id="access_token"
+          value={access_token}
+          onChange={(e) => setFieldValue('access_token', e.target.value)}
+          placeholder="your_custom_integration_access_token"
+        />
+      </Form.Item>
+    </>
+  );
+}
+
+function WebhookChannel({ formHelper }: ChannelFormProps): JSX.Element {
   const { values, setFieldValue } = formHelper;
   const { url } = values;
 
@@ -239,11 +348,7 @@ function WebhookChannel({
   );
 }
 
-function TelegramChannel({
-  formHelper,
-}: {
-  formHelper: FormHelper;
-}): JSX.Element {
+function TelegramChannel({ formHelper }: ChannelFormProps): JSX.Element {
   const { values, setFieldValue } = formHelper;
   const { group_id, bot_token } = values;
 
@@ -269,11 +374,7 @@ function TelegramChannel({
   );
 }
 
-function WhatsAppChannel({
-  formHelper,
-}: {
-  formHelper: FormHelper;
-}): JSX.Element {
+function WhatsAppChannel({ formHelper }: ChannelFormProps): JSX.Element {
   const { values, setFieldValue } = formHelper;
   const { recipients, url, username, password } = values;
   const isRecipientMoreThanOne = recipients?.length > 1;
@@ -357,7 +458,7 @@ function WhatsAppChannel({
   );
 }
 
-function SMTPForm({ formHelper }: { formHelper: FormHelper }): JSX.Element {
+function SMTPForm({ formHelper }: ChannelFormProps): JSX.Element {
   const { values, setFieldValue } = formHelper;
   const { hostname, port, username, password } = values;
 
@@ -416,7 +517,7 @@ function SMTPForm({ formHelper }: { formHelper: FormHelper }): JSX.Element {
   );
 }
 
-function MailgunForm({ formHelper }: { formHelper: FormHelper }): JSX.Element {
+function MailgunForm({ formHelper }: ChannelFormProps): JSX.Element {
   const { values, setFieldValue } = formHelper;
   const { apiKey, domain } = values;
 
@@ -459,7 +560,7 @@ function MailgunForm({ formHelper }: { formHelper: FormHelper }): JSX.Element {
   );
 }
 
-function SendgridForm({ formHelper }: { formHelper: FormHelper }): JSX.Element {
+function SendgridForm({ formHelper }: ChannelFormProps): JSX.Element {
   const { values, setFieldValue } = formHelper;
   const { apiKey } = values;
 
@@ -493,53 +594,9 @@ function SendgridForm({ formHelper }: { formHelper: FormHelper }): JSX.Element {
   );
 }
 
-function transformToNotificationData(formData: any): Notification | undefined {
-  const id = uuid();
-  const { notificationChannel } = formData;
-
-  switch (notificationChannel) {
-    case 'email':
-      return getEmailNotificationData(id, formData);
-    case 'webhook':
-    case 'slack':
-    case 'teams':
-    case 'discord':
-      return {
-        id,
-        type: notificationChannel,
-        data: {
-          url: formData?.url,
-        } as WebhookData,
-      };
-    case 'telegram':
-      return {
-        id,
-        type: notificationChannel,
-        data: {
-          group_id: formData?.group_id,
-          bot_token: formData?.bot_token,
-        } as TelegramData,
-      };
-    case 'whatsapp':
-      return {
-        id,
-        type: notificationChannel,
-        data: {
-          recipients: formData?.recipients,
-          url: formData?.url,
-          username: formData?.username,
-          password: formData?.password,
-        } as WhatsappData,
-      };
-
-    default:
-      break;
-  }
-}
-
 function getEmailNotificationData(
   id: string,
-  formData: any
+  formData: Record<string, any>
 ): Notification | undefined {
   switch (formData?.emailService) {
     case 'smtp':
