@@ -73,6 +73,26 @@ const NotifCard: FunctionComponent<NotifCardProps> = ({ id, type }) => {
                   </div>
                 );
               })}
+            {type === 'desktop' && (
+              <>
+                <p>There are prerequisites for using Desktop notifications:</p>
+                <ul className="list-disc ml-8">
+                  <li>
+                    macOS: {'>='} 10.8 for native notifications, or Growl if
+                    earlier.
+                  </li>
+                  <li>
+                    Linux: `notify-osd` or `libnotify-bin` installed (Ubuntu
+                    should have this by default)
+                  </li>
+                  <li>
+                    Windows: {'>='} 8, or task bar balloons for Windows {'<'} 8.
+                    Growl as fallback. Growl takes precedence over Windows
+                    balloons.
+                  </li>
+                </ul>
+              </>
+            )}
           </fieldset>
         </form>
       </div>

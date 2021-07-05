@@ -1,8 +1,9 @@
 import { createContext, FunctionComponent, useState } from 'react';
 
 import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
+import { DesktopData } from '@hyperjumptech/monika/lib/interfaces/data';
 
-import { notificationForms, smtpForm } from '../utils/notification-forms';
+import { notificationForms, desktopForm } from '../utils/notification-forms';
 import {
   NotificationContextInterface,
   UpdateNotificationData,
@@ -23,8 +24,8 @@ const NotificationProvider: FunctionComponent = ({ children }) => {
   const [notifications, setNotifications] = useState<Notification[]>([
     {
       id: uuid(),
-      type: 'smtp',
-      data: smtpForm[0].defaultValue,
+      type: 'desktop',
+      data: desktopForm[0].defaultValue as DesktopData,
     },
   ]);
 
@@ -37,8 +38,8 @@ const NotificationProvider: FunctionComponent = ({ children }) => {
 
     const notifData = notifications.concat({
       id,
-      type: 'smtp',
-      data: smtpForm[0].defaultValue,
+      type: 'desktop',
+      data: desktopForm[0].defaultValue as DesktopData,
     });
 
     setNotifications(notifData);
