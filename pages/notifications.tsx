@@ -9,6 +9,7 @@ import {
   WebhookData,
   WhatsappData,
   WorkplaceData,
+  DesktopData,
 } from '@hyperjumptech/monika/lib/interfaces/data';
 import {
   Button,
@@ -53,7 +54,7 @@ export default function Notifications(): JSX.Element {
   const recipientID = uuid();
   const formHelper = useForm({
     initialValues: {
-      notificationChannel: 'email',
+      notificationChannel: 'desktop',
       recipients: [{ id: recipientID, email: '' }],
     },
   });
@@ -61,6 +62,16 @@ export default function Notifications(): JSX.Element {
   const { values, setFieldValue } = formHelper;
   const { notificationChannel } = values;
   const notificationChannels = [
+    {
+      type: 'desktop',
+      label: 'Desktop',
+      formComponent: <DesktopForm />,
+      data: {
+        id: notificationID,
+        type: notificationChannel,
+        data: {} as DesktopData,
+      },
+    },
     {
       type: 'email',
       label: 'Email',
@@ -590,6 +601,27 @@ function SendgridForm({ formHelper }: ChannelFormProps): JSX.Element {
           placeholder="key-xxxx"
         />
       </Form.Item>
+    </>
+  );
+}
+
+function DesktopForm(): JSX.Element {
+  return (
+    <>
+      <p>There are prerequisites for using Desktop notification:</p>
+      <ul className="list-disc ml-8">
+        <li>
+          macOS: {'>='} 10.8 for native notifications, or Growl if earlier.
+        </li>
+        <li>
+          Linux: `notify-osd` or `libnotify-bin` installed (Ubuntu should have
+          this by default)
+        </li>
+        <li>
+          Windows: {'>='} 8, or task bar balloons for Windows {'<'} 8. Growl as
+          fallback. Growl takes precedence over Windows balloons.
+        </li>
+      </ul>
     </>
   );
 }
