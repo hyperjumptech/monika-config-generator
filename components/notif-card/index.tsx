@@ -75,7 +75,7 @@ const NotifCard: FunctionComponent<NotifCardProps> = ({ id, type }) => {
               })}
             {type === 'desktop' && (
               <>
-                <p>There are prerequisites for using Desktop notifications:</p>
+                <p>There are prerequisites for using Desktop notification:</p>
                 <ul className="list-disc ml-8">
                   <li>
                     macOS: {'>='} 10.8 for native notifications, or Growl if

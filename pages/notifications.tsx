@@ -608,7 +608,7 @@ function SendgridForm({ formHelper }: ChannelFormProps): JSX.Element {
 function DesktopForm(): JSX.Element {
   return (
     <>
-      <p>There are prerequisites for using Desktop notifications:</p>
+      <p>There are prerequisites for using Desktop notification:</p>
       <ul className="list-disc ml-8">
         <li>
           macOS: {'>='} 10.8 for native notifications, or Growl if earlier.
