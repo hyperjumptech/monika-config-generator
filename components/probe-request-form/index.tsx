@@ -51,7 +51,7 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
   };
 
   return (
-    <div className="w-full p-8 rounded-md bg-gray-900 bg-opacity-50 border border-solid border-gray-300 space-y-8">
+    <div className="w-auto p-8 rounded-md bg-gray-900 bg-opacity-50 border border-solid border-gray-300 space-y-8">
       <div className="flex flex-row align-middle justify-between">
         <div className="flex align-middle">#{requestIndex + 1}</div>
         <div className="flex align-middle space-x-4">
