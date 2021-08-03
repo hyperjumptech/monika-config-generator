@@ -5,7 +5,7 @@ describe('renders button with correct props', () => {
   it('renders an outlined button', () => {
     const { container } = render(<Button outline />);
     const button = container.querySelector('button');
-    expect(button).toHaveClass('border-2 border-gray-700');
+    expect(button).toHaveClass('border-2 border-purple text-purple');
   });
 
   it('renders a text button', () => {
