@@ -9,14 +9,14 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
   const [isMobileMenuCollapsed, setIsMobileMenuCollapsed] = useState(false);
 
   return (
-    <>
+    <div className="bg-black">
       <Header
         isMobileMenuCollapsed={isMobileMenuCollapsed}
         onMobileMenuCollapsedChange={setIsMobileMenuCollapsed}
       />
       <Content>{children}</Content>
       <Footer />
-    </>
+    </div>
   );
 }
 
