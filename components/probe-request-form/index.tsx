@@ -51,7 +51,7 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
   };
 
   return (
-    <div className="w-full p-8 rounded-md bg-gray-100 border border-solid border-gray-300 space-y-8">
+    <div className="w-full p-8 rounded-md bg-gray-900 bg-opacity-50 border border-solid border-gray-300 space-y-8">
       <div className="flex flex-row align-middle justify-between">
         <div className="flex align-middle">#{requestIndex + 1}</div>
         <div className="flex align-middle space-x-4">
@@ -90,8 +90,8 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
           )}
         </div>
       </div>
-      <div className="flex flex-row space-x-8">
-        <div className="w-8/12">
+      <div className="flex flex-col md:flex-row md:space-x-8">
+        <div className="flex-grow md:w-8/12">
           <TextInput
             id={`probe_${probeId}_request_${requestIndex}_url`}
             placeholder="https://github.com"
@@ -106,7 +106,7 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
             }
           />
         </div>
-        <div className="w-4/12">
+        <div className="flex-grow md:w-4/12">
           <Select
             id={`probe_${probeId}_method`}
             value={request.method}

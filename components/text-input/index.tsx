@@ -19,7 +19,7 @@ export default function TextInput({
       )}
       <input
         {...inputProps}
-        className="w-full border border-gray-400 rounded-md shadow-md py-3 px-5 text-sm sm:text-lg placeholder-gray-400"
+        className="bg-white w-full border border-gray-400 rounded-md shadow-md py-3 px-5 text-sm text-black sm:text-lg placeholder-gray-400"
       />
     </div>
   );

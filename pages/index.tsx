@@ -61,6 +61,7 @@ export default function Home(): JSX.Element {
               <p className="text-sm sm:text-lg text-gray-400">
                 Here you can create a configuration file for{' '}
                 <a
+                  className="font-semibold bg-gradient-to-r from-purple to-aqua bg-clip-text text-transparent"
                   href="https://hyperjumptech.github.io/monika/"
                   target="_blank"
                   rel="noopener noreferrer">

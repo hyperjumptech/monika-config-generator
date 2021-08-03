@@ -9,7 +9,7 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
   const [isMobileMenuCollapsed, setIsMobileMenuCollapsed] = useState(false);
 
   return (
-    <div className="bg-black">
+    <div className="bg-black min-h-screen">
       <Header
         isMobileMenuCollapsed={isMobileMenuCollapsed}
         onMobileMenuCollapsedChange={setIsMobileMenuCollapsed}
@@ -22,8 +22,14 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
 
 function Content({ children }: LayoutProps): JSX.Element {
   return (
-    <main className="container mx-auto px-4 py-5 sm:px-6 lg:px-8">
-      {children}
-    </main>
+    <div className="relative flex flex-col">
+      <main className="z-10 container mx-auto px-4 py-5 sm:px-6 lg:px-8 text-white mb-32">
+        {children}
+      </main>
+      <div className="absolute inset-x-0 bottom-0">
+        <img className="w-full" src="/wave-monika.svg" />
+        <div className="w-full h-px bg-gradient-to-r from-purple to-aqua" />
+      </div>
+    </div>
   );
 }

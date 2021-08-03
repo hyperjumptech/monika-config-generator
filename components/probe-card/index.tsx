@@ -33,7 +33,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
 
   return (
     <div className="border border-solid rounded-md mb-8">
-      <div className="flex flex-row items-center justify-between p-4 bg-gray-50 border-b">
+      <div className="flex flex-row items-center rounded-t-md justify-between p-4 bg-gray-900 bg-opacity-50 border-b">
         <p>Probe ID : {id?.split('-')[0]}</p>
         {probeData.length > 1 && (
           <button onClick={() => handleRemoveProbe(id)}>

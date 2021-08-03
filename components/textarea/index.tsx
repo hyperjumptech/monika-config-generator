@@ -20,7 +20,7 @@ export default function Textarea({
       )}
       <textarea
         {...textAreaProps}
-        className="w-full border bg-white border-gray-400 rounded-md shadow-md py-3 px-5 text-sm sm:text-lg placeholder-gray-400 h-full"
+        className="bg-white w-full border border-gray-400 rounded-md shadow-md py-3 px-5 text-black text-sm sm:text-lg placeholder-gray-400 h-full"
       />
     </>
   );

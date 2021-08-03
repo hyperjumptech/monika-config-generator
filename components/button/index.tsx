@@ -17,7 +17,7 @@ export default function Button({
   return (
     <button
       {...props}
-      className={`inline-flex justify-center py-2 px-11 shadow-sm text-sm font-semibold rounded-full focus:outline-none ${
+      className={`inline-flex justify-center py-2 px-10 shadow-sm text-sm font-semibold rounded-full focus:outline-none ${
         outline
           ? 'border-2 border-solid border-purple text-purple'
           : 'text-white bg-gradient-to-r from-purple to-aqua'
@@ -34,7 +34,7 @@ function TextButton(props: any) {
     <button
       {...props}
       data-testid="text-button"
-      className={`inline-flex justify-center py-2 bg-gradient-to-r from-purple to-aqua font-semibold rounded-full focus:outline-none ${className}`}>
+      className={`inline-flex justify-center py-2 px-10 bg-gradient-to-r from-purple to-aqua font-semibold rounded-full focus:outline-none ${className}`}>
       {children}
     </button>
   );
