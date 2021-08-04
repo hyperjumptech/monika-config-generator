@@ -37,7 +37,6 @@ const ProbeThreshold: FunctionComponent<ProbeResponseTimeProps> = ({
       type="number"
       placeholder="5"
       value={threshold}
-      className="w-full md:w-64"
       onChange={(event) => onThresholdChange(event.target.value)}
     />
   );

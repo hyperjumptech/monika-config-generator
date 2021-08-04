@@ -109,7 +109,7 @@ export default function Header({
             ? 'absolute top-0 inset-x-0 p-2 transition transform origin-top-right duration-200 ease-out md:hidden'
             : 'transition duration-100 ease-in hidden'
         }>
-        <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
+        <div className="z-20 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
           <div className="pt-5 pb-6 px-5">
             <div className="flex items-center justify-between">
               <div>

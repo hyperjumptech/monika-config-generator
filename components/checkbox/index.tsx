@@ -2,8 +2,9 @@ import { ReactNode, InputHTMLAttributes } from 'react';
 
 interface CheckboxProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
-  children: ReactNode;
-  help: string;
+  children?: ReactNode;
+  label: string;
+  description: string;
   value: string;
   name: string;
   defaultChecked?: boolean;
@@ -11,7 +12,8 @@ interface CheckboxProps
 
 export default function Checkbox({
   children,
-  help,
+  label,
+  description,
   value,
   name,
   disabled,
@@ -19,7 +21,9 @@ export default function Checkbox({
   onChange,
 }: CheckboxProps): JSX.Element {
   return (
-    <div className="flex flex-col" data-testid="checkbox-root">
+    <div
+      data-testid="checkbox-root"
+      className="flex flex-col lg:items-center space-x-2 lg:space-x-4">
       <div className="flex items-center">
         <input
           id={value}
@@ -27,20 +31,23 @@ export default function Checkbox({
           type="checkbox"
           disabled={disabled}
           defaultChecked={defaultChecked}
-          className="focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300"
+          className="focus:ring-indigo-500 h-6 w-6 mr-2 text-indigo-600 border-gray-300"
           onChange={onChange}
         />
-        <label
-          htmlFor={value}
-          className="ml-3 block text-base sm:text-lg cursor-pointer">
-          {children}
-        </label>
+        <div>
+          <label
+            htmlFor={value}
+            className="block text-sm sm:text-lg cursor-pointer">
+            {label}
+          </label>
+          <span
+            data-testid="text-checkbox"
+            className=" text-xs sm:text-base text-gray-400">
+            {description}
+          </span>
+        </div>
       </div>
-      <span
-        data-testid="text-checkbox"
-        className="ml-8 text-sm sm:text-lg text-gray-400">
-        {help}
-      </span>
+      {children && children}
     </div>
   );
 }

@@ -5,7 +5,8 @@ describe('renders checkbox with correct props', () => {
   it('renders props', () => {
     const { container } = render(
       <Checkbox
-        help="GT 500"
+        label="Bike"
+        description="GT 500"
         value="moto-granprix"
         name="bike"
         disabled
@@ -23,7 +24,8 @@ describe('renders checkbox with correct props', () => {
   it('renders text', () => {
     const { getByTestId } = render(
       <Checkbox
-        help="GT 500"
+        label="Bike"
+        description="GT 500"
         value="moto-granprix"
         name="bike"
         disabled
@@ -31,6 +33,7 @@ describe('renders checkbox with correct props', () => {
         <></>
       </Checkbox>
     );
+    expect(getByTestId('text-checkbox')).toHaveTextContent('Bike');
     expect(getByTestId('text-checkbox')).toHaveTextContent('GT 500');
   });
 });

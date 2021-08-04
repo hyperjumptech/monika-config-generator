@@ -51,7 +51,7 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
   };
 
   return (
-    <div className="w-auto p-8 rounded-md bg-gray-900 bg-opacity-50 border border-solid border-gray-300 space-y-8">
+    <div className="w-auto p-4 lg:p-8 rounded-md bg-gray-900 bg-opacity-50 border border-solid border-gray-300 space-y-8">
       <div className="flex flex-row align-middle justify-between">
         <div className="flex align-middle">#{requestIndex + 1}</div>
         <div className="flex align-middle space-x-4">
@@ -90,8 +90,8 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
           )}
         </div>
       </div>
-      <div className="flex flex-col md:flex-row md:space-x-8">
-        <div className="flex-grow md:w-8/12">
+      <div className="flex flex-col space-y-2 lg:space-y-0 lg:flex-row lg:space-x-8">
+        <div className="flex-grow lg:w-8/12">
           <TextInput
             id={`probe_${probeId}_request_${requestIndex}_url`}
             placeholder="https://github.com"
@@ -106,7 +106,7 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
             }
           />
         </div>
-        <div className="flex-grow md:w-4/12">
+        <div className="flex-grow lg:w-4/12">
           <Select
             id={`probe_${probeId}_method`}
             value={request.method}
@@ -209,8 +209,11 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
             rows={5}
           />
         )}
-        <div className="flex flex-row items-center justify-start space-x-8">
-          <p className="text-sm sm:text-lg">Timeout</p>
+        <div className="flex flex-row items-center justify-start space-x-6">
+          <div>
+            <p className="text-sm sm:text-lg">Timeout</p>
+            <p className="text-sm sm:text-lg text-gray-500">Milliseconds</p>
+          </div>
           <TextInput
             id={`probe_${probeId}_timeout`}
             type="number"
@@ -227,7 +230,6 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
               });
             }}
           />
-          <p className="text-sm sm:text-lg">milliseconds</p>
         </div>
       </div>
     </div>

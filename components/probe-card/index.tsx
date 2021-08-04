@@ -42,7 +42,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
         )}
       </div>
       <form>
-        <fieldset className="p-4">
+        <fieldset className="p-2 md:p-4">
           <div key={id} className="space-y-8 flex flex-col">
             <TextInput
               label="Name"
@@ -88,28 +88,33 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
               className="w-full border-4 border-dashed rounded-md p-4">
               <p>Add another request</p>
             </button>
-            <div className="flex flex-col space-y-8">
+            <div className="flex flex-col space-y-4 lg:space-y-8">
               <p className="font-bold text-sm sm:text-lg">Advanced</p>
-              <div className="flex flex-row items-center justify-start space-x-8">
-                <p className="text-sm sm:text-lg">Interval</p>
-                <TextInput
-                  id={`probe_${id}_interval`}
-                  type="number"
-                  placeholder="10"
-                  value={probe.interval}
-                  className="w-full md:w-64"
-                  onChange={(event) => {
-                    handleUpdateProbeData({
-                      id,
-                      field: 'interval',
-                      value: event.target.value,
-                    });
-                  }}
-                />
-                <p className="text-sm sm:text-lg">seconds</p>
+              <div className="flex flex-col lg:flex-row items-center justify-start space-x-8">
+                <div className="flex items-center space-x-6">
+                  <div>
+                    <p className="text-sm sm:text-lg">Interval</p>
+                    <p className="text-sm sm:text-lg text-gray-500">
+                      (Seconds)
+                    </p>
+                  </div>
+                  <TextInput
+                    id={`probe_${id}_interval`}
+                    type="number"
+                    placeholder="10"
+                    value={probe.interval}
+                    onChange={(event) => {
+                      handleUpdateProbeData({
+                        id,
+                        field: 'interval',
+                        value: event.target.value,
+                      });
+                    }}
+                  />
+                </div>
               </div>
-              <div className="flex flex-col space-y-4 space-x-4">
-                <p className="text-sm sm:text-lg">Notify on (min. 1):</p>
+              <div className="flex flex-col space-y-2 lg:space-y-4">
+                <p className="text-sm sm:text-lg">Notify on (at least 1):</p>
                 <Checkbox
                   name={`probe_${id}_status_not_2xx`}
                   value="status-not-2xx"
@@ -117,7 +122,9 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                     probe.alerts?.length < 2 &&
                     isAlertSelected('status-not-2xx')
                   }
-                  help="Checks if status code is not 2xx (200-204)"
+                  label="
+                  Status Code not 2XX"
+                  description="Checks if status code is not 2xx (200-299)"
                   defaultChecked={
                     probe?.alerts?.find((alert) => alert === 'status-not-2xx')
                       ? true
@@ -129,9 +136,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                       `status-not-2xx`,
                       e.target.checked
                     )
-                  }>
-                  Status Code not 2XX (Not Success)
-                </Checkbox>
+                  }></Checkbox>
                 <ProbeResponseTime
                   probeId={id}
                   alert={probe?.alerts?.find((alert) =>
@@ -150,7 +155,7 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                   }
                 />
               </div>
-              <div className="flex flex-row items-center justify-start space-x-8">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-start lg:space-x-8">
                 <p className="text-sm sm:text-lg">Threshold</p>
                 <ProbeThreshold probeId={id} />
               </div>
