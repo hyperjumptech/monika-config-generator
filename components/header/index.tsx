@@ -63,7 +63,8 @@ export default function Header({
                 <a
                   className="px-3 py-2 flex items-center text-white font-sans font-bold leading-snug hover:opacity-75"
                   href="https://github.com/hyperjumptech/monika/discussions"
-                  target="_blank">
+                  target="_blank"
+                  rel="noreferrer">
                   <span className="ml-2">Discuss</span>
                 </a>
               </li>
@@ -71,6 +72,7 @@ export default function Header({
                 <a
                   className="px-3 py-2 flex items-center text-white font-sans font-bold leading-snug hover:opacity-75"
                   href="https://hyperjump.tech/"
+                  rel="noreferrer"
                   target="_blank">
                   <span className="ml-2">Hyperjump</span>
                 </a>
@@ -154,7 +156,8 @@ export default function Header({
                   <a
                     className="px-3 py-2 flex items-center text-black font-sans font-bold leading-snug hover:opacity-75"
                     href="https://github.com/hyperjumptech/monika/discussions"
-                    target="_blank">
+                    target="_blank"
+                    rel="noreferrer">
                     <span className="ml-2">Discuss</span>
                   </a>
                 </li>
@@ -162,6 +165,7 @@ export default function Header({
                   <a
                     className="px-3 py-2 flex items-center text-black font-sans font-bold leading-snug hover:opacity-75"
                     href="https://hyperjump.tech/"
+                    rel="noreferrer"
                     target="_blank">
                     <span className="ml-2">Hyperjump</span>
                   </a>

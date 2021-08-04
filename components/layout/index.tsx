@@ -27,7 +27,7 @@ function Content({ children }: LayoutProps): JSX.Element {
         {children}
       </main>
       <div className="absolute inset-x-0 bottom-0">
-        <img className="w-full" src="/wave-monika.svg" />
+        <img className="w-full" src="/wave-monika.svg" alt="wave background" />
         <div className="w-full h-px bg-gradient-to-r from-purple to-aqua" />
       </div>
     </div>
