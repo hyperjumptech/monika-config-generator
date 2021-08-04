@@ -23,7 +23,7 @@ export default function Checkbox({
   return (
     <div
       data-testid="checkbox-root"
-      className="flex flex-col lg:items-center space-x-2 lg:space-x-4">
+      className="flex lg:items-center space-x-2 lg:space-x-4">
       <div className="flex items-center">
         <input
           id={value}
@@ -31,7 +31,7 @@ export default function Checkbox({
           type="checkbox"
           disabled={disabled}
           defaultChecked={defaultChecked}
-          className="focus:ring-indigo-500 h-6 w-6 mr-2 text-indigo-600 border-gray-300"
+          className="focus:ring-indigo-500 flex-shrink-0 h-6 w-6 mr-2 text-indigo-600 border-gray-300"
           onChange={onChange}
         />
         <div>
