@@ -33,7 +33,7 @@ describe('renders checkbox with correct props', () => {
         <></>
       </Checkbox>
     );
-    expect(getByTestId('text-checkbox')).toHaveTextContent('Bike');
-    expect(getByTestId('text-checkbox')).toHaveTextContent('GT 500');
+    expect(getByTestId('checkbox-root')).toHaveTextContent('Bike');
+    expect(getByTestId('checkbox-root')).toHaveTextContent('GT 500');
   });
 });

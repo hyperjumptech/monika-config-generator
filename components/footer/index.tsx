@@ -1,15 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faGithub,
-  faLinkedin,
-  faMedium,
-} from '@fortawesome/free-brands-svg-icons';
-
 export default function Footer(): JSX.Element {
   return (
-    <div
+    <footer
       className={`flex flex-col lg:flex-row justify-around text-white pt-16 pb-16 px-16`}>
-      <a className="flex flex-col lg:flex-row" href="/">
+      <a
+        className="flex flex-col lg:flex-row"
+        href="https://monika.hyperjump.tech/">
         <img className="w-16 h-4 mt-1" src={'/monika.svg'} alt="Monika Logo" />
       </a>
       <div className="flex flex-col mt-4 lg:mt-0">
@@ -83,6 +78,6 @@ export default function Footer(): JSX.Element {
           Reserved.
         </p>
       </div>
-    </div>
+    </footer>
   );
 }

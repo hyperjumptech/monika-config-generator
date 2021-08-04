@@ -17,7 +17,7 @@ export default function Header({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center border-b-2 border-gray-200 py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-auto">
-            <Link href="/">
+            <Link href="https://monika.hyperjump.tech/">
               <a>
                 <span className="sr-only">Monika Configuration Generator</span>
                 <img
