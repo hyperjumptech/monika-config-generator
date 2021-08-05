@@ -24,10 +24,10 @@ export default function Select({
           {label}
         </label>
       )}
-      <div className="relative inline-block w-full text-gray-700">
+      <div className="relative inline-block w-full text-black">
         <select
           {...selectProps}
-          className="w-full border appearance-none bg-white border-gray-400 rounded-md shadow-md py-3 px-5 pr-8 text-sm sm:text-lg placeholder-gray-400 h-full">
+          className="w-full bg-white border appearance-none border-gray-400 rounded-md shadow-md py-3 px-5 pr-8 text-sm sm:text-lg placeholder-gray-400 h-full">
           {children}
         </select>
         <div className="absolute inset-y-0 right-0 mr-1 flex items-center px-2 pointer-events-none">

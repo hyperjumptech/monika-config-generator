@@ -47,15 +47,15 @@ const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
     <Checkbox
       name={`probe_${probeId}_response_time`}
       value="response-time"
-      help="Response time is longer than xxx milliseconds"
+      label="Response time is longer than"
+      description="Milliseconds"
       defaultChecked={defaultChecked}
       checked={true}
       disabled={disabled}
       onChange={(e) =>
         handleUpdateResponseTime(probeId, responseTime, e.target.checked)
       }>
-      <div className="flex flex-row align-middle items-center space-x-4">
-        <span>Response time is longer than</span>
+      <div className="flex flex-col lg:flex-row align-middle items-center space-x-4">
         <TextInput
           id={`probe_${probeId}_response_time_value`}
           type="number"
@@ -67,7 +67,6 @@ const ProbeResponseTime: FunctionComponent<ProbeResponseTimeProps> = ({
             handleUpdateResponseTime(probeId, e.target.valueAsNumber, checked)
           }
         />
-        <span>milliseconds</span>
       </div>
     </Checkbox>
   );

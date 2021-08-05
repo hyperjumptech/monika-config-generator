@@ -1,40 +1,82 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faGithub,
-  faLinkedin,
-  faMedium,
-} from '@fortawesome/free-brands-svg-icons';
-
 export default function Footer(): JSX.Element {
   return (
-    <footer className="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex flex-col justify-between items-center py-6 md:flex-row md:justify-start md:space-x-10">
-        <div className="flex justify-center text-gray-400 md:justify-start lg:w-0 lg:flex-1">
-          © Hyperjump Technology 2021
-        </div>
-        <div className="flex justify-center items-center space-x-8 mt-2 md:mt-0 md:justify-end md:flex-1 lg:w-0">
-          <a
-            href="https://www.linkedin.com/company/hyperjump"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="whitespace-nowrap text-2xl font-medium text-gray-400 hover:text-gray-900">
-            <FontAwesomeIcon icon={faLinkedin} />
-          </a>
-          <a
-            href="https://medium.com/hyperjump-tech"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="whitespace-nowrap text-2xl font-medium text-gray-400 hover:text-gray-900">
-            <FontAwesomeIcon icon={faMedium} />
-          </a>
-          <a
-            href="https://github.com/hyperjumptech"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="whitespace-nowrap text-2xl font-medium text-gray-400 hover:text-gray-900">
-            <FontAwesomeIcon icon={faGithub} />
-          </a>
-        </div>
+    <footer
+      className={`flex flex-col lg:flex-row justify-around text-white pt-16 pb-16 px-16`}>
+      <a
+        className="flex flex-col lg:flex-row"
+        href="https://monika.hyperjump.tech/">
+        <img className="w-16 h-4 mt-1" src={'/monika.svg'} alt="Monika Logo" />
+      </a>
+      <div className="flex flex-col mt-4 lg:mt-0">
+        <p className="font-bold">Resources</p>
+        <a
+          className="text-xs pt-2"
+          href="https://monika.hyperjump.tech/overview"
+          target="_blank"
+          rel="noopener noreferrer">
+          Documentation
+        </a>
+        <a
+          className="text-xs pt-1"
+          href="https://monika.hyperjump.tech/examples"
+          target="_blank"
+          rel="noopener noreferrer">
+          Example
+        </a>
+        <a
+          className="text-xs pt-1"
+          href="https://hyperjumptech.github.io/monika-config-generator/"
+          target="_blank"
+          rel="noopener noreferrer">
+          Config Generator
+        </a>
+        <a className="text-xs pt-1" href="#">
+          WhatsApp Notifier
+        </a>
+      </div>
+      <div className="flex flex-col mt-2 lg:mt-0">
+        <p className="font-bold">Community</p>
+        <a
+          className="text-xs pt-2"
+          href={'https://github.com/hyperjumptech/monika/discussions'}
+          target="_blank"
+          rel="noopener noreferrer">
+          Discussion
+        </a>
+        <a
+          className="text-xs pt-1"
+          href={'https://github.com/hyperjumptech/monika/releases'}
+          target="_blank"
+          rel="noopener noreferrer">
+          Releases
+        </a>
+        <a
+          className="text-xs pt-1"
+          href="https://www.npmjs.com/package/@hyperjumptech/monika"
+          target="_blank"
+          rel="noopener noreferrer">
+          NPM Homepage
+        </a>
+      </div>
+      <div className="flex flex-col max-w-sm mt-8 lg:mt-0">
+        <a
+          className="font-bold"
+          href="https://hyperjump.tech/"
+          target="_blank"
+          rel="noopener noreferrer">
+          <img src="/hyperjump.svg" alt="Hyperjump Logo" />
+        </a>
+        <p className="text-xs pt-2">
+          PT Artha Rajamas Mandiri (Hyperjump) is an open-source-first company
+          providing engineering excellence service. We aim to build and
+          commercialize open-source tools to help companies streamline,
+          simplify, and secure the most important aspects of its modern DevOps
+          practices.
+        </p>
+        <p className="text-xs pt-2">
+          Copyright © {new Date().getFullYear()} Hyperjump Tech. All Rights
+          Reserved.
+        </p>
       </div>
     </footer>
   );

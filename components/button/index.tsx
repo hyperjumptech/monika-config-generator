@@ -17,10 +17,10 @@ export default function Button({
   return (
     <button
       {...props}
-      className={`inline-flex justify-center py-2 px-11 shadow-sm text-sm font-bold rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700 ${
+      className={`inline-flex justify-center py-2 px-10 shadow-sm text-sm font-semibold rounded-full focus:outline-none ${
         outline
-          ? 'border-2 border-gray-700 hover:border-gray-800'
-          : 'text-white border border-transparent bg-gray-700 hover:bg-gray-800'
+          ? 'border-2 border-solid border-purple text-purple'
+          : 'text-white bg-gradient-to-r from-purple to-aqua'
       } ${props.className}`}>
       {props.children}
     </button>
@@ -34,7 +34,7 @@ function TextButton(props: any) {
     <button
       {...props}
       data-testid="text-button"
-      className={`inline-flex justify-center py-2 font-bold rounded-md underline transition focus:outline-none hover:text-gray-800 ${className}`}>
+      className={`inline-flex justify-center py-2 px-10 bg-gradient-to-r from-purple to-aqua font-semibold rounded-full focus:outline-none ${className}`}>
       {children}
     </button>
   );

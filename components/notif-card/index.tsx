@@ -25,7 +25,7 @@ const NotifCard: FunctionComponent<NotifCardProps> = ({ id, type }) => {
 
   return (
     <div className="border border-solid rounded-md mb-8">
-      <div className="flex flex-row items-center justify-between p-4 bg-gray-50 border-b">
+      <div className="flex flex-row items-center justify-between p-4 bg-gray-900 bg-opacity-50 border-b">
         <p>Notification ID : {id.split('-')[0]}</p>
         {notificationData.length > 1 && (
           <button onClick={() => handleRemoveNotification(id)}>
