@@ -48,9 +48,11 @@ export default function Header({
                 </a>
               </li>
               <li className="nav-item">
-                <span className="ml-2 px-3 py-2 flex items-center text-white font-sans underline font-bold leading-snug hover:opacity-75">
-                  Config Generator
-                </span>
+                <a
+                  href="/"
+                  className="px-3 py-2 flex items-center text-white font-sans underline font-bold leading-snug hover:opacity-75">
+                  <span className="ml-2">Config Generator</span>
+                </a>
               </li>
               <li className="nav-item">
                 <a
@@ -141,9 +143,11 @@ export default function Header({
                   </a>
                 </li>
                 <li className="nav-item">
-                  <span className="ml-2 px-3 py-2 flex items-center text-black font-sans underline font-bold leading-snug hover:opacity-75">
-                    Config Generator
-                  </span>
+                  <a
+                    href="/"
+                    className="px-3 py-2 flex items-center text-black font-sans underline font-bold leading-snug hover:opacity-75">
+                    <span className="ml-2">Config Generator</span>
+                  </a>
                 </li>
                 <li className="nav-item">
                   <a
