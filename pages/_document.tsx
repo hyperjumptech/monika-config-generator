@@ -26,10 +26,6 @@ export default class MyDocument extends Document {
           `,
             }}
           />
-          <link
-            rel="shortcut icon"
-            href="/monika-config-generator/favicon.ico"
-          />
         </Head>
         <body>
           <Main />

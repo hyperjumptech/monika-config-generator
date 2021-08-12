@@ -22,7 +22,7 @@ export default function Header({
                 <span className="sr-only">Monika Configuration Generator</span>
                 <img
                   className="w-auto h-4"
-                  src="/monika-config-generator/monika.svg"
+                  src="/monika.svg"
                   alt="Monika Logo"
                 />
               </a>
@@ -119,7 +119,7 @@ export default function Header({
               <div>
                 <img
                   className="h-4 w-auto"
-                  src="/monika-config-generator/monika.svg"
+                  src="/monika.svg"
                   alt="Monika Logo"
                 />
               </div>
