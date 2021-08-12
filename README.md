@@ -10,7 +10,7 @@ This is a web app to help generate a configuration file for [Monika, the open so
 
 ## How to use
 
-Go to [the Monika Config Generator web app](https://hyperjumptech.github.io/monika-config-generator/).
+Go to [the Monika Config Generator web app](https://monika-config.hyperjump.tech/).
 
 ## Development
 

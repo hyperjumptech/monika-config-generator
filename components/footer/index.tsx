@@ -5,11 +5,7 @@ export default function Footer(): JSX.Element {
       <a
         className="flex flex-col lg:flex-row"
         href="https://monika.hyperjump.tech/">
-        <img
-          className="w-16 h-4 mt-1"
-          src="/monika-config-generator/monika.svg"
-          alt="Monika Logo"
-        />
+        <img className="w-16 h-4 mt-1" src="/monika.svg" alt="Monika Logo" />
       </a>
       <div className="flex flex-col mt-4 lg:mt-0">
         <p className="font-bold">Resources</p>
@@ -29,7 +25,7 @@ export default function Footer(): JSX.Element {
         </a>
         <a
           className="text-xs pt-1"
-          href="https://hyperjumptech.github.io/monika-config-generator/"
+          href="/"
           target="_blank"
           rel="noopener noreferrer">
           Config Generator
@@ -68,10 +64,7 @@ export default function Footer(): JSX.Element {
           href="https://hyperjump.tech/"
           target="_blank"
           rel="noopener noreferrer">
-          <img
-            src="/monika-config-generator/hyperjump.svg"
-            alt="Hyperjump Logo"
-          />
+          <img src="/hyperjump.svg" alt="Hyperjump Logo" />
         </a>
         <p className="text-xs pt-2">
           PT Artha Rajamas Mandiri (Hyperjump) is an open-source-first company
