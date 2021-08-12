@@ -25,7 +25,7 @@ export default function Footer(): JSX.Element {
         </a>
         <a
           className="text-xs pt-1"
-          href="https://monika-config.hyperjump.tech/"
+          href="/"
           target="_blank"
           rel="noopener noreferrer">
           Config Generator
