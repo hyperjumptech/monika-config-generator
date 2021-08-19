@@ -1,12 +1,11 @@
 import { createContext, FunctionComponent, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-
 import {
+  Probe,
   ProbeContextInterface,
   UpdateProbeData,
   UpdateProbeRequestData,
 } from './probe-context-interface';
-import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 
 const ProbeContext = createContext<ProbeContextInterface>({
   probeData: [],
@@ -26,6 +25,8 @@ const ProbeContext = createContext<ProbeContextInterface>({
   handleRemoveProbeRequest: () => undefined,
   handleRemoveProbe: () => undefined,
   handleRemoveProbeRequestHeader: () => undefined,
+  handleAddProbeCustomAlert: () => undefined,
+  handleUpdateProbeCustomAlert: () => undefined,
 });
 
 const ProbeProvider: FunctionComponent = ({ children }) => {
@@ -146,11 +147,17 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
 
     if (!checked) {
       newAlerts = newAlerts.filter(
-        (alert) => !alert.includes('response-time-greater-than')
+        (alert) =>
+          typeof alert === 'string' &&
+          !alert.includes('response-time-greater-than')
       );
     } else {
       newAlerts = newAlerts
-        .filter((alert) => !alert.includes('response-time-greater-than'))
+        .filter(
+          (alert) =>
+            typeof alert === 'string' &&
+            !alert.includes('response-time-greater-than')
+        )
         .concat(`response-time-greater-than-${value}-ms`);
     }
     const newProbeData = probes.map((probe) => {
@@ -198,7 +205,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
     const foundProbe = probes.find((data) => data.id === probeId);
     const foundAlerts = (foundProbe as Probe).alerts;
 
-    let newAlerts: string[];
+    let newAlerts: Probe['alerts'];
     if (value) {
       newAlerts = foundAlerts.concat(alert);
     } else {
@@ -446,6 +453,28 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
     setProbes(newProbeData);
   };
 
+  const handleAddProbeCustomAlert = (probeId: string) => {
+    const newProbeData = probes.map((probe) => {
+      return probe.id === probeId
+        ? { ...probe, alerts: probe.alerts.concat(['']) }
+        : probe;
+    });
+
+    setProbes(newProbeData);
+  };
+
+  const handleUpdateProbeCustomAlert = (
+    probeId: string,
+    alertIndex: number,
+    value: {
+      query: string;
+      subject: string;
+      message: string;
+    }
+  ) => {
+    console.log(probeId, alertIndex, value);
+  };
+
   return (
     <ProbeContext.Provider
       value={{
@@ -466,6 +495,8 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
         handleRemoveProbe,
         handleRemoveProbeRequest,
         handleRemoveProbeRequestHeader,
+        handleAddProbeCustomAlert,
+        handleUpdateProbeCustomAlert,
       }}>
       {children}
     </ProbeContext.Provider>

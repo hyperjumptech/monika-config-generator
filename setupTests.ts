@@ -1,7 +1,9 @@
 import { SendgridData } from '@hyperjumptech/monika/lib/interfaces/data';
-import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 import { NotificationContextInterface } from './contexts/notification-context-interface';
-import { ProbeContextInterface } from './contexts/probe-context-interface';
+import {
+  Probe,
+  ProbeContextInterface,
+} from './contexts/probe-context-interface';
 
 jest.mock(
   './contexts/notification-context',
@@ -52,5 +54,7 @@ jest.mock(
       handleRemoveProbeRequest: () => undefined,
       handleRemoveProbe: () => undefined,
       handleRemoveProbeRequestHeader: () => undefined,
+      handleAddProbeCustomAlert: () => undefined,
+      handleUpdateProbeCustomAlert: () => undefined,
     }
 );

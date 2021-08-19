@@ -1,4 +1,6 @@
-import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
+import type { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
+
+export type { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
 
 export interface UpdateNotificationType {
   id: string;

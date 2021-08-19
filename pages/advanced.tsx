@@ -1,13 +1,19 @@
 import React, { useContext, useState } from 'react';
-
-import { HeadPage, Layout, Sidebar } from '../components';
-import ProbeCard from '../components/probe-card';
-import { ProbeContext } from '../contexts/probe-context';
-import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
-import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
-import { Button, GenerateConfigModal } from '../components';
+import {
+  Button,
+  GenerateConfigModal,
+  HeadPage,
+  Layout,
+  Sidebar,
+} from '../components';
 import NotifCard from '../components/notif-card';
-import { NotificationContext } from '../contexts/notification-context';
+import ProbeCard from '../components/probe-card';
+import {
+  Notification,
+  NotificationContext,
+} from '../contexts/notification-context';
+import { ProbeContext } from '../contexts/probe-context';
+import { Probe } from '../contexts/probe-context-interface';
 
 export default function Advanced(): JSX.Element {
   const { notificationData, handleAddNotification } =

@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
-import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
 import { NotificationContext } from './notification-context';
+import { Notification } from './notification-context-interface';
 import { ProbeContext } from './probe-context';
+import { Probe } from './probe-context-interface';
 
 export const useConfigFileImporter = () => {
   const { handleSetProbes } = useContext(ProbeContext);

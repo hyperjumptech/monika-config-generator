@@ -1,15 +1,16 @@
-import { createContext, FunctionComponent, useState } from 'react';
-
-import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
 import { DesktopData } from '@hyperjumptech/monika/lib/interfaces/data';
-
-import { notificationForms, desktopForm } from '../utils/notification-forms';
+import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
+import { createContext, FunctionComponent, useState } from 'react';
+import { v4 as uuid } from 'uuid';
+import { desktopForm, notificationForms } from '../utils/notification-forms';
 import {
   NotificationContextInterface,
   UpdateNotificationData,
   UpdateNotificationType,
 } from './notification-context-interface';
-import { v4 as uuid } from 'uuid';
+
+export type { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
+export { NotificationProvider, NotificationContext };
 
 const NotificationContext = createContext<NotificationContextInterface>({
   notificationData: [],
@@ -110,5 +111,3 @@ const NotificationProvider: FunctionComponent = ({ children }) => {
     </NotificationContext.Provider>
   );
 };
-
-export { NotificationProvider, NotificationContext };

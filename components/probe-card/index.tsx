@@ -1,15 +1,14 @@
-import React, { FunctionComponent, useContext } from 'react';
-
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import React, { FunctionComponent, useContext } from 'react';
 import { TextInput } from '..';
 import { ProbeContext } from '../../contexts/probe-context';
+import { Probe } from '../../contexts/probe-context-interface';
 import Checkbox from '../checkbox';
-import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
+import ProbeCustomAlert from '../probe-custom-alert';
+import ProbeRequestForm from '../probe-request-form';
 import ProbeResponseTime from '../probe-response-time';
 import ProbeThreshold from '../probe-threshold';
-import ProbeRequestForm from '../probe-request-form';
 
 export interface ProbeCardProps {
   id: string;
@@ -26,7 +25,9 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
   } = useContext(ProbeContext);
 
   const isAlertSelected = (alert: string) => {
-    const exists = probe.alerts.filter((item: string) => item.includes(alert));
+    const exists = probe.alerts.filter(
+      (item) => typeof item === 'string' && item.includes(alert)
+    );
     if (exists.length > 0) return true;
     return false;
   };
@@ -139,22 +140,38 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                   }></Checkbox>
                 <ProbeResponseTime
                   probeId={id}
-                  alert={probe?.alerts?.find((alert) =>
-                    alert.includes('response-time-greater-than-')
-                  )}
+                  alert={
+                    probe?.alerts?.find(
+                      (alert) =>
+                        typeof alert === 'string' &&
+                        alert.includes('response-time-greater-than-')
+                    ) as string | undefined
+                  }
                   disabled={
                     probe.alerts?.length < 2 &&
                     isAlertSelected('response-time-greater-than')
                   }
                   defaultChecked={
-                    probe?.alerts?.find((alert) =>
-                      alert.includes('response-time-greater-than-')
+                    probe?.alerts?.find(
+                      (alert) =>
+                        typeof alert === 'string' &&
+                        alert.includes('response-time-greater-than-')
                     )
                       ? true
                       : false
                   }
                 />
               </div>
+              <p className="text-sm sm:text-lg text-gray-400">
+                Define your own alert triggers below
+              </p>
+              <ProbeCustomAlert probeId={id} />
+              <button
+                type="button"
+                onClick={() => handleAddProbeRequest(id)}
+                className="w-full border-4 border-dashed rounded-md p-4">
+                <p>Add another alert</p>
+              </button>
               <div className="flex flex-col lg:flex-row lg:items-center justify-start lg:space-x-8">
                 <p className="text-sm sm:text-lg">Threshold</p>
                 <ProbeThreshold probeId={id} />
