@@ -1,4 +1,4 @@
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faQuestionCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FunctionComponent } from 'react';
 import { TextInput } from '..';
@@ -12,8 +12,14 @@ const ProbeCustomAlert: FunctionComponent<ProbeCustomAlertProps> = ({
 }) => {
   return (
     <div className="w-auto p-4 lg:p-8 rounded-md bg-gray-900 bg-opacity-50 border border-solid border-gray-300 space-y-8">
-      <div className="flex justify-end">
-        <button type="button" disabled className="cursor-not-allowed">
+      <div className="flex justify-between">
+        <a
+          href="https://monika.hyperjump.tech/guides/alerts"
+          target="_blank"
+          rel="noreferrer">
+          <FontAwesomeIcon icon={faQuestionCircle} />
+        </a>
+        <button type="button">
           <FontAwesomeIcon icon={faTrash} />
         </button>
       </div>
