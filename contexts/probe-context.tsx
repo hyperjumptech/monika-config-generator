@@ -1,11 +1,28 @@
+import { Probe, ProbeAlert } from '@hyperjumptech/monika/lib/interfaces/probe';
 import { createContext, FunctionComponent, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import {
-  Probe,
   ProbeContextInterface,
   UpdateProbeData,
   UpdateProbeRequestData,
 } from './probe-context-interface';
+
+export const statusNot2xxAlert = () => ({
+  query: 'response.status < 200 or response.status > 299',
+  subject: 'Target is not OK',
+  message: 'Target is not healthy. It has not been returning status code 2xx.',
+});
+
+export const responseTimeGreaterThanXAlert = (ms: number) => ({
+  query: `response.time > ${ms}`,
+  subject: 'Target took too long to respond',
+  message: `Target is not healthy. The response time has been greater than ${ms} ms.`,
+});
+
+const defaultAlerts = [
+  statusNot2xxAlert(),
+  responseTimeGreaterThanXAlert(2000),
+];
 
 const ProbeContext = createContext<ProbeContextInterface>({
   probeData: [],
@@ -14,19 +31,18 @@ const ProbeContext = createContext<ProbeContextInterface>({
   handleAddProbeRequest: () => undefined,
   handleAddProbeRequestHeader: () => undefined,
   handleUpdateProbeData: () => undefined,
-  handleUpdateProbeAlert: () => undefined,
   handleUpdateProbeRequestPosition: () => undefined,
   handleUpdateProbeRequestEnableBody: () => undefined,
   handleUpdateProbeRequestData: () => undefined,
   handleUpdateProbeRequestBody: () => undefined,
   handleUpdateProbeRequestHeaderKey: () => undefined,
   handleUpdateProbeRequestHeaderValue: () => undefined,
-  handleUpdateProbeResponseTimeAlert: () => undefined,
   handleRemoveProbeRequest: () => undefined,
   handleRemoveProbe: () => undefined,
   handleRemoveProbeRequestHeader: () => undefined,
-  handleAddProbeCustomAlert: () => undefined,
-  handleUpdateProbeCustomAlert: () => undefined,
+  handleAddProbeAlert: () => undefined,
+  handleUpdateProbeAlert: () => undefined,
+  handleRemoveProbeAlert: () => undefined,
 });
 
 const ProbeProvider: FunctionComponent = ({ children }) => {
@@ -47,7 +63,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
       ],
       incidentThreshold: 5,
       recoveryThreshold: 5,
-      alerts: ['status-not-2xx', 'response-time-greater-than-2000-ms'],
+      alerts: defaultAlerts,
     },
   ]);
   const [headersCount, setHeadersCount] = useState(0);
@@ -75,7 +91,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
       ],
       incidentThreshold: 5,
       recoveryThreshold: 5,
-      alerts: ['status-not-2xx', 'response-time-greater-than-2000-ms'],
+      alerts: defaultAlerts,
     });
 
     setProbes(probeData);
@@ -136,42 +152,6 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
     setHeadersCount(headersCount + 1);
   };
 
-  const handleUpdateProbeResponseTimeAlert = (
-    probeId: string,
-    value: number,
-    checked: boolean
-  ) => {
-    const foundProbe = probes.find((data) => data.id === probeId);
-
-    let newAlerts = (foundProbe as Probe).alerts;
-
-    if (!checked) {
-      newAlerts = newAlerts.filter(
-        (alert) =>
-          typeof alert === 'string' &&
-          !alert.includes('response-time-greater-than')
-      );
-    } else {
-      newAlerts = newAlerts
-        .filter(
-          (alert) =>
-            typeof alert === 'string' &&
-            !alert.includes('response-time-greater-than')
-        )
-        .concat(`response-time-greater-than-${value}-ms`);
-    }
-    const newProbeData = probes.map((probe) => {
-      return probe.id === probeId
-        ? {
-            ...probe,
-            alerts: newAlerts,
-          }
-        : probe;
-    });
-
-    setProbes(newProbeData);
-  };
-
   const handleUpdateProbeRequestPosition = (
     probeId: string,
     prevIndex: number,
@@ -190,33 +170,6 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
         ? {
             ...probe,
             requests: [...foundRequest],
-          }
-        : probe;
-    });
-
-    setProbes(newProbeData);
-  };
-
-  const handleUpdateProbeAlert = (
-    probeId: string,
-    alert: string,
-    value: boolean
-  ) => {
-    const foundProbe = probes.find((data) => data.id === probeId);
-    const foundAlerts = (foundProbe as Probe).alerts;
-
-    let newAlerts: Probe['alerts'];
-    if (value) {
-      newAlerts = foundAlerts.concat(alert);
-    } else {
-      newAlerts = foundAlerts.filter((a) => alert !== a);
-    }
-
-    const newProbeData = probes.map((probe) => {
-      return probe.id === probeId
-        ? {
-            ...probe,
-            alerts: newAlerts,
           }
         : probe;
     });
@@ -453,26 +406,67 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
     setProbes(newProbeData);
   };
 
-  const handleAddProbeCustomAlert = (probeId: string) => {
+  const handleAddProbeAlert = (probeId: string) => {
     const newProbeData = probes.map((probe) => {
       return probe.id === probeId
-        ? { ...probe, alerts: probe.alerts.concat(['']) }
+        ? {
+            ...probe,
+            alerts: probe.alerts.concat([
+              { query: '', subject: '', message: '' },
+            ]),
+          }
         : probe;
     });
 
     setProbes(newProbeData);
   };
 
-  const handleUpdateProbeCustomAlert = (
+  const handleUpdateProbeAlert = (
     probeId: string,
     alertIndex: number,
-    value: {
-      query: string;
-      subject: string;
-      message: string;
-    }
+    field: keyof ProbeAlert,
+    value: string
   ) => {
-    console.log(probeId, alertIndex, value);
+    const foundProbe = probes.find((probe) => probe.id === probeId);
+
+    if (!foundProbe) return;
+
+    const updatedAlerts = foundProbe.alerts.slice();
+    updatedAlerts.splice(alertIndex, 1, {
+      ...foundProbe.alerts[alertIndex],
+      [field]: value,
+    });
+
+    const newProbeData = probes.map((probe) => {
+      return probe.id === probeId
+        ? {
+            ...probe,
+            alerts: updatedAlerts,
+          }
+        : probe;
+    });
+
+    setProbes(newProbeData);
+  };
+
+  const handleRemoveProbeAlert = (probeId: string, alertIndex: number) => {
+    const foundProbe = probes.find((probe) => probe.id === probeId);
+
+    if (!foundProbe) return;
+
+    const updatedAlerts = foundProbe.alerts.slice();
+    updatedAlerts.splice(alertIndex, 1);
+
+    const newProbeData = probes.map((probe) => {
+      return probe.id === probeId
+        ? {
+            ...probe,
+            alerts: updatedAlerts,
+          }
+        : probe;
+    });
+
+    setProbes(newProbeData);
   };
 
   return (
@@ -484,19 +478,18 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
         handleAddProbeRequest,
         handleAddProbeRequestHeader,
         handleUpdateProbeData,
-        handleUpdateProbeAlert,
         handleUpdateProbeRequestPosition,
         handleUpdateProbeRequestData,
         handleUpdateProbeRequestBody,
         handleUpdateProbeRequestEnableBody,
         handleUpdateProbeRequestHeaderKey,
         handleUpdateProbeRequestHeaderValue,
-        handleUpdateProbeResponseTimeAlert,
         handleRemoveProbe,
         handleRemoveProbeRequest,
         handleRemoveProbeRequestHeader,
-        handleAddProbeCustomAlert,
-        handleUpdateProbeCustomAlert,
+        handleAddProbeAlert,
+        handleUpdateProbeAlert,
+        handleRemoveProbeAlert,
       }}>
       {children}
     </ProbeContext.Provider>

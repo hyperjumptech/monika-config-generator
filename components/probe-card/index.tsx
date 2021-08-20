@@ -1,13 +1,11 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 import React, { FunctionComponent, useContext } from 'react';
 import { TextInput } from '..';
 import { ProbeContext } from '../../contexts/probe-context';
-import { Probe } from '../../contexts/probe-context-interface';
-import Checkbox from '../checkbox';
-import ProbeCustomAlert from '../probe-custom-alert';
+import ProbeAlertForm from '../probe-alert-form';
 import ProbeRequestForm from '../probe-request-form';
-import ProbeResponseTime from '../probe-response-time';
 import ProbeThreshold from '../probe-threshold';
 
 export interface ProbeCardProps {
@@ -20,17 +18,9 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
     probeData,
     handleAddProbeRequest,
     handleUpdateProbeData,
-    handleUpdateProbeAlert,
     handleRemoveProbe,
+    handleAddProbeAlert,
   } = useContext(ProbeContext);
-
-  const isAlertSelected = (alert: string) => {
-    const exists = probe.alerts.filter(
-      (item) => typeof item === 'string' && item.includes(alert)
-    );
-    if (exists.length > 0) return true;
-    return false;
-  };
 
   return (
     <div className="border border-solid rounded-md mb-8">
@@ -116,59 +106,19 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
               </div>
               <div className="flex flex-col space-y-2 lg:space-y-4">
                 <p className="text-sm sm:text-lg">Notify on (at least 1):</p>
-                <Checkbox
-                  name={`probe_${id}_status_not_2xx`}
-                  value="status-not-2xx"
-                  disabled={
-                    probe.alerts?.length < 2 &&
-                    isAlertSelected('status-not-2xx')
-                  }
-                  label="
-                  Status Code not 2XX"
-                  description="Checks if status code is not 2xx (200-299)"
-                  defaultChecked={
-                    probe?.alerts?.find((alert) => alert === 'status-not-2xx')
-                      ? true
-                      : false
-                  }
-                  onChange={(e) =>
-                    handleUpdateProbeAlert(
-                      id,
-                      `status-not-2xx`,
-                      e.target.checked
-                    )
-                  }></Checkbox>
-                <ProbeResponseTime
-                  probeId={id}
-                  alert={
-                    probe?.alerts?.find(
-                      (alert) =>
-                        typeof alert === 'string' &&
-                        alert.includes('response-time-greater-than-')
-                    ) as string | undefined
-                  }
-                  disabled={
-                    probe.alerts?.length < 2 &&
-                    isAlertSelected('response-time-greater-than')
-                  }
-                  defaultChecked={
-                    probe?.alerts?.find(
-                      (alert) =>
-                        typeof alert === 'string' &&
-                        alert.includes('response-time-greater-than-')
-                    )
-                      ? true
-                      : false
-                  }
-                />
+                {probe.alerts.map((alert, index, alerts) => (
+                  <ProbeAlertForm
+                    key={index}
+                    probeId={id}
+                    alertIndex={index}
+                    alert={alert}
+                    isDeleteDisabled={alerts.length <= 1}
+                  />
+                ))}
               </div>
-              <p className="text-sm sm:text-lg text-gray-400">
-                Define your own alert triggers below
-              </p>
-              <ProbeCustomAlert probeId={id} />
               <button
                 type="button"
-                onClick={() => handleAddProbeRequest(id)}
+                onClick={() => handleAddProbeAlert(id)}
                 className="w-full border-4 border-dashed rounded-md p-4">
                 <p>Add another alert</p>
               </button>
