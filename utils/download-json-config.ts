@@ -1,5 +1,5 @@
-import { Notification } from '../contexts/notification-context-interface';
-import { Probe } from '../contexts/probe-context-interface';
+import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
+import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
 
 type Props = {
   notifications: Notification[];
