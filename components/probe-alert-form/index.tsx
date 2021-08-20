@@ -9,7 +9,7 @@ export interface ProbeAlertFormProps {
   probeId: string;
   alertIndex: number;
   alert: ProbeAlert;
-  isDeleteDisabled: boolean;
+  isDeleteDisabled?: boolean;
 }
 
 const ProbeAlertForm: FunctionComponent<ProbeAlertFormProps> = ({
