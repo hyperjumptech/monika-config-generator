@@ -95,6 +95,11 @@ export const sendgridForm: NotificationForm<SendgridData>[] = [
     fields: (
       [
         {
+          label: 'Sender',
+          name: 'sender',
+          info: 'Lorem ipsum dolor sit amet',
+        },
+        {
           label: 'API Key',
           name: 'apiKey',
           info: 'Lorem ipsum dolor sit amet',
@@ -102,6 +107,7 @@ export const sendgridForm: NotificationForm<SendgridData>[] = [
       ] as NotificationFormField[]
     ).concat(mail),
     defaultValue: {
+      sender: '',
       apiKey: '',
       recipients: [],
     },

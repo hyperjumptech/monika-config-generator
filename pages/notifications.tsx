@@ -573,7 +573,7 @@ function MailgunForm({ formHelper }: ChannelFormProps): JSX.Element {
 
 function SendgridForm({ formHelper }: ChannelFormProps): JSX.Element {
   const { values, setFieldValue } = formHelper;
-  const { apiKey } = values;
+  const { sender, apiKey } = values;
 
   return (
     <>
@@ -592,10 +592,19 @@ function SendgridForm({ formHelper }: ChannelFormProps): JSX.Element {
           .
         </p>
       </Form.Item>
+      <Form.Item label="Sender" name="sender">
+        <TextInput
+          id="sender"
+          value={sender ? sender : ''}
+          onChange={(e) => setFieldValue('sender', e.target.value)}
+          type="sender"
+          placeholder="johndoe@yourcompany.com"
+        />
+      </Form.Item>
       <Form.Item label="API Key" name="apiKey">
         <TextInput
           id="apiKey"
-          value={apiKey}
+          value={apiKey ? apiKey : ''}
           onChange={(e) => setFieldValue('apiKey', e.target.value)}
           type="apiKey"
           placeholder="key-xxxx"
@@ -662,6 +671,7 @@ function getEmailNotificationData(
         id,
         type: formData?.emailService,
         data: {
+          sender: formData?.sender,
           recipients: formData?.recipients.map(
             (recipient: Recipient) => recipient.email
           ),
