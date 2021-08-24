@@ -58,10 +58,10 @@ export default function GenerateConfigModal({
                 id="modal-title">
                 Configuration File
               </h3>
-              <div className="bg-gray-100 rounded-xl my-8 px-4 py-3 sm:px-6 justify-end sm:flex sm:flex-row-reverse">
+              <div className="bg-gray-100 rounded-xl my-8 px-4 py-3 text-black sm:px-6 justify-end sm:flex sm:flex-row-reverse">
                 <pre className="overflow-x-auto">{jsonString}</pre>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 text-black">
                 <b>How to use</b>
                 <ol className="list-decimal list-inside py-3">
                   <li>
