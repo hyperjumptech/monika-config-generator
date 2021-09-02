@@ -7,7 +7,6 @@ import {
   TelegramData,
   WebhookData,
   WorkplaceData,
-  DesktopData,
 } from '@hyperjumptech/monika/lib/interfaces/data';
 
 interface NotificationForm<T> {
@@ -104,6 +103,7 @@ export const sendgridForm: NotificationForm<SendgridData>[] = [
     defaultValue: {
       apiKey: '',
       recipients: [],
+      sender: '',
     },
   },
 ];
@@ -214,14 +214,12 @@ const workplaceForm: NotificationForm<Omit<WorkplaceData, 'body'>>[] = [
   },
 ];
 
-export const desktopForm: NotificationForm<
-  Omit<DesktopData, 'url' | 'body'>
->[] = [
+export const desktopForm: NotificationForm<void>[] = [
   {
     label: 'Desktop',
     name: 'desktop',
     fields: [],
-    defaultValue: {},
+    defaultValue: undefined,
   },
 ];
 

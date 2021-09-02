@@ -1,15 +1,12 @@
-import { createContext, FunctionComponent, useState } from 'react';
-
 import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
-import { DesktopData } from '@hyperjumptech/monika/lib/interfaces/data';
-
-import { notificationForms, desktopForm } from '../utils/notification-forms';
+import { createContext, FunctionComponent, useState } from 'react';
+import { v4 as uuid } from 'uuid';
+import { notificationForms } from '../utils/notification-forms';
 import {
   NotificationContextInterface,
   UpdateNotificationData,
   UpdateNotificationType,
 } from './notification-context-interface';
-import { v4 as uuid } from 'uuid';
 
 const NotificationContext = createContext<NotificationContextInterface>({
   notificationData: [],
@@ -25,7 +22,7 @@ const NotificationProvider: FunctionComponent = ({ children }) => {
     {
       id: uuid(),
       type: 'desktop',
-      data: desktopForm[0].defaultValue as DesktopData,
+      data: undefined,
     },
   ]);
 
@@ -39,7 +36,7 @@ const NotificationProvider: FunctionComponent = ({ children }) => {
     const notifData = notifications.concat({
       id,
       type: 'desktop',
-      data: desktopForm[0].defaultValue as DesktopData,
+      data: undefined,
     });
 
     setNotifications(notifData);

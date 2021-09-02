@@ -1,8 +1,13 @@
-import { useContext } from 'react';
-import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
+import { Probe, ProbeAlert } from '@hyperjumptech/monika/lib/interfaces/probe';
+import { useContext } from 'react';
+import { parseAlertStringTime } from '../utils/parse-alert-string-time';
 import { NotificationContext } from './notification-context';
-import { ProbeContext } from './probe-context';
+import {
+  ProbeContext,
+  responseTimeGreaterThanXAlert,
+  statusNot2xxAlert,
+} from './probe-context';
 
 export const useConfigFileImporter = () => {
   const { handleSetProbes } = useContext(ProbeContext);
@@ -43,18 +48,44 @@ export const useConfigFileImporter = () => {
 
 const checkProbeAlerts = (probes: Probe[]) => {
   const validated = probes.map((item: Probe) => {
-    if (!item.alerts)
+    if (!item.alerts || item.alerts.length === 0)
       return {
         ...item,
-        alerts: ['status-not-2xx', 'response-time-greater-than-2000-ms'],
+        alerts: [statusNot2xxAlert(), responseTimeGreaterThanXAlert(2000)],
       };
 
-    return item.alerts?.length === 0
-      ? {
-          ...item,
-          alerts: ['status-not-2xx', 'response-time-greater-than-2000-ms'],
-        }
-      : item;
+    const hasLegacyStringAlert = item.alerts.some(
+      (alert) => typeof alert === 'string'
+    );
+
+    // convert legacy alert string value to new object form
+    if (hasLegacyStringAlert) {
+      const convertedAlerts = item.alerts
+        .map((alert: unknown) => {
+          if (typeof alert === 'string') {
+            if (alert === 'status-not-2xx') return statusNot2xxAlert();
+            if (alert.startsWith('response-time-greater-than-')) {
+              try {
+                const ms = parseAlertStringTime(alert);
+                return responseTimeGreaterThanXAlert(ms);
+              } catch (error) {
+                return null;
+              }
+            }
+          }
+
+          return alert;
+        })
+        // filter null value
+        .filter(Boolean) as ProbeAlert[];
+
+      return {
+        ...item,
+        alerts: convertedAlerts,
+      };
+    }
+
+    return item;
   });
 
   return validated;

@@ -1,7 +1,7 @@
-import { render } from '@testing-library/react';
-import ProbeCard from '.';
 import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 import { RequestConfig } from '@hyperjumptech/monika/lib/interfaces/request';
+import { render } from '@testing-library/react';
+import ProbeCard from '.';
 
 describe('renders probe card with props', () => {
   it('render props', () => {
@@ -11,7 +11,7 @@ describe('renders probe card with props', () => {
       name: 'fake-probe',
       incidentThreshold: 3,
       recoveryThreshold: 3,
-      alerts: ['smtp'],
+      alerts: [],
       requests: [fakeRequest],
     } as Probe;
     const { container } = render(<ProbeCard id="fake-id" probe={fakeProbe} />);

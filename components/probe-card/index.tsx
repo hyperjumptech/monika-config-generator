@@ -1,15 +1,12 @@
-import React, { FunctionComponent, useContext } from 'react';
-
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
+import React, { FunctionComponent, useContext } from 'react';
 import { TextInput } from '..';
 import { ProbeContext } from '../../contexts/probe-context';
-import Checkbox from '../checkbox';
-import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
-import ProbeResponseTime from '../probe-response-time';
-import ProbeThreshold from '../probe-threshold';
+import ProbeAlertForm from '../probe-alert-form';
 import ProbeRequestForm from '../probe-request-form';
+import ProbeThreshold from '../probe-threshold';
 
 export interface ProbeCardProps {
   id: string;
@@ -21,15 +18,9 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
     probeData,
     handleAddProbeRequest,
     handleUpdateProbeData,
-    handleUpdateProbeAlert,
     handleRemoveProbe,
+    handleAddProbeAlert,
   } = useContext(ProbeContext);
-
-  const isAlertSelected = (alert: string) => {
-    const exists = probe.alerts.filter((item: string) => item.includes(alert));
-    if (exists.length > 0) return true;
-    return false;
-  };
 
   return (
     <div className="border border-solid rounded-md mb-8">
@@ -115,46 +106,22 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
               </div>
               <div className="flex flex-col space-y-2 lg:space-y-4">
                 <p className="text-sm sm:text-lg">Notify on (at least 1):</p>
-                <Checkbox
-                  name={`probe_${id}_status_not_2xx`}
-                  value="status-not-2xx"
-                  disabled={
-                    probe.alerts?.length < 2 &&
-                    isAlertSelected('status-not-2xx')
-                  }
-                  label="
-                  Status Code not 2XX"
-                  description="Checks if status code is not 2xx (200-299)"
-                  defaultChecked={
-                    probe?.alerts?.find((alert) => alert === 'status-not-2xx')
-                      ? true
-                      : false
-                  }
-                  onChange={(e) =>
-                    handleUpdateProbeAlert(
-                      id,
-                      `status-not-2xx`,
-                      e.target.checked
-                    )
-                  }></Checkbox>
-                <ProbeResponseTime
-                  probeId={id}
-                  alert={probe?.alerts?.find((alert) =>
-                    alert.includes('response-time-greater-than-')
-                  )}
-                  disabled={
-                    probe.alerts?.length < 2 &&
-                    isAlertSelected('response-time-greater-than')
-                  }
-                  defaultChecked={
-                    probe?.alerts?.find((alert) =>
-                      alert.includes('response-time-greater-than-')
-                    )
-                      ? true
-                      : false
-                  }
-                />
+                {probe.alerts.map((alert, index, alerts) => (
+                  <ProbeAlertForm
+                    key={index}
+                    probeId={id}
+                    alertIndex={index}
+                    alert={alert}
+                    isDeleteDisabled={alerts.length <= 1}
+                  />
+                ))}
               </div>
+              <button
+                type="button"
+                onClick={() => handleAddProbeAlert(id)}
+                className="w-full border-4 border-dashed rounded-md p-4">
+                <p>Add another alert</p>
+              </button>
               <div className="flex flex-col lg:flex-row lg:items-center justify-start lg:space-x-8">
                 <p className="text-sm sm:text-lg">Threshold</p>
                 <ProbeThreshold probeId={id} />

@@ -1,4 +1,4 @@
-import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
+import { Probe, ProbeAlert } from '@hyperjumptech/monika/lib/interfaces/probe';
 
 export interface UpdateProbeData {
   id: string;
@@ -41,20 +41,18 @@ export interface ProbeContextInterface {
     probeId: string,
     headerIndex: number
   ) => void;
-  handleUpdateProbeResponseTimeAlert: (
-    probeID: string,
-    value: number,
-    checked: boolean
-  ) => void;
   handleUpdateProbeRequestPosition: (
     probeId: string,
     prevValue: number,
     nextValue: number
   ) => void;
   handleUpdateProbeRequestBody: (data: UpdateProbeRequestData) => void;
+  handleAddProbeAlert: (probeId: string) => void;
   handleUpdateProbeAlert: (
     probeId: string,
-    alert: string,
-    value: boolean
+    alertIndex: number,
+    field: keyof ProbeAlert,
+    value: string
   ) => void;
+  handleRemoveProbeAlert: (probeId: string, alertIndex: number) => void;
 }

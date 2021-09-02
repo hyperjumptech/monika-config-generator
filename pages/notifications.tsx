@@ -1,27 +1,26 @@
-import { useContext } from 'react';
-import { useRouter } from 'next/router';
-import { v4 as uuid } from 'uuid';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
-import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   TelegramData,
   WebhookData,
   WhatsappData,
   WorkplaceData,
-  DesktopData,
 } from '@hyperjumptech/monika/lib/interfaces/data';
+import { Notification } from '@hyperjumptech/monika/lib/interfaces/notification';
+import { useRouter } from 'next/router';
+import { useContext } from 'react';
+import { v4 as uuid } from 'uuid';
 import {
   Button,
+  Form,
+  HeadPage,
   Layout,
   Select,
   SelectOption,
-  Form,
   TextInput,
-  HeadPage,
 } from '../components';
-import { useForm, FormHelper } from '../hooks/use-form';
 import { NotificationContext } from '../contexts/notification-context';
+import { FormHelper, useForm } from '../hooks/use-form';
 
 type Recipient = {
   id: string;
@@ -69,7 +68,7 @@ export default function Notifications(): JSX.Element {
       data: {
         id: notificationID,
         type: notificationChannel,
-        data: {} as DesktopData,
+        data: undefined,
       },
     },
     {
@@ -666,6 +665,7 @@ function getEmailNotificationData(
             (recipient: Recipient) => recipient.email
           ),
           apiKey: formData?.apiKey,
+          sender: formData?.sender,
         },
       };
 
