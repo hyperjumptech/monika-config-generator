@@ -2,7 +2,7 @@ import Link from 'next/link';
 import router from 'next/router';
 import { useContext } from 'react';
 import { Layout, Button, HeadPage } from '../components';
-import { downloadJsonConfig } from '../utils/download-json-config';
+import { downloadYamlConfig } from '../utils/download-json-config';
 import { NotificationContext } from '../contexts/notification-context';
 import { ProbeContext } from '../contexts/probe-context';
 
@@ -28,7 +28,7 @@ export default function Download(): JSX.Element {
           <div className="mt-6 py-3">
             <Button
               type="submit"
-              onClick={() => downloadJsonConfig(jsonConfig)}>
+              onClick={() => downloadYamlConfig(jsonConfig)}>
               <div className="py-3 px-3">Download Config File</div>
             </Button>
           </div>

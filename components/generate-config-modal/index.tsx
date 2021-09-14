@@ -3,7 +3,8 @@ import { useContext } from 'react';
 import { Button } from '../';
 import { NotificationContext } from '../../contexts/notification-context';
 import { ProbeContext } from '../../contexts/probe-context';
-import { downloadJsonConfig } from '../../utils/download-json-config';
+import { downloadYamlConfig } from '../../utils/download-json-config';
+import * as yaml from 'js-yaml';
 
 type GenerateConfigModalProps = {
   visible: boolean;
@@ -22,7 +23,7 @@ export default function GenerateConfigModal({
     probes: probeData,
   };
 
-  const jsonString = JSON.stringify(jsonConfig, null, 2);
+  const yamlString = yaml.dump(jsonConfig);
 
   return (
     <div
@@ -49,7 +50,7 @@ export default function GenerateConfigModal({
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
               <div className="float-right">
-                <Button outline onClick={() => downloadJsonConfig(jsonConfig)}>
+                <Button outline onClick={() => downloadYamlConfig(jsonConfig)}>
                   Download file
                 </Button>
               </div>
@@ -59,7 +60,7 @@ export default function GenerateConfigModal({
                 Configuration File
               </h3>
               <div className="bg-gray-100 rounded-xl my-8 px-4 py-3 text-black sm:px-6 justify-end sm:flex sm:flex-row-reverse">
-                <pre className="overflow-x-auto">{jsonString}</pre>
+                <pre className="overflow-x-auto">{yamlString}</pre>
               </div>
               <div className="mt-2 text-black">
                 <b>How to use</b>
@@ -68,7 +69,7 @@ export default function GenerateConfigModal({
                     Get the generated configuration by clicking &quot;Download
                     file&quot; button
                   </li>
-                  <li>Run monika by using the downloaded config.json file</li>
+                  <li>Run monika by using the downloaded config.yml file</li>
                 </ol>
               </div>
             </div>

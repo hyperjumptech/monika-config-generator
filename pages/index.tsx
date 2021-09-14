@@ -117,7 +117,7 @@ export default function Home(): JSX.Element {
             <input
               ref={fileInputElement}
               type="file"
-              accept="application/json"
+              accept="text/yaml"
               className="hidden h-0 w-0"
               aria-hidden="true"
               onChange={handleFileChange}
