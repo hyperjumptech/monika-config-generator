@@ -8,7 +8,6 @@ type Props = {
 };
 
 export function downloadYamlConfig(jsonConfig: Props) {
-  // const jsonString = JSON.stringify(jsonConfig, null, 2);
   const data = yaml.dump(jsonConfig);
 
   const element = document.createElement('a');
