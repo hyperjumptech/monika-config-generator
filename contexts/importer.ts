@@ -8,7 +8,7 @@ import {
   responseTimeGreaterThanXAlert,
   statusNot2xxAlert,
 } from './probe-context';
-import * as yaml from 'js-yaml'
+import * as yaml from 'js-yaml';
 
 export const useConfigFileImporter = () => {
   const { handleSetProbes } = useContext(ProbeContext);
