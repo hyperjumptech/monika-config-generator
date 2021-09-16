@@ -8,6 +8,7 @@ import {
   responseTimeGreaterThanXAlert,
   statusNot2xxAlert,
 } from './probe-context';
+import * as yaml from 'js-yaml';
 
 export const useConfigFileImporter = () => {
   const { handleSetProbes } = useContext(ProbeContext);
@@ -25,7 +26,10 @@ export const useConfigFileImporter = () => {
           }: {
             probes?: Probe[];
             notifications?: Notification[];
-          } = JSON.parse(String(reader.result));
+          } = yaml.load(String(reader.result)) as {
+            probes?: Probe[];
+            notifications?: Notification[];
+          };
 
           if (probes) {
             const finalProbes = checkProbeAlerts(probes);

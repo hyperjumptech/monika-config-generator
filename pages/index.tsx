@@ -100,7 +100,7 @@ export default function Home(): JSX.Element {
             {/* Display error messsage */}
             {!!errorMessage && (
               <p className="text-red-500 mb-4">
-                {`JSON file is not valid: ${errorMessage}. Please check the right format from our `}
+                {`YAML file is not valid: ${errorMessage}. Please check the right format from our `}
                 <a
                   className="underline font-bold text-black"
                   href="https://hyperjumptech.github.io/monika/overview"
@@ -117,7 +117,7 @@ export default function Home(): JSX.Element {
             <input
               ref={fileInputElement}
               type="file"
-              accept="application/json"
+              accept="text/yaml"
               className="hidden h-0 w-0"
               aria-hidden="true"
               onChange={handleFileChange}
