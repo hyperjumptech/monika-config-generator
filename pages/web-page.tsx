@@ -13,10 +13,16 @@ type ProbeRequest = {
 
 export default function WebPage(): JSX.Element {
   const router = useRouter();
-  const { handleSetProbes } = useContext(ProbeContext);
+  const { probeData, handleSetProbes } = useContext(ProbeContext);
+  const probeRequestsFromContext = probeData?.map((probe) => ({
+    id: probe.id,
+    url: probe?.requests[0]?.url,
+  }));
   const formHelper = useForm({
     initialValues: {
-      probeRequests: [{ id: uuid(), url: '' }],
+      probeRequests: probeData
+        ? probeRequestsFromContext
+        : [{ id: uuid(), url: '' }],
     },
   });
   const { values, setFieldValue } = formHelper;
