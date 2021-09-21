@@ -25,15 +25,24 @@ export default function APIEntryPage(): JSX.Element {
     'PUT',
   ];
   const router = useRouter();
-  const { handleSetProbes } = useContext(ProbeContext);
-  const [entries, setEntries] = useState([
-    {
-      id: uuid(),
-      url: '',
-      method: 'GET',
-      body: '',
-    },
-  ]);
+  const { probeData, handleSetProbes } = useContext(ProbeContext);
+  const [bodyErrors, setBodyErrors] = useState<any[]>([]);
+  const probeRequestsFromContext = probeData?.map((probe) => ({
+    id: probe.id,
+    url: probe?.requests[0]?.url,
+    method: probe.requests[0]?.method,
+    body: JSON.stringify(probe?.requests[0]?.body, null, 2),
+  }));
+  const [entries, setEntries] = useState(
+    probeRequestsFromContext || [
+      {
+        id: uuid(),
+        url: '',
+        method: 'GET',
+        body: JSON.stringify(null, null, 2),
+      },
+    ]
+  );
 
   const addEntry = () => {
     setEntries((item) => [
@@ -42,7 +51,7 @@ export default function APIEntryPage(): JSX.Element {
         id: uuid(),
         url: '',
         method: 'GET',
-        body: '',
+        body: JSON.stringify(null, null, 2),
       },
     ]);
   };
@@ -50,6 +59,26 @@ export default function APIEntryPage(): JSX.Element {
     setEntries((item) => item.filter((r) => r.id !== id));
   };
   const handleFormDataChange = (id: string, key: string, value: string) => {
+    // validate body json
+    if (key === 'body') {
+      try {
+        JSON.parse(value);
+
+        // remove error for this id
+        setBodyErrors((bodyError) =>
+          bodyError.filter((error) => error.id !== id)
+        );
+      } catch (error) {
+        const newBodyError = { id, message: error.message };
+
+        // add error for this id
+        setBodyErrors((bodyError) => [
+          ...bodyError.filter((error) => error.id !== id),
+          newBodyError,
+        ]);
+      }
+    }
+
     setEntries((entry) =>
       entry.map((data) => {
         if (data.id === id) {
@@ -96,6 +125,9 @@ export default function APIEntryPage(): JSX.Element {
               <p>What is the endpoint of the API?</p>
               {entries.map((entry) => {
                 const { id, url, method, body } = entry;
+                const isBodyError = bodyErrors.find(
+                  (bodyError) => bodyError.id === id
+                );
 
                 return (
                   <div key={id} className="space-y-8">
@@ -142,6 +174,11 @@ export default function APIEntryPage(): JSX.Element {
                       }
                       value={body}
                     />
+                    {isBodyError && (
+                      <span className="text-red-500">
+                        {isBodyError?.message}
+                      </span>
+                    )}
                     {entries.length > 1 && (
                       <div className="flex justify-end">
                         <Button onClick={() => removeEntry(id)}>Remove</Button>

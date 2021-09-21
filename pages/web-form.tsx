@@ -7,11 +7,25 @@ import { ProbeContext } from '../contexts/probe-context';
 
 export default function WebForm(): JSX.Element {
   const router = useRouter();
-  const [url, setUrl] = useState('');
-  const [formData, setFormData] = useState([
-    { id: uuid(), name: '', value: '' },
-  ]);
-  const { handleSetProbes } = useContext(ProbeContext);
+  const { probeData, handleSetProbes } = useContext(ProbeContext);
+  const probeRequestsFromContext = probeData?.map((probe) => ({
+    id: probe.id,
+    url: probe?.requests[0]?.url,
+    body: probe?.requests[0]?.body,
+  }));
+  const firstProbeRequestFromContext = probeRequestsFromContext[0];
+  const bodyFromContext = Object.keys(firstProbeRequestFromContext?.body).map(
+    (bodyKey) => ({
+      id: uuid(),
+      name: bodyKey,
+      value: (firstProbeRequestFromContext?.body as any)[bodyKey],
+    })
+  );
+
+  const [url, setUrl] = useState(firstProbeRequestFromContext?.url || '');
+  const [formData, setFormData] = useState(
+    bodyFromContext || [{ id: uuid(), name: '', value: '' }]
+  );
 
   const addInputField = () => {
     setFormData((fd) => [...fd, { id: uuid(), name: '', value: '' }]);
