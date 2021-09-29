@@ -57,25 +57,6 @@ const ProbeAlertForm: FunctionComponent<ProbeAlertFormProps> = ({
           true
         </p>
       </div>
-
-      <div className="w-full flex flex-col lg:flex-row lg:items-center space-y-2 lg:space-y-0 lg:space-x-4">
-        <span className="block w-16">Subject</span>
-        <TextInput
-          id={`probe_${probeId}_alert_${alertIndex}_subject_value`}
-          type="text"
-          placeholder="Subject of sent notification"
-          className="flex-1"
-          value={alert.subject}
-          onChange={(event) =>
-            handleUpdateProbeAlert(
-              probeId,
-              alertIndex,
-              'subject',
-              event.target.value
-            )
-          }
-        />
-      </div>
       <div className="w-full flex flex-col lg:flex-row lg:items-center space-y-2 lg:space-y-0 lg:space-x-4">
         <span className="block w-16">Message</span>
         <TextInput

@@ -9,13 +9,11 @@ import {
 
 export const statusNot2xxAlert = () => ({
   query: 'response.status < 200 or response.status > 299',
-  subject: 'Target is not OK',
   message: 'Target is not healthy. It has not been returning status code 2xx.',
 });
 
 export const responseTimeGreaterThanXAlert = (ms: number) => ({
   query: `response.time > ${ms}`,
-  subject: 'Target took too long to respond',
   message: `Target is not healthy. The response time has been greater than ${ms} ms.`,
 });
 
@@ -411,9 +409,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
       return probe.id === probeId
         ? {
             ...probe,
-            alerts: probe.alerts.concat([
-              { query: '', subject: '', message: '' },
-            ]),
+            alerts: probe.alerts.concat([{ query: '', message: '' }]),
           }
         : probe;
     });
