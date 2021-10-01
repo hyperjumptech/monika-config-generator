@@ -5,12 +5,14 @@ describe('renders sidebar with props', () => {
   it('render props', () => {
     const { container } = render(
       <Sidebar
-        menu={['lorem', 'ipsum']}
+        menu={[
+          { key: 'lorem', label: 'Lorem' },
+          { key: 'ipsum', label: 'Ipsum' },
+        ]}
         activeMenu="lorem"
-        onMenuChange={() => undefined}
       />
     );
-    expect(container.firstChild).toHaveTextContent('lorem');
-    expect(container.firstChild).toHaveTextContent('ipsum');
+    expect(container.firstChild).toHaveTextContent('Lorem');
+    expect(container.firstChild).toHaveTextContent('Ipsum');
   });
 });

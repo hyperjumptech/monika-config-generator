@@ -2,6 +2,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Probe } from '@hyperjumptech/monika/lib/interfaces/probe';
 import React, { FunctionComponent, useContext } from 'react';
+import kebabCase from 'lodash.kebabcase';
 import { TextInput } from '..';
 import { ProbeContext } from '../../contexts/probe-context';
 import ProbeAlertForm from '../probe-alert-form';
@@ -23,7 +24,10 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
   } = useContext(ProbeContext);
 
   return (
-    <div className="border border-solid rounded-md mb-8">
+    <div
+      className="border border-solid rounded-md mb-8"
+      // use id for scrolling from the sidebar
+      id={`probe-${kebabCase(id)}`}>
       <div className="flex flex-row items-center rounded-t-md justify-between p-4 bg-gray-900 bg-opacity-50 border-b">
         <p>Probe ID : {id?.split('-')[0]}</p>
         {probeData.length > 1 && (
