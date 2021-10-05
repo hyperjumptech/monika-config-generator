@@ -2,6 +2,7 @@ import React, { FunctionComponent, useContext } from 'react';
 
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import kebabCase from 'lodash.kebabcase';
 
 import { Select, SelectOption, TextInput } from '../';
 import { NotificationContext } from '../../contexts/notification-context';
@@ -24,9 +25,12 @@ const NotifCard: FunctionComponent<NotifCardProps> = ({ id, type }) => {
   } = useContext(NotificationContext);
 
   return (
-    <div className="border border-solid rounded-md mb-8">
+    <div
+      className="border border-solid rounded-md mb-8"
+      // use id for scrolling from the sidebar
+      id={`notification-${kebabCase(id)}`}>
       <div className="flex flex-row items-center justify-between p-4 bg-gray-900 bg-opacity-50 border-b">
-        <p>Notification ID : {id.split('-')[0]}</p>
+        <p>Notification ID : {id?.split('-')[0]}</p>
         {notificationData.length > 1 && (
           <button onClick={() => handleRemoveNotification(id)}>
             <FontAwesomeIcon icon={faTrash} />
