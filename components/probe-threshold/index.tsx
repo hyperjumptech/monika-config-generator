@@ -36,7 +36,9 @@ const ProbeThreshold: FunctionComponent<ProbeResponseTimeProps> = ({
       id={`probe_${probeId}_threshold`}
       type="number"
       placeholder="5"
+      min="1"
       value={threshold}
+      onWheel={(e) => (e.target as any).blur()}
       onChange={(event) => onThresholdChange(event.target.value)}
     />
   );
