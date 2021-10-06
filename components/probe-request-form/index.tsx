@@ -221,6 +221,7 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
             min={1}
             value={request.timeout}
             className="w-full md:w-64"
+            onWheel={(e) => (e.target as any).blur()}
             onChange={(event) => {
               handleUpdateProbeRequestData({
                 id: probeId,

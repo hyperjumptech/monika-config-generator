@@ -97,7 +97,9 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
                     id={`probe_${id}_interval`}
                     type="number"
                     placeholder="10"
+                    min="1"
                     value={probe.interval}
+                    onWheel={(e) => (e.target as any).blur()}
                     onChange={(event) => {
                       handleUpdateProbeData({
                         id,
