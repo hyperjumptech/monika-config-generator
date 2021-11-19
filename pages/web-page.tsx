@@ -94,6 +94,7 @@ export default function WebPage(): JSX.Element {
                       value={url}
                       type="url"
                       placeholder="https://example.com"
+                      required
                     />
                   </div>
                   {isProbeRequestsMoreThanOne && (
