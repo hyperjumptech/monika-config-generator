@@ -51,10 +51,13 @@ export default function WebForm(): JSX.Element {
       .filter((fd) => fd.name)
       .forEach((fd) => (body[fd.name] = fd.value));
 
+    const probeRequestURL = new URL(url);
+    const probeRequestName = probeRequestURL.hostname.replaceAll('.', '_');
+
     handleSetProbes([
       {
         id: uuid(),
-        name: '',
+        name: probeRequestName,
         requests: [
           {
             url,

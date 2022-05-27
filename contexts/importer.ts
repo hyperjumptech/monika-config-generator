@@ -32,7 +32,8 @@ export const useConfigFileImporter = () => {
           };
 
           if (probes) {
-            const finalProbes = checkProbeAlerts(probes);
+            const namedProbes = setProbeNames(probes);
+            const finalProbes = checkProbeAlerts(namedProbes);
             handleSetProbes(finalProbes);
           } else {
             throw new Error('something wrong in probes key');
@@ -48,6 +49,30 @@ export const useConfigFileImporter = () => {
 
       reader.readAsText(file);
     });
+};
+
+const setProbeNames = (probes: Probe[]): Probe[] => {
+  const validated = probes.map((probe: Probe, index: number) => {
+    let newName: string;
+
+    const { name, requests } = probe;
+    if (name) return;
+
+    if (requests.length > 0) {
+      const { requests } = probe;
+      const firstRequestUrl = new URL(requests[0].url);
+      newName = firstRequestUrl.hostname.replaceAll('.', '_');
+    } else {
+      newName = `Probe ${index}`;
+    }
+
+    return {
+      ...probe,
+      name: newName,
+    };
+  });
+
+  return validated as Probe[];
 };
 
 const checkProbeAlerts = (probes: Probe[]) => {

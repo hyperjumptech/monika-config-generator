@@ -56,20 +56,25 @@ export default function WebPage(): JSX.Element {
   };
   const handleNext = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const probes = probeRequests.map((pr: ProbeRequest) => ({
-      id: pr.id,
-      name: '',
-      requests: [
-        {
-          url: pr.url,
-          body: {} as JSON,
-          timeout: 10000,
-        },
-      ],
-      incidentThreshold: 5,
-      recoveryThreshold: 5,
-      alerts: [],
-    }));
+    const probes = probeRequests.map((pr: ProbeRequest) => {
+      const probeRequestURL = new URL(pr.url);
+      const probeRequestName = probeRequestURL.hostname.replaceAll('.', '_');
+
+      return {
+        id: pr.id,
+        name: probeRequestName,
+        requests: [
+          {
+            url: pr.url,
+            body: {} as JSON,
+            timeout: 10000,
+          },
+        ],
+        incidentThreshold: 5,
+        recoveryThreshold: 5,
+        alerts: [],
+      };
+    });
 
     handleSetProbes(probes);
 
