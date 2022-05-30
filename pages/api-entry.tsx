@@ -68,7 +68,7 @@ export default function APIEntryPage(): JSX.Element {
         setBodyErrors((bodyError) =>
           bodyError.filter((error) => error.id !== id)
         );
-      } catch (error) {
+      } catch (error: any) {
         const newBodyError = { id, message: error.message };
 
         // add error for this id
@@ -93,9 +93,12 @@ export default function APIEntryPage(): JSX.Element {
     const probes = entries.map((entry) => {
       const { id, url, method, body } = entry;
 
+      const probeRequestURL = new URL(url);
+      const probeRequestName = probeRequestURL.hostname.replaceAll('.', '_');
+
       return {
         id,
-        name: '',
+        name: probeRequestName,
         requests: [
           {
             url,
