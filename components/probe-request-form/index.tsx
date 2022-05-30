@@ -37,8 +37,10 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
   const validateJSON = (value: string) => {
     try {
       JSON.parse(value);
+      return true;
     } catch (e) {
       alert(e);
+      return false;
     }
   };
 
@@ -196,16 +198,17 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
           <Textarea
             placeholder="{ }"
             id={`probe_${probeId}_body`}
-            onBlur={(event) => validateJSON(event.target.value)}
-            value={JSON.stringify(request.body, null, 2)}
-            onChange={(event) =>
-              handleUpdateProbeRequestBody({
-                id: probeId,
-                index: requestIndex,
-                field: 'body',
-                value: event.target.value,
-              })
-            }
+            defaultValue={JSON.stringify(request.body, null, 2)}
+            onBlur={(event) => {
+              if (validateJSON(event.target.value)) {
+                handleUpdateProbeRequestBody({
+                  id: probeId,
+                  index: requestIndex,
+                  field: 'body',
+                  value: event.target.value,
+                });
+              }
+            }}
             rows={5}
           />
         )}
