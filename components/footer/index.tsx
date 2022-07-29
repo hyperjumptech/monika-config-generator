@@ -44,7 +44,7 @@ export default function Footer(): JSX.Element {
           rel="noopener noreferrer">
           Config Generator
         </a>
-        <a className="text-xs pt-1" href="https://whatsapp.hyperjump.tech">
+        <a className="text-xs pt-1" href="https://whatsapp.hyperjump.tech/">
           WhatsApp Notifier
         </a>
       </div>
