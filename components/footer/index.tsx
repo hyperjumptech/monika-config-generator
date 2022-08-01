@@ -18,6 +18,20 @@ export default function Footer(): JSX.Element {
         </a>
         <a
           className="text-xs pt-1"
+          href="https://medium.com/hyperjump-tech"
+          target="_blank"
+          rel="noopener noreferrer">
+          Blog
+        </a>
+        <a
+          className="text-xs pt-1"
+          href="https://monika.hyperjump.tech/articles"
+          target="_blank"
+          rel="noopener noreferrer">
+          How-to
+        </a>
+        <a
+          className="text-xs pt-1"
           href="https://monika.hyperjump.tech/examples"
           target="_blank"
           rel="noopener noreferrer">
@@ -30,7 +44,7 @@ export default function Footer(): JSX.Element {
           rel="noopener noreferrer">
           Config Generator
         </a>
-        <a className="text-xs pt-1" href="#">
+        <a className="text-xs pt-1" href="https://whatsapp.hyperjump.tech/">
           WhatsApp Notifier
         </a>
       </div>
