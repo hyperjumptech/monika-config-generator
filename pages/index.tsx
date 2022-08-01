@@ -124,28 +124,30 @@ export default function Home(): JSX.Element {
             />
           </div>
         </form>
-        <div className="card absolute flex md:left-36 left-0 md:right-36 right-0 md:rounded-xl rounded-none lg:p-10 p-6 px-4 xl:mt-5 mt-3">
-          <p className="text-white font-medium lg:text-xl text-center">
-            If you use{' '}
-            <a href="https://code.visualstudio.com/" className="font-bold">
-              Visual Studio Code
-            </a>{' '}
-            on a daily basis, you can write Monika configuration easily with the
-            help of auto completion and validation by installing the{' '}
-            <a
-              href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml"
-              className="font-bold">
-              YAML extension
-            </a>
-            . More information can be found in our{' '}
-            <a
-              href="https://medium.com/hyperjump-tech/creating-monika-configuration-from-scratch-using-autocomplete-in-visual-studio-code-d7bc86c1d36a"
-              className="font-bold">
-              Creating Monika Configuration from Scratch using Autocomplete in
-              Visual Studio Code
-            </a>{' '}
-            blog post.
-          </p>
+        <div className="relative md:mb-0 mb-40">
+          <div className="card absolute rounded-xl lg:p-8 p-6 mt-2 xl:mt-4">
+            <p className="text-white font-medium lg:text-xl text-center">
+              If you use{' '}
+              <a href="https://code.visualstudio.com/" className="font-bold">
+                Visual Studio Code
+              </a>{' '}
+              on a daily basis, you can write Monika configuration easily with
+              the help of auto completion and validation by installing the{' '}
+              <a
+                href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml"
+                className="font-bold">
+                YAML extension
+              </a>
+              . More information can be found in our{' '}
+              <a
+                href="https://medium.com/hyperjump-tech/creating-monika-configuration-from-scratch-using-autocomplete-in-visual-studio-code-d7bc86c1d36a"
+                className="font-bold">
+                Creating Monika Configuration from Scratch using Autocomplete in
+                Visual Studio Code
+              </a>{' '}
+              blog post.
+            </p>
+          </div>
         </div>
       </div>
       <style jsx>
