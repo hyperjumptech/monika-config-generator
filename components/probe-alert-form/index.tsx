@@ -41,12 +41,12 @@ const ProbeAlertForm: FunctionComponent<ProbeAlertFormProps> = ({
             type="text"
             placeholder="example: response.status == 500"
             className="flex-1"
-            value={alert.query}
+            value={alert.assertion}
             onChange={(event) =>
               handleUpdateProbeAlert(
                 probeId,
                 alertIndex,
-                'query',
+                'assertion',
                 event.target.value
               )
             }

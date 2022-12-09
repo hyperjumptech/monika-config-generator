@@ -4,7 +4,7 @@ import ProbeAlertForm from './index';
 
 describe('render probe request form with props', () => {
   it('render props', () => {
-    const fakeAlert = { query: '', message: '' } as ProbeAlert;
+    const fakeAlert = { assertion: '', message: '' } as ProbeAlert;
     const { container } = render(
       <ProbeAlertForm probeId="fake-id" alert={fakeAlert} alertIndex={1} />
     );
