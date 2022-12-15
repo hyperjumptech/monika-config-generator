@@ -11,6 +11,7 @@ describe('renders probe card with props', () => {
       name: 'fake-probe',
       incidentThreshold: 3,
       recoveryThreshold: 3,
+      interval: 10,
       alerts: [],
       requests: [fakeRequest],
     } as Probe;
