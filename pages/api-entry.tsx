@@ -99,6 +99,7 @@ export default function APIEntryPage(): JSX.Element {
       return {
         id,
         name: probeRequestName,
+        interval: 10,
         requests: [
           {
             url,

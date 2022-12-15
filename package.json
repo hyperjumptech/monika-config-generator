@@ -20,7 +20,7 @@
     "@fortawesome/free-brands-svg-icons": "5.15.3",
     "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/react-fontawesome": "0.1.14",
-    "@hyperjumptech/monika": "^1.6.2",
+    "@hyperjumptech/monika": "^1.14.1",
     "js-yaml": "^4.1.0",
     "lodash.kebabcase": "4.1.1",
     "next": "11.0.0",
@@ -53,5 +53,8 @@
     "prettier": "^2.3.1",
     "tailwindcss": "^2.2.4",
     "typescript": "^4.3.2"
+  },
+  "volta": {
+    "node": "16.19.0"
   }
 }
