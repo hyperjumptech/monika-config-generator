@@ -16,7 +16,7 @@ Go to [the Monika Config Generator web app](https://monika-config.hyperjump.tech
 
 You can run the web app in your own computer by following these steps:
 
-1. Install Node.js 14 or above.
+1. Install Node.js 16 or above.
 2. Clone this repository.
 3. Enter the repo's directory.
 4. Run `npm install`.

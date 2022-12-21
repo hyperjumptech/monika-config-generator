@@ -8,12 +8,12 @@ import {
 } from './probe-context-interface';
 
 export const statusNot2xxAlert = () => ({
-  query: 'response.status < 200 or response.status > 299',
+  assertion: 'response.status < 200 or response.status > 299',
   message: 'Target is not healthy. It has not been returning status code 2xx.',
 });
 
 export const responseTimeGreaterThanXAlert = (ms: number) => ({
-  query: `response.time > ${ms}`,
+  assertion: `response.time > ${ms}`,
   message: `Target is not healthy. The response time has been greater than ${ms} ms.`,
 });
 
@@ -409,7 +409,7 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
       return probe.id === probeId
         ? {
             ...probe,
-            alerts: probe.alerts.concat([{ query: '', message: '' }]),
+            alerts: probe.alerts.concat([{ assertion: '', message: '' }]),
           }
         : probe;
     });

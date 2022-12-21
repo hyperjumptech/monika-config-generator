@@ -58,6 +58,7 @@ export default function WebForm(): JSX.Element {
       {
         id: uuid(),
         name: probeRequestName,
+        interval: 10,
         requests: [
           {
             url,
