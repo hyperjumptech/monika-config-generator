@@ -10,7 +10,8 @@ describe('renders checkbox with correct props', () => {
         value="moto-granprix"
         name="bike"
         disabled
-        defaultChecked>
+        defaultChecked
+      >
         <></>
       </Checkbox>
     );
@@ -29,7 +30,8 @@ describe('renders checkbox with correct props', () => {
         value="moto-granprix"
         name="bike"
         disabled
-        defaultChecked>
+        defaultChecked
+      >
         <></>
       </Checkbox>
     );

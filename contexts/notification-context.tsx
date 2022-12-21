@@ -102,7 +102,8 @@ const NotificationProvider: FunctionComponent = ({ children }) => {
         handleRemoveNotification,
         handleUpdateNotificationType,
         handleUpdateNotificationData,
-      }}>
+      }}
+    >
       {children}
     </NotificationContext.Provider>
   );

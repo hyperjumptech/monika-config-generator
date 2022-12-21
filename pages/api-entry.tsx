@@ -153,7 +153,8 @@ export default function APIEntryPage(): JSX.Element {
                           onChange={(e) =>
                             handleFormDataChange(id, 'method', e.target.value)
                           }
-                          value={method}>
+                          value={method}
+                        >
                           {HTTPMethods.map((method) => (
                             <SelectOption key={method} value={method}>
                               {method}
@@ -197,7 +198,8 @@ export default function APIEntryPage(): JSX.Element {
               <button
                 className="cursor-pointer underline focus:outline-none"
                 type="button"
-                onClick={addEntry}>
+                onClick={addEntry}
+              >
                 Add another endpoint
               </button>
             </div>

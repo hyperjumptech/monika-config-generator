@@ -64,7 +64,8 @@ export default function Home(): JSX.Element {
                   className="font-semibold bg-gradient-to-r from-purple to-aqua bg-clip-text text-transparent"
                   href="https://hyperjumptech.github.io/monika/"
                   target="_blank"
-                  rel="noopener noreferrer">
+                  rel="noopener noreferrer"
+                >
                   <u>Monika</u>
                 </a>
                 . <br />
@@ -77,21 +78,24 @@ export default function Home(): JSX.Element {
                 name="condition"
                 onClick={(v: string) => setCondition(v)}
                 value={NEW}
-                help="Select this if you have never tried Monika before. We will guide you one step at a time.">
+                help="Select this if you have never tried Monika before. We will guide you one step at a time."
+              >
                 I&apos;m new to Monika
               </Radio>
               <Radio
                 name="condition"
                 onClick={(v: string) => setCondition(v)}
                 value={HAVE_USED}
-                help="Select this if you want to jump into customizing Monika's configuration.">
+                help="Select this if you want to jump into customizing Monika's configuration."
+              >
                 I have used Monika before
               </Radio>
               <Radio
                 name="condition"
                 onClick={(v: string) => setCondition(v)}
                 value={HAVE_CONFIGURATION_FILE}
-                help="Select this if you want to edit your configuration file.">
+                help="Select this if you want to edit your configuration file."
+              >
                 I have a configuration file
               </Radio>
             </div>
@@ -105,7 +109,8 @@ export default function Home(): JSX.Element {
                   className="underline font-bold text-black"
                   href="https://hyperjumptech.github.io/monika/overview"
                   target="_blank"
-                  rel="noopener noreferrer">
+                  rel="noopener noreferrer"
+                >
                   docs
                 </a>
               </p>
@@ -135,13 +140,15 @@ export default function Home(): JSX.Element {
               the help of auto completion and validation by installing the{' '}
               <a
                 href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml"
-                className="font-bold">
+                className="font-bold"
+              >
                 YAML extension
               </a>
               . More information can be found in our{' '}
               <a
                 href="https://medium.com/hyperjump-tech/creating-monika-configuration-from-scratch-using-autocomplete-in-visual-studio-code-d7bc86c1d36a"
-                className="font-bold">
+                className="font-bold"
+              >
                 Creating Monika Configuration from Scratch using Autocomplete in
                 Visual Studio Code
               </a>{' '}

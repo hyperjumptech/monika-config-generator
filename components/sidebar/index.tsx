@@ -49,7 +49,8 @@ function MenuItem({ item, activeMenu }: MenuItemProps) {
       key={key}
       className={`border border-solid first:rounded-t-md last:rounded-b-md border-l-8 ${
         !isActive && 'border-gray-600'
-      }`}>
+      }`}
+    >
       <button onClick={handleClick} className="p-4 w-full text-left">
         {label}
         {item?.subMenu && (
@@ -87,7 +88,8 @@ function SubMenu({ menu, activeMenu }: SidebarProps) {
             }`}
             onClick={handleClick}
             onKeyPress={handleClick}
-            role="presentation">
+            role="presentation"
+          >
             <span className="pl-4">{label}</span>
             {item?.subMenu && <SubMenu menu={item?.subMenu} />}
           </li>

@@ -28,7 +28,8 @@ const NotifCard: FunctionComponent<NotifCardProps> = ({ id, type }) => {
     <div
       className="border border-solid rounded-md mb-8"
       // use id for scrolling from the sidebar
-      id={`notification-${kebabCase(id)}`}>
+      id={`notification-${kebabCase(id)}`}
+    >
       <div className="flex flex-row items-center justify-between p-4 bg-gray-900 bg-opacity-50 border-b">
         <p>Notification ID : {id?.split('-')[0]}</p>
         {notificationData.length > 1 && (
@@ -44,7 +45,8 @@ const NotifCard: FunctionComponent<NotifCardProps> = ({ id, type }) => {
             value={notificationData.find((notif) => notif.id === id)?.type}
             onChange={(e) => {
               handleUpdateNotificationType({ id, type: e.target.value });
-            }}>
+            }}
+          >
             {notificationForms.map((form) => (
               <SelectOption key={form.name} value={form.name}>
                 {form.label}

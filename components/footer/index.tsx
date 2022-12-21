@@ -1,10 +1,12 @@
 export default function Footer(): JSX.Element {
   return (
     <footer
-      className={`flex flex-col lg:flex-row justify-around text-white pt-16 pb-16 px-16`}>
+      className={`flex flex-col lg:flex-row justify-around text-white pt-16 pb-16 px-16`}
+    >
       <a
         className="flex flex-col lg:flex-row"
-        href="https://monika.hyperjump.tech/">
+        href="https://monika.hyperjump.tech/"
+      >
         <img className="w-16 h-4 mt-1" src="/monika.svg" alt="Monika Logo" />
       </a>
       <div className="flex flex-col mt-4 lg:mt-0">
@@ -13,35 +15,40 @@ export default function Footer(): JSX.Element {
           className="text-xs pt-2"
           href="https://monika.hyperjump.tech/overview"
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           Documentation
         </a>
         <a
           className="text-xs pt-1"
           href="https://medium.com/hyperjump-tech"
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           Blog
         </a>
         <a
           className="text-xs pt-1"
           href="https://monika.hyperjump.tech/articles"
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           How-to
         </a>
         <a
           className="text-xs pt-1"
           href="https://monika.hyperjump.tech/examples"
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           Example
         </a>
         <a
           className="text-xs pt-1"
           href="/"
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           Config Generator
         </a>
         <a className="text-xs pt-1" href="https://whatsapp.hyperjump.tech/">
@@ -54,21 +61,24 @@ export default function Footer(): JSX.Element {
           className="text-xs pt-2"
           href={'https://github.com/hyperjumptech/monika/discussions'}
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           Discussion
         </a>
         <a
           className="text-xs pt-1"
           href={'https://github.com/hyperjumptech/monika/releases'}
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           Releases
         </a>
         <a
           className="text-xs pt-1"
           href="https://www.npmjs.com/package/@hyperjumptech/monika"
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           NPM Homepage
         </a>
       </div>
@@ -77,7 +87,8 @@ export default function Footer(): JSX.Element {
           className="font-bold"
           href="https://hyperjump.tech/"
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           <img src="/hyperjump.svg" alt="Hyperjump Logo" />
         </a>
         <p className="text-xs pt-2">

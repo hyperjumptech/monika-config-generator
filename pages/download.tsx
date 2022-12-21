@@ -28,7 +28,8 @@ export default function Download(): JSX.Element {
           <div className="mt-6 py-3">
             <Button
               type="submit"
-              onClick={() => downloadYamlConfig(jsonConfig)}>
+              onClick={() => downloadYamlConfig(jsonConfig)}
+            >
               <div className="py-3 px-3">Download Config File</div>
             </Button>
           </div>
@@ -42,7 +43,8 @@ export default function Download(): JSX.Element {
                     href="https://hyperjumptech.github.io/monika/overview"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline">
+                    className="underline"
+                  >
                     our documentation
                   </a>{' '}
                   for more information.
@@ -60,7 +62,8 @@ export default function Download(): JSX.Element {
                     href="https://hyperjumptech.github.io/monika/overview"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline">
+                    className="underline"
+                  >
                     Tell your friends
                   </a>{' '}
                   about Monika.
@@ -70,7 +73,8 @@ export default function Download(): JSX.Element {
                     href="https://github.com/hyperjumptech/monika/issues"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline">
+                    className="underline"
+                  >
                     Report a bug or give us some feedback!
                   </a>
                 </li>

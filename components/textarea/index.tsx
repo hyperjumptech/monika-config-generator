@@ -14,7 +14,8 @@ export default function Textarea({
       {label && (
         <label
           htmlFor={textAreaProps.id}
-          className="text-gray-400 text-sm sm:text-lg">
+          className="text-gray-400 text-sm sm:text-lg"
+        >
           {label}
         </label>
       )}

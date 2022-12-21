@@ -21,7 +21,8 @@ export default function Button({
         outline
           ? 'border-2 border-solid border-purple text-purple'
           : 'text-white bg-gradient-to-r from-purple to-aqua'
-      } ${props.className}`}>
+      } ${props.className}`}
+    >
       {props.children}
     </button>
   );
@@ -34,7 +35,8 @@ function TextButton(props: any) {
     <button
       {...props}
       data-testid="text-button"
-      className={`inline-flex justify-center py-2 px-10 bg-gradient-to-r from-purple to-aqua font-semibold rounded-full focus:outline-none ${className}`}>
+      className={`inline-flex justify-center py-2 px-10 bg-gradient-to-r from-purple to-aqua font-semibold rounded-full focus:outline-none ${className}`}
+    >
       {children}
     </button>
   );

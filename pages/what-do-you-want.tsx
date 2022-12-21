@@ -20,21 +20,24 @@ export default function WhatDoYouWant(): JSX.Element {
                 name="what"
                 onClick={() => router.push('/web-page')}
                 value="web_page"
-                help="Select this if you want to regularly monitor a website, e.g., https://github.com">
+                help="Select this if you want to regularly monitor a website, e.g., https://github.com"
+              >
                 A web page
               </Radio>
               <Radio
                 name="what"
                 onClick={() => router.push('/web-form')}
                 value="web_form"
-                help="Select this if you want to be notified when a form submission to your website fails.">
+                help="Select this if you want to be notified when a form submission to your website fails."
+              >
                 A web form
               </Radio>
               <Radio
                 name="what"
                 onClick={() => router.push('/api-entry')}
                 value="api_server"
-                help="Select this if you want to monitor the end points of your API server.">
+                help="Select this if you want to monitor the end points of your API server."
+              >
                 API server
               </Radio>
             </div>

@@ -123,7 +123,8 @@ export default function WebForm(): JSX.Element {
                       <button
                         type="button"
                         className="cursor-pointer underline focus:outline-none"
-                        onClick={() => removeInputField(id)}>
+                        onClick={() => removeInputField(id)}
+                      >
                         Remove
                       </button>
                     </div>
@@ -133,7 +134,8 @@ export default function WebForm(): JSX.Element {
               <button
                 className="cursor-pointer underline focus:outline-none"
                 type="button"
-                onClick={addInputField}>
+                onClick={addInputField}
+              >
                 Add more data
               </button>
             </div>

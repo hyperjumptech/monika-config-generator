@@ -11,7 +11,8 @@ export default function TextInput({
   return (
     <div
       className={`flex flex-col space-y-3 ${inputProps?.className}`}
-      data-testid="text-input-root">
+      data-testid="text-input-root"
+    >
       {label && (
         <label htmlFor={inputProps.id} className="text-sm sm:text-lg">
           {label}
