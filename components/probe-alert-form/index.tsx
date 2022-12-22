@@ -27,7 +27,8 @@ const ProbeAlertForm: FunctionComponent<ProbeAlertFormProps> = ({
         {!isDeleteDisabled && (
           <button
             type="button"
-            onClick={() => handleRemoveProbeAlert(probeId, alertIndex)}>
+            onClick={() => handleRemoveProbeAlert(probeId, alertIndex)}
+          >
             <FontAwesomeIcon icon={faTrash} />
           </button>
         )}

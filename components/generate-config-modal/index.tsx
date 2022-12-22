@@ -32,17 +32,20 @@ export default function GenerateConfigModal({
       }`}
       aria-labelledby="modal-title"
       role="dialog"
-      aria-modal="true">
+      aria-modal="true"
+    >
       <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div
           onClick={onClose}
           className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-          aria-hidden="true"></div>
+          aria-hidden="true"
+        ></div>
 
         {/* <!-- This element is to trick the browser into centering the modal contents. --> */}
         <span
           className="hidden sm:inline-block sm:align-middle sm:h-screen"
-          aria-hidden="true">
+          aria-hidden="true"
+        >
           &#8203;
         </span>
 
@@ -56,7 +59,8 @@ export default function GenerateConfigModal({
               </div>
               <h3
                 className="text-lg leading-6 font-medium text-gray-900"
-                id="modal-title">
+                id="modal-title"
+              >
                 Configuration File
               </h3>
               <div className="bg-gray-100 rounded-xl my-8 px-4 py-3 text-black sm:px-6 justify-end sm:flex sm:flex-row-reverse">

@@ -23,7 +23,8 @@ export default function Checkbox({
   return (
     <div
       data-testid="checkbox-root"
-      className="flex lg:items-center space-x-2 lg:space-x-4">
+      className="flex lg:items-center space-x-2 lg:space-x-4"
+    >
       <div className="flex items-center">
         <input
           id={value}
@@ -37,12 +38,14 @@ export default function Checkbox({
         <div>
           <label
             htmlFor={value}
-            className="block text-sm sm:text-lg cursor-pointer">
+            className="block text-sm sm:text-lg cursor-pointer"
+          >
             {label}
           </label>
           <span
             data-testid="text-checkbox"
-            className=" text-xs sm:text-base text-gray-400">
+            className=" text-xs sm:text-base text-gray-400"
+          >
             {description}
           </span>
         </div>

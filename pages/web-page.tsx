@@ -106,7 +106,8 @@ export default function WebPage(): JSX.Element {
                     <div className="self-end py-3">
                       <Button
                         variant="text"
-                        onClick={() => removeProbeRequests(id)}>
+                        onClick={() => removeProbeRequests(id)}
+                      >
                         Remove
                       </Button>
                     </div>

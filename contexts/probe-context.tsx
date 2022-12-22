@@ -486,7 +486,8 @@ const ProbeProvider: FunctionComponent = ({ children }) => {
         handleAddProbeAlert,
         handleUpdateProbeAlert,
         handleRemoveProbeAlert,
-      }}>
+      }}
+    >
       {children}
     </ProbeContext.Provider>
   );

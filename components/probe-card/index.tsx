@@ -27,7 +27,8 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
     <div
       className="border border-solid rounded-md mb-8"
       // use id for scrolling from the sidebar
-      id={`probe-${kebabCase(id)}`}>
+      id={`probe-${kebabCase(id)}`}
+    >
       <div className="flex flex-row items-center rounded-t-md justify-between p-4 bg-gray-900 bg-opacity-50 border-b">
         <p>Probe ID : {id?.split('-')[0]}</p>
         {probeData.length > 1 && (
@@ -80,7 +81,8 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
             <button
               type="button"
               onClick={() => handleAddProbeRequest(id)}
-              className="w-full border-4 border-dashed rounded-md p-4">
+              className="w-full border-4 border-dashed rounded-md p-4"
+            >
               <p>Add another request</p>
             </button>
             <div className="flex flex-col space-y-4 lg:space-y-8">
@@ -125,7 +127,8 @@ const ProbeCard: FunctionComponent<ProbeCardProps> = ({ probe, id }) => {
               <button
                 type="button"
                 onClick={() => handleAddProbeAlert(id)}
-                className="w-full border-4 border-dashed rounded-md p-4">
+                className="w-full border-4 border-dashed rounded-md p-4"
+              >
                 <p>Add another alert</p>
               </button>
               <div className="flex flex-col lg:flex-row lg:items-center justify-start lg:space-x-8">

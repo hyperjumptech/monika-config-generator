@@ -122,7 +122,8 @@ function ProbeForm({ probeData, onAddProbe, hidden }: ProbeFormProps) {
       ))}
       <button
         onClick={onAddProbe}
-        className="w-full border-4 border-dashed rounded-md p-4">
+        className="w-full border-4 border-dashed rounded-md p-4"
+      >
         <p>Add another probe</p>
       </button>
     </div>
@@ -145,7 +146,8 @@ function NotificationForm({
       ))}
       <button
         onClick={onAddNotification}
-        className="w-full border-4 border-dashed rounded-md p-4">
+        className="w-full border-4 border-dashed rounded-md p-4"
+      >
         <p>Add another notification</p>
       </button>
     </div>

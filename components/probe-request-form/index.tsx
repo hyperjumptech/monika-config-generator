@@ -66,7 +66,8 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
                   requestIndex,
                   requestIndex - 1
                 )
-              }>
+              }
+            >
               <FontAwesomeIcon icon={faArrowUp} />
             </button>
           )}
@@ -79,14 +80,16 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
                   requestIndex,
                   requestIndex + 1
                 )
-              }>
+              }
+            >
               <FontAwesomeIcon icon={faArrowDown} />
             </button>
           )}
           {requestArray.length > 1 && (
             <button
               type="button"
-              onClick={() => handleRemoveProbeRequest(probeId, requestIndex)}>
+              onClick={() => handleRemoveProbeRequest(probeId, requestIndex)}
+            >
               <FontAwesomeIcon icon={faTrash} />
             </button>
           )}
@@ -119,7 +122,8 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
                 field: 'method',
                 value: event.target.value,
               })
-            }>
+            }
+          >
             <SelectOption value="GET">GET</SelectOption>
             <SelectOption value="POST">POST</SelectOption>
             <SelectOption value="PUT">PUT</SelectOption>
@@ -161,7 +165,8 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
               />
               <button
                 type="button"
-                onClick={() => handleRemoveProbeRequestHeader(probeId, idx)}>
+                onClick={() => handleRemoveProbeRequestHeader(probeId, idx)}
+              >
                 <FontAwesomeIcon icon={faTrash} />
               </button>
             </div>
@@ -169,7 +174,8 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
         <button
           type="button"
           onClick={() => handleAddProbeRequestHeader(probeId, requestIndex)}
-          className="w-full border-4 border-dashed rounded-md p-4">
+          className="w-full border-4 border-dashed rounded-md p-4"
+        >
           <p>Add header</p>
         </button>
       </div>
@@ -188,7 +194,8 @@ const ProbeRequestForm: FunctionComponent<ProbeRequestFormProps> = ({
               }
               defaultValue={
                 isJSON(JSON.stringify(request?.body)) ? 'JSON' : 'No Body'
-              }>
+              }
+            >
               <SelectOption value="No Body">No Body</SelectOption>
               <SelectOption value="JSON">JSON</SelectOption>
             </Select>

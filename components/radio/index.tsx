@@ -29,7 +29,8 @@ export default function Radio({
         />
         <label
           htmlFor={value}
-          className="ml-3 block text-base sm:text-lg cursor-pointer">
+          className="ml-3 block text-base sm:text-lg cursor-pointer"
+        >
           {children}
         </label>
       </div>

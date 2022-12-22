@@ -197,13 +197,15 @@ export default function Notifications(): JSX.Element {
       <div className="lg:py-20 xl:py-32 xl:px-80">
         <Form.Item
           label="How do you want to be notified when your website is down?"
-          name="notification-channel">
+          name="notification-channel"
+        >
           <Select
             id="notification-channel"
             value={notificationChannel}
             onChange={(e) =>
               setFieldValue('notificationChannel', e.target.value)
-            }>
+            }
+          >
             {notificationChannels.map((nc: SelectAttribute) => (
               <SelectOption key={nc.type} value={nc.type}>
                 {nc.label}
@@ -268,7 +270,8 @@ function EmailChannel({ formHelper }: ChannelFormProps): JSX.Element {
     <>
       <Form.Item
         label="What is the e-mail address to receive the notification?"
-        name="recipients">
+        name="recipients"
+      >
         {recipients?.map((recipient: Recipient) => (
           <div key={recipient.id} className="flex mb-2">
             <TextInput
@@ -297,7 +300,8 @@ function EmailChannel({ formHelper }: ChannelFormProps): JSX.Element {
         <Select
           id="type"
           value={emailService}
-          onChange={(e) => setFieldValue('emailService', e.target.value)}>
+          onChange={(e) => setFieldValue('emailService', e.target.value)}
+        >
           {emailServices.map((es: SelectAttribute) => (
             <SelectOption key={es.type} value={es.type}>
               {es.label}
@@ -483,7 +487,8 @@ function SMTPForm({ formHelper }: ChannelFormProps): JSX.Element {
             className="underline"
             href="https://hyperjumptech.github.io/monika/guides/notifications#example-using-gmail-smtp"
             target="_blank"
-            rel="noreferrer noopenner">
+            rel="noreferrer noopenner"
+          >
             example of using Gmail SMTP server
           </a>
           .
@@ -542,7 +547,8 @@ function MailgunForm({ formHelper }: ChannelFormProps): JSX.Element {
             href="https://www.mailgun.com/"
             target="_blank"
             rel="noreferrer noopener"
-            className="underline">
+            className="underline"
+          >
             Mailgun website
           </a>
           .
@@ -585,7 +591,8 @@ function SendgridForm({ formHelper }: ChannelFormProps): JSX.Element {
             href="https://sendgrid.com/"
             target="_blank"
             rel="noreferrer noopener"
-            className="underline">
+            className="underline"
+          >
             Sendgrid website
           </a>
           .
